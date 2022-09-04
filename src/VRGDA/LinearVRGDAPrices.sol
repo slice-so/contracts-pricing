@@ -3,7 +3,7 @@ pragma solidity >=0.8.0;
 
 import { wadLn, unsafeWadDiv, toDaysWadUnsafe } from "../utils/SignedWadMath.sol";
 import { IProductsModule } from "../Slice/interfaces/IProductsModule.sol";
-import { ProductParams } from "./structs/ProductParams.sol";
+import { LinearProductParams } from "./structs/LinearProductParams.sol";
 import { LinearVRGDAParams } from "./structs/LinearVRGDAParams.sol";
 
 import { VRGDAPrices } from "./VRGDAPrices.sol";
@@ -17,21 +17,23 @@ import { VRGDAPrices } from "./VRGDAPrices.sol";
 /// @notice Price library with different params for each Slice product.
 /// Differences from original implementation:
 /// - Storage-related logic is added to `setProductPrice`
-/// - Adds `productPrice` which uses `getAdjustedVRGDAPrice` to calculate price based on quantity, and derives sold units from available ones
+/// - Adds `productPrice` which uses `getAdjustedVRGDAPrice` to calculate price based on quantity,
+/// and derives sold units from available ones
 contract LinearVRGDAPrices is VRGDAPrices {
   /*//////////////////////////////////////////////////////////////
                                 STORAGE
     //////////////////////////////////////////////////////////////*/
 
   // Mapping from slicerId to productId to ProductParams
-  mapping(uint256 => mapping(uint256 => ProductParams)) private _productParams;
+  mapping(uint256 => mapping(uint256 => LinearProductParams))
+    private _productParams;
 
   /*//////////////////////////////////////////////////////////////
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
-  constructor(address sliceCoreAddress, address productsModuleAddress)
-    VRGDAPrices(sliceCoreAddress, productsModuleAddress)
+  constructor(address productsModuleAddress)
+    VRGDAPrices(productsModuleAddress)
   {}
 
   /*//////////////////////////////////////////////////////////////
@@ -42,7 +44,7 @@ contract LinearVRGDAPrices is VRGDAPrices {
   /// @param slicerId ID of the slicer to set the price params for.
   /// @param productId ID of the product to set the price params for.
   /// @param currency currency of the product to set the price params for.
-  /// @param targetPrice The target price for a token if sold on pace, scaled by 1e18.
+  /// @param targetPrice The target price for a product if sold on pace, scaled by 1e18.
   /// @param priceDecayPercent The percent price decays per unit of time with no sales, scaled by 1e18.
   /// @param perTimeUnit The number of products to target selling in 1 full unit of time, scaled by 1e18.
   function setProductPrice(
@@ -107,7 +109,9 @@ contract LinearVRGDAPrices is VRGDAPrices {
     uint256 quantity
   ) public view override returns (uint256 ethPrice, uint256 currencyPrice) {
     // Add reference for product and pricing params
-    ProductParams storage productParams = _productParams[slicerId][productId];
+    LinearProductParams storage productParams = _productParams[slicerId][
+      productId
+    ];
     LinearVRGDAParams memory pricingParams = productParams.pricingParams[
       currency
     ];
