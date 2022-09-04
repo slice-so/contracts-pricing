@@ -61,7 +61,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
   /// @param targetPrice The target price for a product if sold on pace, scaled by 1e18.
   /// @param decayConstant Precomputed constant that allows us to rewrite a pow() as an exp().
   /// @param timeSinceStart Time passed since the VRGDA began, scaled by 1e18.
-  /// @param sold The total number of products that have been sold so far.
+  /// @param sold The total number of products sold so far.
   /// @param timeFactor Time-dependent factor used to calculate target sale time.
   /// @return The price of a product according to VRGDA, scaled by 1e18.
   function getVRGDAPrice(
@@ -99,7 +99,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
   /// @param targetPrice The target price for a product if sold on pace, scaled by 1e18.
   /// @param decayConstant Precomputed constant that allows us to rewrite a pow() as an exp().
   /// @param timeSinceStart Time passed since the VRGDA began, scaled by 1e18.
-  /// @param sold The total number of products that have been sold so far.
+  /// @param sold The total number of products sold so far.
   /// @param timeFactor Time-dependent factor used to calculate target sale time.
   /// @param quantity Number of units purchased
   /// @return price of product * quantity according to VRGDA, scaled by 1e18.

@@ -40,11 +40,11 @@ contract LinearVRGDAPrices is VRGDAPrices {
                             VRGDA PARAMETERS
     //////////////////////////////////////////////////////////////*/
 
-  /// @notice Set params target price and per time unit price decay for the VRGDA.
+  /// @notice Set LinearProductParams for product.
   /// @param slicerId ID of the slicer to set the price params for.
   /// @param productId ID of the product to set the price params for.
   /// @param currency currency of the product to set the price params for.
-  /// @param targetPrice The target price for a product if sold on pace, scaled by 1e18.
+  /// @param targetPrice for a product if sold on pace, scaled by 1e18.
   /// @param priceDecayPercent The percent price decays per unit of time with no sales, scaled by 1e18.
   /// @param perTimeUnit The number of products to target selling in 1 full unit of time, scaled by 1e18.
   function setProductPrice(
