@@ -1,0 +1,9 @@
+.DS_Store
+*.aux
+*.log
+*.gz
+*.toc
+/cache
+/node_modules
+/out
+__pycache__

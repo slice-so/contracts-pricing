@@ -3,18 +3,58 @@
   "paths": {
     "artifacts": "out",
     "build_infos": "out/build-info",
-    "sources": "contracts",
+    "sources": "src",
     "tests": "test",
     "scripts": "script",
     "libraries": [
+      "lib",
       "node_modules"
     ]
   },
   "files": {
-    "contracts/Slice/interfaces/IFundsModule.sol": {
-      "lastModificationDate": 1662070122214,
-      "contentHash": "dd368740736bb5e1b01b8258b52ad3ea",
-      "sourceName": "contracts/Slice/interfaces/IFundsModule.sol",
+    "lib/ds-test/src/test.sol": {
+      "lastModificationDate": 1662233281506,
+      "contentHash": "962996f0e05d5218857a538a62d7c47e",
+      "sourceName": "lib/ds-test/src/test.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": ">=0.5.0",
+      "artifacts": {
+        "DSTest": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "test.sol/DSTest.json"
+        }
+      }
+    },
+    "lib/solmate/src/test/utils/DSTestPlus.sol": {
+      "lastModificationDate": 1662233249442,
+      "contentHash": "233425f6b5fcb4396d9ecb115f13cfab",
+      "sourceName": "lib/solmate/src/test/utils/DSTestPlus.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -43,12 +83,497 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/ISlicer.sol",
+        "lib/ds-test/src/test.sol",
+        "lib/solmate/src/test/utils/Hevm.sol"
+      ],
+      "versionRequirement": ">=0.8.0",
+      "artifacts": {
+        "DSTestPlus": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "DSTestPlus.sol/DSTestPlus.json"
+        }
+      }
+    },
+    "lib/solmate/src/test/utils/Hevm.sol": {
+      "lastModificationDate": 1662233249442,
+      "contentHash": "60742aa83f930a4226fbe7676f06b607",
+      "sourceName": "lib/solmate/src/test/utils/Hevm.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": ">=0.8.0",
+      "artifacts": {
+        "Hevm": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "Hevm.sol/Hevm.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol": {
+      "lastModificationDate": 1662238294474,
+      "contentHash": "a80dbc3947556c57c569cd81aa255f10",
+      "sourceName": "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC1155Receiver": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC1155Receiver.sol/IERC1155Receiver.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol": {
+      "lastModificationDate": 1662238294482,
+      "contentHash": "04c99e0f7cc521daff42ecd8e8f14877",
+      "sourceName": "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC721Receiver": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC721Receiver.sol/IERC721Receiver.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol": {
+      "lastModificationDate": 1662238294474,
+      "contentHash": "9f8822b72fe2702979e40160cb6d9636",
+      "sourceName": "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC1155Receiver": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "token/ERC1155/IERC1155Receiver.sol/IERC1155Receiver.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1662238294482,
+      "contentHash": "c22d4395e33763de693fd440c6fd10e1",
+      "sourceName": "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC721Receiver": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "token/ERC721/IERC721Receiver.sol/IERC721Receiver.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1662238294475,
+      "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
+      "sourceName": "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC165": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "utils/introspection/IERC165.sol/IERC165.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol": {
+      "lastModificationDate": 1662238294470,
+      "contentHash": "acfaf24c6bf8e066e5c753514011fc2e",
+      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC1155Upgradeable": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC1155Upgradeable.sol/IERC1155Upgradeable.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol": {
+      "lastModificationDate": 1662238294473,
+      "contentHash": "cb60157e1058e75780f1dd7c720b18eb",
+      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC2981Upgradeable": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "contracts-upgradeable/interfaces/IERC2981Upgradeable.sol/IERC2981Upgradeable.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol": {
+      "lastModificationDate": 1662238294470,
+      "contentHash": "a407c5f8256246823385d0d7f0a83f57",
+      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC1155Upgradeable": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "token/ERC1155/IERC1155Upgradeable.sol/IERC1155Upgradeable.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
+      "lastModificationDate": 1662238294422,
+      "contentHash": "2e908c762a799baea365e68a50500e2c",
+      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "CountersUpgradeable": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "contracts-upgradeable/utils/CountersUpgradeable.sol/CountersUpgradeable.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol": {
+      "lastModificationDate": 1662238294472,
+      "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
+      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC165Upgradeable": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "utils/introspection/IERC165Upgradeable.sol/IERC165Upgradeable.json"
+        }
+      }
+    },
+    "src/Slice/interfaces/IFundsModule.sol": {
+      "lastModificationDate": 1662070122214,
+      "contentHash": "dd368740736bb5e1b01b8258b52ad3ea",
+      "sourceName": "src/Slice/interfaces/IFundsModule.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
         "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
-        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "src/Slice/interfaces/ISlicer.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -57,10 +582,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/IProductsModule.sol": {
+    "src/Slice/interfaces/IProductsModule.sol": {
       "lastModificationDate": 1662082356033,
       "contentHash": "62ef6cd74f1943032deb7851d5043129",
-      "sourceName": "contracts/Slice/interfaces/IProductsModule.sol",
+      "sourceName": "src/Slice/interfaces/IProductsModule.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -89,12 +614,12 @@
         }
       },
       "imports": [
-        "contracts/Slice/structs/CurrencyPrice.sol",
-        "contracts/Slice/structs/Function.sol",
-        "contracts/Slice/structs/Price.sol",
-        "contracts/Slice/structs/ProductParams.sol",
-        "contracts/Slice/structs/PurchaseParams.sol",
-        "contracts/Slice/structs/SubSlicerProduct.sol"
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -103,10 +628,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/ISliceCore.sol": {
-      "lastModificationDate": 1662070122215,
+    "src/Slice/interfaces/ISliceCore.sol": {
+      "lastModificationDate": 1662237656832,
       "contentHash": "cc3ce84402117e849ee3bcb6e62dea68",
-      "sourceName": "contracts/Slice/interfaces/ISliceCore.sol",
+      "sourceName": "src/Slice/interfaces/ISliceCore.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -135,13 +660,13 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/utils/IOwnable.sol",
-        "contracts/Slice/structs/Payee.sol",
-        "contracts/Slice/structs/SliceParams.sol",
         "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
         "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
         "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
-        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
+        "src/Slice/interfaces/utils/IOwnable.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/SliceParams.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -150,10 +675,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/ISlicer.sol": {
+    "src/Slice/interfaces/ISlicer.sol": {
       "lastModificationDate": 1662070122215,
       "contentHash": "5f13416baef2933a556788bc19d035d4",
-      "sourceName": "contracts/Slice/interfaces/ISlicer.sol",
+      "sourceName": "src/Slice/interfaces/ISlicer.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -195,10 +720,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/ISlicerManager.sol": {
+    "src/Slice/interfaces/ISlicerManager.sol": {
       "lastModificationDate": 1662070122216,
       "contentHash": "114b22884ef5128871136dd804f2bc81",
-      "sourceName": "contracts/Slice/interfaces/ISlicerManager.sol",
+      "sourceName": "src/Slice/interfaces/ISlicerManager.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -227,8 +752,8 @@
         }
       },
       "imports": [
-        "contracts/Slice/structs/Payee.sol",
-        "contracts/Slice/structs/SliceParams.sol"
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/SliceParams.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -237,10 +762,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol": {
+    "src/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol": {
       "lastModificationDate": 1662070122218,
       "contentHash": "c4720e45d0fc07f909875e4ec563d59d",
-      "sourceName": "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol",
+      "sourceName": "src/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -280,10 +805,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlicesCustom.sol": {
+    "src/Slice/interfaces/extensions/Airdrops/IAirdropSlicesCustom.sol": {
       "lastModificationDate": 1662070122219,
       "contentHash": "c0983795d8073210faf4c598c29d6aba",
-      "sourceName": "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlicesCustom.sol",
+      "sourceName": "src/Slice/interfaces/extensions/Airdrops/IAirdropSlicesCustom.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -312,10 +837,10 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
-        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "src/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -324,10 +849,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlicesStandard.sol": {
+    "src/Slice/interfaces/extensions/Airdrops/IAirdropSlicesStandard.sol": {
       "lastModificationDate": 1662070122219,
       "contentHash": "984cfd9c72394376a9d0ff8ea0720426",
-      "sourceName": "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlicesStandard.sol",
+      "sourceName": "src/Slice/interfaces/extensions/Airdrops/IAirdropSlicesStandard.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -356,10 +881,10 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
-        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "src/Slice/interfaces/extensions/Airdrops/IAirdropSlices.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -368,10 +893,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/extensions/Purchasable/ISlicerPurchasable.sol": {
+    "src/Slice/interfaces/extensions/Purchasable/ISlicerPurchasable.sol": {
       "lastModificationDate": 1662070122220,
       "contentHash": "91a2f949a2d3bea164f7dd7c860175ed",
-      "sourceName": "contracts/Slice/interfaces/extensions/Purchasable/ISlicerPurchasable.sol",
+      "sourceName": "src/Slice/interfaces/extensions/Purchasable/ISlicerPurchasable.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -407,10 +932,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/extensions/Purchasable/ISlicerPurchasablePayable.sol": {
+    "src/Slice/interfaces/extensions/Purchasable/ISlicerPurchasablePayable.sol": {
       "lastModificationDate": 1662070122220,
       "contentHash": "57c3f87fc08dbd0fdbf68419e18e5254",
-      "sourceName": "contracts/Slice/interfaces/extensions/Purchasable/ISlicerPurchasablePayable.sol",
+      "sourceName": "src/Slice/interfaces/extensions/Purchasable/ISlicerPurchasablePayable.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -439,7 +964,7 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/extensions/Purchasable/ISlicerPurchasable.sol"
+        "src/Slice/interfaces/extensions/Purchasable/ISlicerPurchasable.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -448,10 +973,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/utils/IOwnable.sol": {
+    "src/Slice/interfaces/utils/IOwnable.sol": {
       "lastModificationDate": 1662070122221,
       "contentHash": "cda4d93081f03086331d51c4ece2e6db",
-      "sourceName": "contracts/Slice/interfaces/utils/IOwnable.sol",
+      "sourceName": "src/Slice/interfaces/utils/IOwnable.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -487,10 +1012,10 @@
         }
       }
     },
-    "contracts/Slice/interfaces/utils/ISliceProductPrice.sol": {
+    "src/Slice/interfaces/utils/ISliceProductPrice.sol": {
       "lastModificationDate": 1662070122221,
       "contentHash": "4f1aee38f01d385eb3650e874bdf608e",
-      "sourceName": "contracts/Slice/interfaces/utils/ISliceProductPrice.sol",
+      "sourceName": "src/Slice/interfaces/utils/ISliceProductPrice.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -526,10 +1051,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Balance.sol": {
+    "src/Slice/structs/Balance.sol": {
       "lastModificationDate": 1662070083253,
       "contentHash": "8a55f2209d0b8d2adbd9107b383292d9",
-      "sourceName": "contracts/Slice/structs/Balance.sol",
+      "sourceName": "src/Slice/structs/Balance.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -565,10 +1090,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Category.sol": {
+    "src/Slice/structs/Category.sol": {
       "lastModificationDate": 1662070083254,
       "contentHash": "79f464927c54481220ce96aceef42d4f",
-      "sourceName": "contracts/Slice/structs/Category.sol",
+      "sourceName": "src/Slice/structs/Category.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -604,10 +1129,10 @@
         }
       }
     },
-    "contracts/Slice/structs/CurrencyPrice.sol": {
+    "src/Slice/structs/CurrencyPrice.sol": {
       "lastModificationDate": 1662070083254,
       "contentHash": "bc9bd5826ea92c0d9eab035349ef45ad",
-      "sourceName": "contracts/Slice/structs/CurrencyPrice.sol",
+      "sourceName": "src/Slice/structs/CurrencyPrice.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -643,10 +1168,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Function.sol": {
+    "src/Slice/structs/Function.sol": {
       "lastModificationDate": 1662070083255,
       "contentHash": "dd62d6f974d576ad2124c0c5e07637db",
-      "sourceName": "contracts/Slice/structs/Function.sol",
+      "sourceName": "src/Slice/structs/Function.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -682,10 +1207,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Payee.sol": {
+    "src/Slice/structs/Payee.sol": {
       "lastModificationDate": 1662070083255,
       "contentHash": "de6d2bb01c7e7a8417a19fd1ee8c9471",
-      "sourceName": "contracts/Slice/structs/Payee.sol",
+      "sourceName": "src/Slice/structs/Payee.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -721,10 +1246,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Price.sol": {
+    "src/Slice/structs/Price.sol": {
       "lastModificationDate": 1662070083256,
       "contentHash": "080184ac2a724ad0eec934121eb53890",
-      "sourceName": "contracts/Slice/structs/Price.sol",
+      "sourceName": "src/Slice/structs/Price.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -760,10 +1285,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Product.sol": {
+    "src/Slice/structs/Product.sol": {
       "lastModificationDate": 1662070083256,
       "contentHash": "5a27b3b8d510040901f7c75f206c4d1d",
-      "sourceName": "contracts/Slice/structs/Product.sol",
+      "sourceName": "src/Slice/structs/Product.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -792,10 +1317,10 @@
         }
       },
       "imports": [
-        "contracts/Slice/structs/Function.sol",
-        "contracts/Slice/structs/ProductPrice.sol",
-        "contracts/Slice/structs/Purchases.sol",
-        "contracts/Slice/structs/SubSlicerProduct.sol"
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/ProductPrice.sol",
+        "src/Slice/structs/Purchases.sol",
+        "src/Slice/structs/SubSlicerProduct.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -804,10 +1329,10 @@
         }
       }
     },
-    "contracts/Slice/structs/ProductParams.sol": {
+    "src/Slice/structs/ProductParams.sol": {
       "lastModificationDate": 1662070083257,
       "contentHash": "ab6fb1f0584082a1bf8531a064f5631e",
-      "sourceName": "contracts/Slice/structs/ProductParams.sol",
+      "sourceName": "src/Slice/structs/ProductParams.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -836,8 +1361,8 @@
         }
       },
       "imports": [
-        "contracts/Slice/structs/CurrencyPrice.sol",
-        "contracts/Slice/structs/SubSlicerProduct.sol"
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/SubSlicerProduct.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -846,10 +1371,10 @@
         }
       }
     },
-    "contracts/Slice/structs/ProductPrice.sol": {
+    "src/Slice/structs/ProductPrice.sol": {
       "lastModificationDate": 1662070083257,
       "contentHash": "32235466b4c4d71f4f7cfe5583634653",
-      "sourceName": "contracts/Slice/structs/ProductPrice.sol",
+      "sourceName": "src/Slice/structs/ProductPrice.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -885,10 +1410,10 @@
         }
       }
     },
-    "contracts/Slice/structs/PurchaseParams.sol": {
+    "src/Slice/structs/PurchaseParams.sol": {
       "lastModificationDate": 1662070083258,
       "contentHash": "e385200548046b401b67ce7262befaa3",
-      "sourceName": "contracts/Slice/structs/PurchaseParams.sol",
+      "sourceName": "src/Slice/structs/PurchaseParams.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -924,10 +1449,10 @@
         }
       }
     },
-    "contracts/Slice/structs/Purchases.sol": {
+    "src/Slice/structs/Purchases.sol": {
       "lastModificationDate": 1662070083258,
       "contentHash": "6317bd77da5aaf96cf5823f38409ed25",
-      "sourceName": "contracts/Slice/structs/Purchases.sol",
+      "sourceName": "src/Slice/structs/Purchases.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -963,10 +1488,10 @@
         }
       }
     },
-    "contracts/Slice/structs/SliceParams.sol": {
+    "src/Slice/structs/SliceParams.sol": {
       "lastModificationDate": 1662070083258,
       "contentHash": "c9c22d2b1b433432961ee3678db9d0fb",
-      "sourceName": "contracts/Slice/structs/SliceParams.sol",
+      "sourceName": "src/Slice/structs/SliceParams.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -995,7 +1520,7 @@
         }
       },
       "imports": [
-        "contracts/Slice/structs/Payee.sol"
+        "src/Slice/structs/Payee.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -1004,10 +1529,10 @@
         }
       }
     },
-    "contracts/Slice/structs/SlicerParams.sol": {
+    "src/Slice/structs/SlicerParams.sol": {
       "lastModificationDate": 1662070083259,
       "contentHash": "5efcf1cdf6dd83ce0b3031a8f53b09d8",
-      "sourceName": "contracts/Slice/structs/SlicerParams.sol",
+      "sourceName": "src/Slice/structs/SlicerParams.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1036,12 +1561,12 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/ISlicer.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
-        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "src/Slice/interfaces/ISlicer.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -1050,10 +1575,10 @@
         }
       }
     },
-    "contracts/Slice/structs/SlicerProductInfo.sol": {
+    "src/Slice/structs/SlicerProductInfo.sol": {
       "lastModificationDate": 1662070083259,
       "contentHash": "c52e365f94c2726435d952e03c6a2f7c",
-      "sourceName": "contracts/Slice/structs/SlicerProductInfo.sol",
+      "sourceName": "src/Slice/structs/SlicerProductInfo.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1082,18 +1607,18 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/ISlicer.sol",
-        "contracts/Slice/structs/Function.sol",
-        "contracts/Slice/structs/Product.sol",
-        "contracts/Slice/structs/ProductPrice.sol",
-        "contracts/Slice/structs/Purchases.sol",
-        "contracts/Slice/structs/SubSlicerProduct.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol"
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Product.sol",
+        "src/Slice/structs/ProductPrice.sol",
+        "src/Slice/structs/Purchases.sol",
+        "src/Slice/structs/SubSlicerProduct.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
@@ -1102,10 +1627,10 @@
         }
       }
     },
-    "contracts/Slice/structs/SubSlicerProduct.sol": {
+    "src/Slice/structs/SubSlicerProduct.sol": {
       "lastModificationDate": 1662070083260,
       "contentHash": "a1a3e8db46139515537b7f404aaf8807",
-      "sourceName": "contracts/Slice/structs/SubSlicerProduct.sol",
+      "sourceName": "src/Slice/structs/SubSlicerProduct.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1141,10 +1666,10 @@
         }
       }
     },
-    "contracts/VRGDA/LinearVRGDAPrices.sol": {
-      "lastModificationDate": 1662231537895,
-      "contentHash": "cdb453467548e3637742dc0f88a83102",
-      "sourceName": "contracts/VRGDA/LinearVRGDAPrices.sol",
+    "src/VRGDA/LinearVRGDAPrices.sol": {
+      "lastModificationDate": 1662256680709,
+      "contentHash": "f3c9237b1d1e54aceb428b455b4e6874",
+      "sourceName": "src/VRGDA/LinearVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1173,18 +1698,18 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/IProductsModule.sol",
-        "contracts/Slice/interfaces/utils/ISliceProductPrice.sol",
-        "contracts/Slice/structs/CurrencyPrice.sol",
-        "contracts/Slice/structs/Function.sol",
-        "contracts/Slice/structs/Price.sol",
-        "contracts/Slice/structs/ProductParams.sol",
-        "contracts/Slice/structs/PurchaseParams.sol",
-        "contracts/Slice/structs/SubSlicerProduct.sol",
-        "contracts/VRGDA/VRGDAPrices.sol",
-        "contracts/VRGDA/structs/LinearVRGDAParams.sol",
-        "contracts/VRGDA/structs/ProductParams.sol",
-        "contracts/utils/SignedWadMath.sol"
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/VRGDA/VRGDAPrices.sol",
+        "src/VRGDA/structs/LinearProductParams.sol",
+        "src/VRGDA/structs/LinearVRGDAParams.sol",
+        "src/utils/SignedWadMath.sol"
       ],
       "versionRequirement": ">=0.8.0",
       "artifacts": {
@@ -1193,10 +1718,49 @@
         }
       }
     },
-    "contracts/VRGDA/VRGDAPrices.sol": {
-      "lastModificationDate": 1662230601351,
-      "contentHash": "f7804604da13341b22449dfb7ba41ea2",
-      "sourceName": "contracts/VRGDA/VRGDAPrices.sol",
+    "src/VRGDA/LogisticVRGDAPrices.sol": {
+      "lastModificationDate": 1662256403915,
+      "contentHash": "003b8f1b1732de94e0280e7eb155b97e",
+      "sourceName": "src/VRGDA/LogisticVRGDAPrices.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": null,
+      "artifacts": {
+        "LogisticVRGDAPrices": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LogisticVRGDAPrices.sol/LogisticVRGDAPrices.json"
+        }
+      }
+    },
+    "src/VRGDA/VRGDAPrices.sol": {
+      "lastModificationDate": 1662256641328,
+      "contentHash": "3bc8837a12613a17bc7c37441480c892",
+      "sourceName": "src/VRGDA/VRGDAPrices.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1225,15 +1789,15 @@
         }
       },
       "imports": [
-        "contracts/Slice/interfaces/IProductsModule.sol",
-        "contracts/Slice/interfaces/utils/ISliceProductPrice.sol",
-        "contracts/Slice/structs/CurrencyPrice.sol",
-        "contracts/Slice/structs/Function.sol",
-        "contracts/Slice/structs/Price.sol",
-        "contracts/Slice/structs/ProductParams.sol",
-        "contracts/Slice/structs/PurchaseParams.sol",
-        "contracts/Slice/structs/SubSlicerProduct.sol",
-        "contracts/utils/SignedWadMath.sol"
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/utils/SignedWadMath.sol"
       ],
       "versionRequirement": ">=0.8.0",
       "artifacts": {
@@ -1242,10 +1806,51 @@
         }
       }
     },
-    "contracts/VRGDA/structs/LinearVRGDAParams.sol": {
+    "src/VRGDA/structs/LinearProductParams.sol": {
+      "lastModificationDate": 1662252091558,
+      "contentHash": "d93cd375caae126b4153e5d8199d6b0e",
+      "sourceName": "src/VRGDA/structs/LinearProductParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/VRGDA/structs/LinearVRGDAParams.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "LinearProductParams": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LinearProductParams.sol/LinearProductParams.json"
+        }
+      }
+    },
+    "src/VRGDA/structs/LinearVRGDAParams.sol": {
       "lastModificationDate": 1662118219237,
       "contentHash": "9b7f7a400cdf04e5c302cad83dddaf31",
-      "sourceName": "contracts/VRGDA/structs/LinearVRGDAParams.sol",
+      "sourceName": "src/VRGDA/structs/LinearVRGDAParams.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1281,10 +1886,10 @@
         }
       }
     },
-    "contracts/VRGDA/structs/ProductParams.sol": {
-      "lastModificationDate": 1662130556479,
-      "contentHash": "e82734303edb5f6040e43393aa19327e",
-      "sourceName": "contracts/VRGDA/structs/ProductParams.sol",
+    "src/VRGDA/structs/LogisticProductParams.sol": {
+      "lastModificationDate": 1662252096189,
+      "contentHash": "12cf94f23a56ded8552abc6e821369d4",
+      "sourceName": "src/VRGDA/structs/LogisticProductParams.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1313,19 +1918,58 @@
         }
       },
       "imports": [
-        "contracts/VRGDA/structs/LinearVRGDAParams.sol"
+        "src/VRGDA/structs/LogisticVRGDAParams.sol"
       ],
       "versionRequirement": "^0.8.0",
       "artifacts": {
-        "ProductParams": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "ProductParams.sol/ProductParams.json"
+        "LogisticProductParams": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LogisticProductParams.sol/LogisticProductParams.json"
         }
       }
     },
-    "contracts/utils/SignedWadMath.sol": {
+    "src/VRGDA/structs/LogisticVRGDAParams.sol": {
+      "lastModificationDate": 1662249640610,
+      "contentHash": "f40f89f39849c1ad5b265635dd28dd44",
+      "sourceName": "src/VRGDA/structs/LogisticVRGDAParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "LogisticVRGDAParams": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LogisticVRGDAParams.sol/LogisticVRGDAParams.json"
+        }
+      }
+    },
+    "src/utils/SignedWadMath.sol": {
       "lastModificationDate": 1661989408851,
       "contentHash": "8f176fb16f1c7f5af416a5db1fbe4006",
-      "sourceName": "contracts/utils/SignedWadMath.sol",
+      "sourceName": "src/utils/SignedWadMath.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1361,134 +2005,10 @@
         }
       }
     },
-    "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol": {
-      "lastModificationDate": 1662070278949,
-      "contentHash": "a80dbc3947556c57c569cd81aa255f10",
-      "sourceName": "node_modules/@openzeppelin/contracts/interfaces/IERC1155Receiver.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
-        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "IERC1155Receiver": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "interfaces/IERC1155Receiver.sol/IERC1155Receiver.json"
-        }
-      }
-    },
-    "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol": {
-      "lastModificationDate": 1662070278951,
-      "contentHash": "04c99e0f7cc521daff42ecd8e8f14877",
-      "sourceName": "node_modules/@openzeppelin/contracts/interfaces/IERC721Receiver.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "IERC721Receiver": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "interfaces/IERC721Receiver.sol/IERC721Receiver.json"
-        }
-      }
-    },
-    "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol": {
-      "lastModificationDate": 1662070278949,
-      "contentHash": "9f8822b72fe2702979e40160cb6d9636",
-      "sourceName": "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "IERC1155Receiver": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC1155Receiver.sol/IERC1155Receiver.json"
-        }
-      }
-    },
-    "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1662070278951,
-      "contentHash": "c22d4395e33763de693fd440c6fd10e1",
-      "sourceName": "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+    "test/LinearNFT.t.sol": {
+      "lastModificationDate": 1662234387312,
+      "contentHash": "52dbce1423d9c57758377809ebb38332",
+      "sourceName": "test/LinearNFT.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1517,56 +2037,17 @@
         }
       },
       "imports": [],
-      "versionRequirement": "^0.8.0",
+      "versionRequirement": null,
       "artifacts": {
-        "IERC721Receiver": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC721Receiver.sol/IERC721Receiver.json"
+        "LinearNFT.t": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LinearNFT.t.sol/LinearNFT.t.json"
         }
       }
     },
-    "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1662070278949,
-      "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
-      "sourceName": "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "IERC165": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC165.sol/IERC165.json"
-        }
-      }
-    },
-    "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol": {
-      "lastModificationDate": 1662070407858,
-      "contentHash": "acfaf24c6bf8e066e5c753514011fc2e",
-      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
+    "test/LinearVRGDA.t.sol": {
+      "lastModificationDate": 1662256678490,
+      "contentHash": "9673c51e06840337cbf0da6cf534d921",
+      "sourceName": "test/LinearVRGDA.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1595,102 +2076,36 @@
         }
       },
       "imports": [
-        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
-        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
+        "lib/ds-test/src/test.sol",
+        "lib/solmate/src/test/utils/DSTestPlus.sol",
+        "lib/solmate/src/test/utils/Hevm.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/VRGDA/LinearVRGDAPrices.sol",
+        "src/VRGDA/VRGDAPrices.sol",
+        "src/VRGDA/structs/LinearProductParams.sol",
+        "src/VRGDA/structs/LinearVRGDAParams.sol",
+        "src/utils/SignedWadMath.sol",
+        "test/mocks/MockLinearVRGDAPrices.sol",
+        "test/mocks/MockProductsModule.sol"
       ],
-      "versionRequirement": "^0.8.0",
+      "versionRequirement": "=0.8.15",
       "artifacts": {
-        "IERC1155Upgradeable": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "interfaces/IERC1155Upgradeable.sol/IERC1155Upgradeable.json"
+        "LinearVRGDATest": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LinearVRGDA.t.sol/LinearVRGDATest.json"
         }
       }
     },
-    "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol": {
-      "lastModificationDate": 1662070407860,
-      "contentHash": "cb60157e1058e75780f1dd7c720b18eb",
-      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "IERC2981Upgradeable": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC2981Upgradeable.sol/IERC2981Upgradeable.json"
-        }
-      }
-    },
-    "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol": {
-      "lastModificationDate": 1662070407859,
-      "contentHash": "a407c5f8256246823385d0d7f0a83f57",
-      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "IERC1155Upgradeable": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC1155Upgradeable.sol/IERC1155Upgradeable.json"
-        }
-      }
-    },
-    "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
-      "lastModificationDate": 1662070407848,
-      "contentHash": "2e908c762a799baea365e68a50500e2c",
-      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+    "test/LogisticNFT.t.sol": {
+      "lastModificationDate": 1662234385845,
+      "contentHash": "689951629e55f82cde75c902974cde1e",
+      "sourceName": "test/LogisticNFT.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1719,17 +2134,17 @@
         }
       },
       "imports": [],
-      "versionRequirement": "^0.8.0",
+      "versionRequirement": null,
       "artifacts": {
-        "CountersUpgradeable": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "CountersUpgradeable.sol/CountersUpgradeable.json"
+        "LogisticNFT.t": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LogisticNFT.t.sol/LogisticNFT.t.json"
         }
       }
     },
-    "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol": {
-      "lastModificationDate": 1662070407859,
-      "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
-      "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
+    "test/LogisticVRGDA.t.sol": {
+      "lastModificationDate": 1662256390610,
+      "contentHash": "5c0c8db96da134646270376d6b92bf06",
+      "sourceName": "test/LogisticVRGDA.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -1758,10 +2173,180 @@
         }
       },
       "imports": [],
-      "versionRequirement": "^0.8.0",
+      "versionRequirement": null,
       "artifacts": {
-        "IERC165Upgradeable": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC165Upgradeable.sol/IERC165Upgradeable.json"
+        "LogisticVRGDA.t": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LogisticVRGDA.t.sol/LogisticVRGDA.t.json"
+        }
+      }
+    },
+    "test/correctness/LinearVRGDACorrectness.t.sol": {
+      "lastModificationDate": 1662256390610,
+      "contentHash": "dc057d56a14d6550d639e5f5c60e5e1e",
+      "sourceName": "test/correctness/LinearVRGDACorrectness.t.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": null,
+      "artifacts": {
+        "LinearVRGDACorrectness.t": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "LinearVRGDACorrectness.t.sol/LinearVRGDACorrectness.t.json"
+        }
+      }
+    },
+    "test/mocks/MockLinearVRGDAPrices.sol": {
+      "lastModificationDate": 1662244540439,
+      "contentHash": "6bb60f782fa7ae4557e4723599eaeb8c",
+      "sourceName": "test/mocks/MockLinearVRGDAPrices.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/VRGDA/LinearVRGDAPrices.sol",
+        "src/VRGDA/VRGDAPrices.sol",
+        "src/VRGDA/structs/LinearProductParams.sol",
+        "src/VRGDA/structs/LinearVRGDAParams.sol",
+        "src/utils/SignedWadMath.sol"
+      ],
+      "versionRequirement": ">=0.8.0",
+      "artifacts": {
+        "MockLinearVRGDAPrices": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "MockLinearVRGDAPrices.sol/MockLinearVRGDAPrices.json"
+        }
+      }
+    },
+    "test/mocks/MockLogisticVRGDAPrices.sol": {
+      "lastModificationDate": 1662256415695,
+      "contentHash": "855ee8b2b98e839c9ae8a49efdf99796",
+      "sourceName": "test/mocks/MockLogisticVRGDAPrices.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": null,
+      "artifacts": {
+        "MockLogisticVRGDAPrices": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "MockLogisticVRGDAPrices.sol/MockLogisticVRGDAPrices.json"
+        }
+      }
+    },
+    "test/mocks/MockProductsModule.sol": {
+      "lastModificationDate": 1662241360260,
+      "contentHash": "de580667ed51f4bfc717e03da72d91f7",
+      "sourceName": "test/mocks/MockProductsModule.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": ">=0.8.0",
+      "artifacts": {
+        "MockProductsModule": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "MockProductsModule.sol/MockProductsModule.json"
         }
       }
     }
