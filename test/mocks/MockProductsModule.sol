@@ -15,7 +15,7 @@ contract MockProductsModule {
     pure
     returns (uint256 units, bool isInfinite)
   {
-    units = 10;
+    units = 6392;
     isInfinite = false;
   }
 }
