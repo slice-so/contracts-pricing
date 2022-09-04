@@ -70,7 +70,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
     int256 timeSinceStart,
     uint256 sold,
     int256 timeFactor
-  ) public view returns (uint256) {
+  ) public view virtual returns (uint256) {
     unchecked {
       // prettier-ignore
       return uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
@@ -110,7 +110,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
     uint256 sold,
     int256 timeFactor,
     uint256 quantity
-  ) public view returns (uint256 price) {
+  ) public view virtual returns (uint256 price) {
     for (uint256 i; i < quantity; ) {
       price += getVRGDAPrice(
         targetPrice,
