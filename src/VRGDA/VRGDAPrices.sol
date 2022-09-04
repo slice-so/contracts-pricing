@@ -25,15 +25,13 @@ abstract contract VRGDAPrices is ISliceProductPrice {
                                  STORAGE
     //////////////////////////////////////////////////////////////*/
 
-  address internal immutable _sliceCoreAddress;
   address internal immutable _productsModuleAddress;
 
   /*//////////////////////////////////////////////////////////////
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
-  constructor(address sliceCoreAddress, address productsModuleAddress) {
-    _sliceCoreAddress = sliceCoreAddress;
+  constructor(address productsModuleAddress) {
     _productsModuleAddress = productsModuleAddress;
   }
 
@@ -77,7 +75,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
       // prettier-ignore
       return uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
                 // We use sold + 1 as the VRGDA formula's n param represents the nth product and sold is the 
-                // n-1th token.
+                // n-1th product.
                 timeSinceStart - getTargetSaleTime(
                   toWadUnsafe(sold + 1), timeFactor
                 )
@@ -113,7 +111,6 @@ abstract contract VRGDAPrices is ISliceProductPrice {
     int256 timeFactor,
     uint256 quantity
   ) public view returns (uint256 price) {
-    /// TODO: Calculate this more efficiently
     for (uint256 i; i < quantity; ) {
       price += getVRGDAPrice(
         targetPrice,
