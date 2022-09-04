@@ -2,13 +2,21 @@
 
 This repo contains custom pricing strategies for products sold on [Slice](https://slice.so).
 
+Each strategy inherits the [ISliceProductPrice](/src/Slice/interfaces/utils/ISliceProductPrice.sol) interface and serves two main purposes:
+
+- Allow a product owner to set price params for a product via `setProductPrice`;
+- Return product price via `productPrice`;
+
 ## Strategies
 
 ### VRGDA
 
 Variable Rate Gradual Dutch Auctions. Read the [whitepaper here](https://www.paradigm.xyz/2022/08/vrgda).
 
-Slice-specific implementation modified from https://github.com/transmissions11/VRGDAs
+Slice-specific implementations modified from https://github.com/transmissions11/VRGDAs:
+
+- [Linear VRGDA](/src/VRGDA/LinearVRGDAPrices.sol)
+- [Logistic VRGDA](/src/VRGDA/LogisticVRGDAPrices.sol)
 
 ## Contributing
 
