@@ -181,7 +181,9 @@ abstract contract LogisticVRGDAPrices is VRGDAPrices {
     uint256 slicerId,
     uint256 productId,
     address currency,
-    uint256 quantity
+    uint256 quantity,
+    address,
+    bytes memory
   ) public view override returns (uint256 ethPrice, uint256 currencyPrice) {
     // Add reference for product and pricing params
     LogisticProductParams storage productParams = _productParams[slicerId][
