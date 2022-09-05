@@ -879,8 +879,8 @@
       }
     },
     "src/Slice/interfaces/utils/ISliceProductPrice.sol": {
-      "lastModificationDate": 1662070122221,
-      "contentHash": "4f1aee38f01d385eb3650e874bdf608e",
+      "lastModificationDate": 1662379940863,
+      "contentHash": "ba542334096e3d08f3695aa87e87b5d3",
       "sourceName": "src/Slice/interfaces/utils/ISliceProductPrice.sol",
       "solcConfig": {
         "settings": {
@@ -1533,8 +1533,8 @@
       }
     },
     "src/VRGDA/LinearVRGDAPrices.sol": {
-      "lastModificationDate": 1662319592294,
-      "contentHash": "7caedd99366ebc08e50725389a9d1cec",
+      "lastModificationDate": 1662380107484,
+      "contentHash": "f24d5bd4a7d7b9da711e5737a6ee9fd4",
       "sourceName": "src/VRGDA/LinearVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1585,8 +1585,8 @@
       }
     },
     "src/VRGDA/LogisticVRGDAPrices.sol": {
-      "lastModificationDate": 1662319313290,
-      "contentHash": "59ed54a583d245a163b39d9ced394e6a",
+      "lastModificationDate": 1662380113113,
+      "contentHash": "cfcd1a24c7ee66c664c25a0d1c941167",
       "sourceName": "src/VRGDA/LogisticVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1637,8 +1637,8 @@
       }
     },
     "src/VRGDA/VRGDAPrices.sol": {
-      "lastModificationDate": 1662319587630,
-      "contentHash": "48c8d1b19f1b9a73989d14c5c306f318",
+      "lastModificationDate": 1662380061966,
+      "contentHash": "b31e541f04fac1bafd544e3cc4cc3938",
       "sourceName": "src/VRGDA/VRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1885,8 +1885,8 @@
       }
     },
     "test/LinearVRGDA.t.sol": {
-      "lastModificationDate": 1662319614584,
-      "contentHash": "9673c51e06840337cbf0da6cf534d921",
+      "lastModificationDate": 1662380401799,
+      "contentHash": "17fd210f6b1359ddf99fca8303f1a8e0",
       "sourceName": "test/LinearVRGDA.t.sol",
       "solcConfig": {
         "settings": {
@@ -1943,8 +1943,8 @@
       }
     },
     "test/LogisticVRGDA.t.sol": {
-      "lastModificationDate": 1662319107529,
-      "contentHash": "0eb66203abde98ca47aa76cf10cd6bd8",
+      "lastModificationDate": 1662380428801,
+      "contentHash": "104d1fb469fa5775060d0aec2edabd71",
       "sourceName": "test/LogisticVRGDA.t.sol",
       "solcConfig": {
         "settings": {
@@ -2002,7 +2002,7 @@
       }
     },
     "test/correctness/LinearVRGDACorrectness.t.sol": {
-      "lastModificationDate": 1662256902514,
+      "lastModificationDate": 1662320450292,
       "contentHash": "dc096c72a6a920dbe643295828655c7a",
       "sourceName": "test/correctness/LinearVRGDACorrectness.t.sol",
       "solcConfig": {
@@ -2062,7 +2062,7 @@
       }
     },
     "test/mocks/MockLinearVRGDAPrices.sol": {
-      "lastModificationDate": 1662244540439,
+      "lastModificationDate": 1662320450293,
       "contentHash": "6bb60f782fa7ae4557e4723599eaeb8c",
       "sourceName": "test/mocks/MockLinearVRGDAPrices.sol",
       "solcConfig": {
@@ -2115,7 +2115,7 @@
       }
     },
     "test/mocks/MockLogisticVRGDAPrices.sol": {
-      "lastModificationDate": 1662291960804,
+      "lastModificationDate": 1662320450293,
       "contentHash": "678c812d46ac68066336678b20843041",
       "sourceName": "test/mocks/MockLogisticVRGDAPrices.sol",
       "solcConfig": {

@@ -174,7 +174,9 @@ contract LogisticVRGDATest is DSTestPlus {
       slicerId,
       productId,
       ethCurrency,
-      1
+      1,
+      address(0),
+      ""
     );
 
     assertRelApproxEq(cost, ethPrice, 0.00001e18);
@@ -202,7 +204,9 @@ contract LogisticVRGDATest is DSTestPlus {
       slicerId,
       productId,
       erc20Currency,
-      1
+      1,
+      address(0),
+      ""
     );
 
     assertRelApproxEq(cost, currencyPrice, 0.00001e18);
@@ -229,7 +233,9 @@ contract LogisticVRGDATest is DSTestPlus {
       slicerId,
       productId,
       ethCurrency,
-      3
+      3,
+      address(0),
+      ""
     );
 
     assertRelApproxEq(costMultiple, ethPrice, 0.00001e18);
