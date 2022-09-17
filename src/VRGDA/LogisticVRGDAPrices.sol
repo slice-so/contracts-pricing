@@ -21,7 +21,7 @@ import { VRGDAPrices } from "./VRGDAPrices.sol";
 /// - Adds `getVRGDALogisticPrice` and `getAdjustedVRGDALogisticPrice` which are specific to this
 /// implementation and substitute the standard ones
 /// - Adds `productPrice` which uses `getAdjustedVRGDALogisticPrice` to calculate price based on quantity
-abstract contract LogisticVRGDAPrices is VRGDAPrices {
+contract LogisticVRGDAPrices is VRGDAPrices {
   /*//////////////////////////////////////////////////////////////
                                 STORAGE
     //////////////////////////////////////////////////////////////*/
