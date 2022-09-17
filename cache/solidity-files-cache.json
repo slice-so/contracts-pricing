@@ -52,8 +52,8 @@
       }
     },
     "lib/forge-std/src/Vm.sol": {
-      "lastModificationDate": 1662233296355,
-      "contentHash": "0a574984ee176b9d0f87243b3c9c48af",
+      "lastModificationDate": 1663259345969,
+      "contentHash": "4260ba1200fd6c8f55a0ee9935f2d3d0",
       "sourceName": "lib/forge-std/src/Vm.sol",
       "solcConfig": {
         "settings": {
@@ -1585,8 +1585,8 @@
       }
     },
     "src/VRGDA/LogisticVRGDAPrices.sol": {
-      "lastModificationDate": 1662380113113,
-      "contentHash": "cfcd1a24c7ee66c664c25a0d1c941167",
+      "lastModificationDate": 1663370804056,
+      "contentHash": "2c95736354e0fb87b92ec00ccd982844",
       "sourceName": "src/VRGDA/LogisticVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1943,7 +1943,7 @@
       }
     },
     "test/LogisticVRGDA.t.sol": {
-      "lastModificationDate": 1662380428801,
+      "lastModificationDate": 1663441055753,
       "contentHash": "104d1fb469fa5775060d0aec2edabd71",
       "sourceName": "test/LogisticVRGDA.t.sol",
       "solcConfig": {
