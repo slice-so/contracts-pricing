@@ -1943,7 +1943,7 @@
       }
     },
     "test/LogisticVRGDA.t.sol": {
-      "lastModificationDate": 1663441055753,
+      "lastModificationDate": 1663590317340,
       "contentHash": "104d1fb469fa5775060d0aec2edabd71",
       "sourceName": "test/LogisticVRGDA.t.sol",
       "solcConfig": {
