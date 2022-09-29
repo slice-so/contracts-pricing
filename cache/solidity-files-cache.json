@@ -1533,8 +1533,8 @@
       }
     },
     "src/VRGDA/LinearVRGDAPrices.sol": {
-      "lastModificationDate": 1662380107484,
-      "contentHash": "f24d5bd4a7d7b9da711e5737a6ee9fd4",
+      "lastModificationDate": 1664470333982,
+      "contentHash": "6b1b124c41c1892b8d66d5bf0bdd428c",
       "sourceName": "src/VRGDA/LinearVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1885,8 +1885,8 @@
       }
     },
     "test/LinearVRGDA.t.sol": {
-      "lastModificationDate": 1662380401799,
-      "contentHash": "17fd210f6b1359ddf99fca8303f1a8e0",
+      "lastModificationDate": 1664470897406,
+      "contentHash": "fc48776035317de13468dbf0afa5ac0d",
       "sourceName": "test/LinearVRGDA.t.sol",
       "solcConfig": {
         "settings": {
@@ -2002,8 +2002,8 @@
       }
     },
     "test/correctness/LinearVRGDACorrectness.t.sol": {
-      "lastModificationDate": 1662320450292,
-      "contentHash": "dc096c72a6a920dbe643295828655c7a",
+      "lastModificationDate": 1664470236812,
+      "contentHash": "dd27cfe01ed123538902da6fa1b08c72",
       "sourceName": "test/correctness/LinearVRGDACorrectness.t.sol",
       "solcConfig": {
         "settings": {

@@ -20,9 +20,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
 
   uint256 constant slicerId = 0;
   uint256 constant productId = 1;
-  address constant ethCurrency = address(0);
-  address constant erc20Currency = address(20);
-  int256 immutable targetPrice = 69.42e18;
+  int256 immutable targetPriceConstant = 69.42e18;
   int256 immutable priceDecayPercent = 0.31e18;
   int256 immutable perTimeUnit = 2e18;
 
@@ -32,6 +30,11 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
   function setUp() public {
     productsModule = new MockProductsModule();
     vrgda = new MockLinearVRGDAPrices(address(productsModule));
+
+    int256[] memory targetPrice = new int256[](1);
+    targetPrice[0] = targetPriceConstant;
+    address[] memory ethCurrency = new address[](1);
+    ethCurrency[0] = address(0);
 
     hevm.prank(address(0));
     vrgda.setProductPrice(
@@ -53,7 +56,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
     uint256 actualPrice = vrgda.getVRGDAPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       int256(timeSinceStart),
       numSold,
@@ -61,7 +64,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
     );
 
     uint256 expectedPrice = calculatePrice(
-      targetPrice,
+      targetPriceConstant,
       priceDecayPercent,
       perTimeUnit,
       timeSinceStart,
@@ -94,7 +97,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
     // revert for degenerate cases. When this happens, we just continue campaign.
     try
       vrgda.getVRGDAPrice(
-        targetPrice,
+        targetPriceConstant,
         decayConstant,
         int256(timeSinceStart),
         numSold,
@@ -102,7 +105,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
       )
     returns (uint256 actualPrice) {
       uint256 expectedPrice = calculatePrice(
-        targetPrice,
+        targetPriceConstant,
         priceDecayPercent,
         perTimeUnit,
         timeSinceStart,
