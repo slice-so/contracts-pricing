@@ -15,9 +15,7 @@ uint256 constant MAX_SELLABLE = 6392;
 
 uint256 constant slicerId = 0;
 uint256 constant productId = 1;
-address constant ethCurrency = address(0);
-address constant erc20Currency = address(20);
-int256 constant targetPrice = 69.42e18;
+int256 constant targetPriceConstant = 69.42e18;
 int256 constant priceDecayPercent = 0.31e18;
 int256 constant timeScale = 0.0023e18;
 int256 constant logisticLimitAdjusted = int256((MAX_SELLABLE + 1) * 2e18);
@@ -30,6 +28,13 @@ contract LogisticVRGDATest is DSTestPlus {
   function setUp() public {
     productsModule = new MockProductsModule();
     vrgda = new MockLogisticVRGDAPrices(address(productsModule));
+
+    int256[] memory targetPrice = new int256[](1);
+    targetPrice[0] = targetPriceConstant;
+    address[] memory ethCurrency = new address[](1);
+    ethCurrency[0] = address(0);
+    address[] memory erc20Currency = new address[](1);
+    erc20Currency[0] = address(20);
 
     hevm.startPrank(address(0));
     vrgda.setProductPrice(
@@ -67,7 +72,7 @@ contract LogisticVRGDATest is DSTestPlus {
     );
 
     uint256 cost = vrgda.getVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       logisticLimit,
@@ -75,7 +80,7 @@ contract LogisticVRGDATest is DSTestPlus {
       sold,
       timeScale
     );
-    assertRelApproxEq(cost, uint256(targetPrice), 0.0000001e18);
+    assertRelApproxEq(cost, uint256(targetPriceConstant), 0.0000001e18);
   }
 
   function testPricingBasic() public {
@@ -88,7 +93,7 @@ contract LogisticVRGDATest is DSTestPlus {
     hevm.warp(block.timestamp + timeDelta);
 
     uint256 cost = vrgda.getVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       logisticLimit,
@@ -98,7 +103,7 @@ contract LogisticVRGDATest is DSTestPlus {
     );
 
     // Equal within 2 percent since num mint is rounded from true decimal amount.
-    assertRelApproxEq(cost, uint256(targetPrice), 0.02e18);
+    assertRelApproxEq(cost, uint256(targetPriceConstant), 0.02e18);
   }
 
   function testPricingAdjustedByQuantity() public {
@@ -110,7 +115,7 @@ contract LogisticVRGDATest is DSTestPlus {
     hevm.warp(block.timestamp + timeDelta);
 
     uint256 costProduct1 = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -119,7 +124,7 @@ contract LogisticVRGDATest is DSTestPlus {
       1
     );
     uint256 costProduct2 = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -128,7 +133,7 @@ contract LogisticVRGDATest is DSTestPlus {
       1
     );
     uint256 costProduct3 = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -137,7 +142,7 @@ contract LogisticVRGDATest is DSTestPlus {
       1
     );
     uint256 costMultiple = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -153,7 +158,55 @@ contract LogisticVRGDATest is DSTestPlus {
     );
   }
 
+  function testSetMultiplePrices() public {
+    uint256 targetPriceTest = 7.3013e18;
+    uint256 productIdTest = 2;
+    int256[] memory targetPrices = new int256[](2);
+    targetPrices[0] = targetPriceConstant;
+    targetPrices[1] = targetPriceConstant;
+    address[] memory currencies = new address[](2);
+    currencies[0] = address(0);
+    currencies[1] = address(20);
+
+    hevm.startPrank(address(0));
+    vrgda.setProductPrice(
+      slicerId,
+      productIdTest,
+      currencies,
+      targetPrices,
+      priceDecayPercent,
+      timeScale
+    );
+    hevm.stopPrank();
+
+    (uint256 ethPrice, uint256 currencyPrice) = vrgda.productPrice(
+      slicerId,
+      productIdTest,
+      address(0),
+      1,
+      address(0),
+      ""
+    );
+
+    assertRelApproxEq(uint256(targetPriceTest), ethPrice, 1e18);
+    assertEq(currencyPrice, 0);
+
+    (uint256 ethPrice2, uint256 currencyPrice2) = vrgda.productPrice(
+      slicerId,
+      productId,
+      address(20),
+      1,
+      address(0),
+      ""
+    );
+
+    assertEq(ethPrice2, 0);
+    assertRelApproxEq(uint256(targetPriceTest), currencyPrice2, 1e18);
+  }
+
   function testProductPriceEth() public {
+    address ethCurrency = address(0);
+
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 10 days;
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
@@ -161,7 +214,7 @@ contract LogisticVRGDATest is DSTestPlus {
     hevm.warp(block.timestamp + timeDelta);
 
     uint256 cost = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -184,6 +237,8 @@ contract LogisticVRGDATest is DSTestPlus {
   }
 
   function testProductPriceErc20() public {
+    address erc20Currency = address(20);
+
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 10 days;
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
@@ -191,7 +246,7 @@ contract LogisticVRGDATest is DSTestPlus {
     hevm.warp(block.timestamp + timeDelta);
 
     uint256 cost = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -214,6 +269,8 @@ contract LogisticVRGDATest is DSTestPlus {
   }
 
   function testProductPriceMultiple() public {
+    address ethCurrency = address(0);
+
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 10 days;
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
@@ -221,7 +278,7 @@ contract LogisticVRGDATest is DSTestPlus {
     hevm.warp(block.timestamp + timeDelta);
 
     uint256 costMultiple = vrgda.getAdjustedVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       toDaysWadUnsafe(block.timestamp),
       toWadUnsafe(MAX_SELLABLE + 1),
@@ -269,7 +326,7 @@ contract LogisticVRGDATest is DSTestPlus {
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
     vrgda.getVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       int256(bound(timeSinceStart, 0 days, ONE_THOUSAND_YEARS * 1e18)),
       logisticLimit,
@@ -286,7 +343,7 @@ contract LogisticVRGDATest is DSTestPlus {
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
     vrgda.getVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       int256(
         bound(timeSinceStart, 3870 days * 1e18, ONE_THOUSAND_YEARS * 1e18)
@@ -306,7 +363,7 @@ contract LogisticVRGDATest is DSTestPlus {
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
     vrgda.getVRGDALogisticPrice(
-      targetPrice,
+      targetPriceConstant,
       decayConstant,
       int256(bound(timeSinceStart, 0 days, ONE_THOUSAND_YEARS * 1e18)),
       logisticLimit,
@@ -327,7 +384,7 @@ contract LogisticVRGDATest is DSTestPlus {
 
     assertRelApproxEq(
       vrgda.getVRGDALogisticPrice(
-        targetPrice,
+        targetPriceConstant,
         decayConstant,
         vrgda.getTargetSaleTime(logisticFactor, timeScale),
         logisticLimit,
@@ -335,7 +392,7 @@ contract LogisticVRGDATest is DSTestPlus {
         sold,
         timeScale
       ),
-      uint256(targetPrice),
+      uint256(targetPriceConstant),
       0.00001e18
     );
   }

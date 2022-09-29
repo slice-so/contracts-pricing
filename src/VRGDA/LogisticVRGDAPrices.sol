@@ -45,19 +45,21 @@ contract LogisticVRGDAPrices is VRGDAPrices {
   /// @notice Set LinearProductParams for product.
   /// @param slicerId ID of the slicer to set the price params for.
   /// @param productId ID of the product to set the price params for.
-  /// @param currency currency of the product to set the price params for.
-  /// @param targetPrice for a product if sold on pace, scaled by 1e18.
+  /// @param currencies currencies of the product to set the price params for.
+  /// @param targetPrices for a product if sold on pace, scaled by 1e18.
   /// @param priceDecayPercent The percent price decays per unit of time with no sales, scaled by 1e18.
   /// @param timeScale Time scale controls the steepness of the logistic curve,
   /// which affects how quickly we will reach the curve's asymptote, scaled by 1e18.
   function setProductPrice(
     uint256 slicerId,
     uint256 productId,
-    address currency,
-    int256 targetPrice,
+    address[] memory currencies,
+    int256[] memory targetPrices,
     int256 priceDecayPercent,
     int256 timeScale
   ) external onlyProductOwner(slicerId, productId) {
+    require(targetPrices.length == currencies.length, "INVALID_INPUTS");
+
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
     // The decay constant must be negative for VRGDAs to work.
     require(decayConstant < 0, "NON_NEGATIVE_DECAY_CONSTANT");
@@ -74,9 +76,17 @@ contract LogisticVRGDAPrices is VRGDAPrices {
     _productParams[slicerId][productId].startTime = block.timestamp;
     _productParams[slicerId][productId].startUnits = availableUnits;
     _productParams[slicerId][productId].decayConstant = decayConstant;
-    _productParams[slicerId][productId].pricingParams[
-      currency
-    ] = LogisticVRGDAParams(targetPrice, timeScale);
+
+    // Set currency params
+    for (uint256 i; i < currencies.length; ) {
+      _productParams[slicerId][productId].pricingParams[
+        currencies[i]
+      ] = LogisticVRGDAParams(targetPrices[i], timeScale);
+
+      unchecked {
+        ++i;
+      }
+    }
   }
 
   /*//////////////////////////////////////////////////////////////

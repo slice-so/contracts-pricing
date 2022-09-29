@@ -1585,8 +1585,8 @@
       }
     },
     "src/VRGDA/LogisticVRGDAPrices.sol": {
-      "lastModificationDate": 1663370804056,
-      "contentHash": "2c95736354e0fb87b92ec00ccd982844",
+      "lastModificationDate": 1664471023061,
+      "contentHash": "3b51cb65544e0462d590e30599b823a8",
       "sourceName": "src/VRGDA/LogisticVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1943,8 +1943,8 @@
       }
     },
     "test/LogisticVRGDA.t.sol": {
-      "lastModificationDate": 1663590317340,
-      "contentHash": "104d1fb469fa5775060d0aec2edabd71",
+      "lastModificationDate": 1664471574418,
+      "contentHash": "13b125197a72c14606a3b1229128d1e6",
       "sourceName": "test/LogisticVRGDA.t.sol",
       "solcConfig": {
         "settings": {
