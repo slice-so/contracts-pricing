@@ -5,8 +5,17 @@ import "../structs/Function.sol";
 import "../structs/Price.sol";
 import "../structs/ProductParams.sol";
 import "../structs/PurchaseParams.sol";
+import "./ISliceCore.sol";
+import "./IFundsModule.sol";
 
 interface IProductsModule {
+  function sliceCore() external view returns (ISliceCore sliceCoreAddress);
+
+  function fundsModule()
+    external
+    view
+    returns (IFundsModule fundsModuleAddress);
+
   function addProduct(
     uint256 slicerId,
     ProductParams memory params,
@@ -39,7 +48,9 @@ interface IProductsModule {
     uint256 slicerId,
     uint256 productId,
     address currency,
-    uint256 quantity
+    uint256 quantity,
+    address buyer,
+    bytes memory data
   ) external view returns (Price memory price);
 
   function validatePurchaseUnits(
