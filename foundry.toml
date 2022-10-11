@@ -13,3 +13,11 @@ ffi = true
 match_test = "FFI"
 no_match_test = "a^"
 fuzz_runs = 1000
+
+[rpc_endpoints]
+goerli = "${RPC_URL_GOERLI}"
+mainnet = "${RPC_URL_MAINNET}"
+
+[etherscan]
+goerli = {key = "${ETHERSCAN_KEY}", url = "https://api-goerli.etherscan.io/api"}
+mainnet = {key = "${ETHERSCAN_KEY}"}
