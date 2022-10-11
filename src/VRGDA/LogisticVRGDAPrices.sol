@@ -9,12 +9,10 @@ import { LogisticVRGDAParams } from "./structs/LogisticVRGDAParams.sol";
 import { VRGDAPrices } from "./VRGDAPrices.sol";
 
 /// @title Logistic Variable Rate Gradual Dutch Auction - Slice pricing strategy
+/// @author jacopo.eth <jacopo@slice.so>
 /// @author transmissions11 <t11s@paradigm.xyz>
 /// @author FrankieIsLost <frankie@paradigm.xyz>
-/// @notice VRGDA with a logistic issuance curve.
-
-/// @author Edited by jjranalli
-/// @notice Price library with different params for each Slice product.
+/// @notice VRGDA with a logistic issuance curve - Price library with different params for each Slice product.
 /// Differences from original implementation:
 /// - Storage-related logic is added to `setProductPrice`
 /// based on availableUnits rather than soldUnits.

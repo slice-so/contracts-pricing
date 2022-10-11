@@ -9,12 +9,10 @@ import { LinearVRGDAParams } from "./structs/LinearVRGDAParams.sol";
 import { VRGDAPrices } from "./VRGDAPrices.sol";
 
 /// @title Linear Variable Rate Gradual Dutch Auction - Slice pricing strategy
+/// @author jacopo.eth <jacopo@slice.so>
 /// @author transmissions11 <t11s@paradigm.xyz>
 /// @author FrankieIsLost <frankie@paradigm.xyz>
-/// @notice VRGDA with a linear issuance curve.
-
-/// @author Edited by jjranalli
-/// @notice Price library with different params for each Slice product.
+/// @notice VRGDA with a linear issuance curve - Price library with different params for each Slice product.
 /// Differences from original implementation:
 /// - Storage-related logic is added to `setProductPrice`
 /// - Adds `productPrice` which uses `getAdjustedVRGDAPrice` to calculate price based on quantity,
