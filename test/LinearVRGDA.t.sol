@@ -156,7 +156,7 @@ contract LinearVRGDATest is DSTestPlus {
   }
 
   function testSetMultiplePrices() public {
-    uint256 productId = 2;
+    uint256 productId_ = 2;
     int256[] memory targetPrices = new int256[](2);
     targetPrices[0] = targetPriceConstant;
     targetPrices[1] = targetPriceConstant;
@@ -167,7 +167,7 @@ contract LinearVRGDATest is DSTestPlus {
     hevm.startPrank(address(0));
     vrgda.setProductPrice(
       slicerId,
-      productId,
+      productId_,
       currencies,
       targetPrices,
       priceDecayPercent,
@@ -182,7 +182,7 @@ contract LinearVRGDATest is DSTestPlus {
 
     (uint256 ethPrice, uint256 currencyPrice) = vrgda.productPrice(
       slicerId,
-      productId,
+      productId_,
       address(0),
       1,
       address(0),
@@ -194,7 +194,7 @@ contract LinearVRGDATest is DSTestPlus {
 
     (uint256 ethPrice2, uint256 currencyPrice2) = vrgda.productPrice(
       slicerId,
-      productId,
+      productId_,
       address(20),
       1,
       address(0),
