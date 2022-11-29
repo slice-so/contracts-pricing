@@ -2741,49 +2741,9 @@
         }
       }
     },
-    "test/mocks/MockProductsModule copy.sol": {
-      "lastModificationDate": 1669746269678,
-      "contentHash": "4f844d62ba30b1f6cd4c764667f400cf",
-      "sourceName": "test/mocks/MockProductsModule copy.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": ">=0.8.0",
-      "artifacts": {
-        "MockProductsModule": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "MockProductsModule copy.sol/MockProductsModule.json"
-        }
-      }
-    },
     "test/mocks/MockProductsModule.sol": {
-      "lastModificationDate": 1669746477717,
-      "contentHash": "9139bacbced0e984cd38f4362bf3c206",
+      "lastModificationDate": 1669746502852,
+      "contentHash": "720b73b2283b378da8db323c2722c7e9",
       "sourceName": "test/mocks/MockProductsModule.sol",
       "solcConfig": {
         "settings": {
