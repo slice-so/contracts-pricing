@@ -13,7 +13,7 @@
   },
   "files": {
     "lib/ds-test/src/test.sol": {
-      "lastModificationDate": 1662233281506,
+      "lastModificationDate": 1669746315968,
       "contentHash": "962996f0e05d5218857a538a62d7c47e",
       "sourceName": "lib/ds-test/src/test.sol",
       "solcConfig": {
@@ -23,7 +23,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -51,8 +52,151 @@
         }
       }
     },
+    "lib/forge-std/src/Script.sol": {
+      "lastModificationDate": 1669746316128,
+      "contentHash": "571dde8775a6214a03d6772ee330ead5",
+      "sourceName": "lib/forge-std/src/Script.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/forge-std/src/StdJson.sol",
+        "lib/forge-std/src/Vm.sol",
+        "lib/forge-std/src/console.sol",
+        "lib/forge-std/src/console2.sol"
+      ],
+      "versionRequirement": ">=0.6.0, <0.9.0",
+      "artifacts": {
+        "Script": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "Script.sol/Script.json"
+        }
+      }
+    },
+    "lib/forge-std/src/StdJson.sol": {
+      "lastModificationDate": 1669746316129,
+      "contentHash": "75c782f20a301ab9827060a03da071e4",
+      "sourceName": "lib/forge-std/src/StdJson.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/forge-std/src/Vm.sol"
+      ],
+      "versionRequirement": ">=0.6.0, <0.9.0",
+      "artifacts": {
+        "stdJson": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "StdJson.sol/stdJson.json"
+        }
+      }
+    },
+    "lib/forge-std/src/Test.sol": {
+      "lastModificationDate": 1669746316130,
+      "contentHash": "6cab65c53a9548c2428a10697fd06dd1",
+      "sourceName": "lib/forge-std/src/Test.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/ds-test/src/test.sol",
+        "lib/forge-std/src/Script.sol",
+        "lib/forge-std/src/StdJson.sol",
+        "lib/forge-std/src/Vm.sol",
+        "lib/forge-std/src/console.sol",
+        "lib/forge-std/src/console2.sol"
+      ],
+      "versionRequirement": ">=0.6.0, <0.9.0",
+      "artifacts": {
+        "Test": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "Test.sol/Test.json"
+        },
+        "stdError": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "Test.sol/stdError.json"
+        },
+        "stdMath": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "Test.sol/stdMath.json"
+        },
+        "stdStorage": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "Test.sol/stdStorage.json"
+        }
+      }
+    },
     "lib/forge-std/src/Vm.sol": {
-      "lastModificationDate": 1663259345969,
+      "lastModificationDate": 1669746316131,
       "contentHash": "4260ba1200fd6c8f55a0ee9935f2d3d0",
       "sourceName": "lib/forge-std/src/Vm.sol",
       "solcConfig": {
@@ -62,7 +206,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -91,7 +236,7 @@
       }
     },
     "lib/forge-std/src/console.sol": {
-      "lastModificationDate": 1662233296355,
+      "lastModificationDate": 1669746316131,
       "contentHash": "100b8a33b917da1147740d7ab8b0ded3",
       "sourceName": "lib/forge-std/src/console.sol",
       "solcConfig": {
@@ -101,7 +246,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -130,7 +276,7 @@
       }
     },
     "lib/forge-std/src/console2.sol": {
-      "lastModificationDate": 1662233296355,
+      "lastModificationDate": 1669746316132,
       "contentHash": "5df91f8e93efbfcccf68973dc1b74a70",
       "sourceName": "lib/forge-std/src/console2.sol",
       "solcConfig": {
@@ -140,7 +286,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -169,7 +316,7 @@
       }
     },
     "lib/solmate/src/test/utils/DSTestPlus.sol": {
-      "lastModificationDate": 1662233249442,
+      "lastModificationDate": 1669746320609,
       "contentHash": "233425f6b5fcb4396d9ecb115f13cfab",
       "sourceName": "lib/solmate/src/test/utils/DSTestPlus.sol",
       "solcConfig": {
@@ -179,7 +326,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -211,7 +359,7 @@
       }
     },
     "lib/solmate/src/test/utils/Hevm.sol": {
-      "lastModificationDate": 1662233249442,
+      "lastModificationDate": 1669746320609,
       "contentHash": "60742aa83f930a4226fbe7676f06b607",
       "sourceName": "lib/solmate/src/test/utils/Hevm.sol",
       "solcConfig": {
@@ -221,7 +369,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -250,7 +399,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol": {
-      "lastModificationDate": 1662238294470,
+      "lastModificationDate": 1669746327968,
       "contentHash": "acfaf24c6bf8e066e5c753514011fc2e",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
       "solcConfig": {
@@ -260,7 +409,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -292,7 +442,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol": {
-      "lastModificationDate": 1662238294473,
+      "lastModificationDate": 1669746327972,
       "contentHash": "cb60157e1058e75780f1dd7c720b18eb",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
       "solcConfig": {
@@ -302,7 +452,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -333,7 +484,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol": {
-      "lastModificationDate": 1662238294470,
+      "lastModificationDate": 1669746327968,
       "contentHash": "eb51ed084f6f7fd2c7098715c5690285",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
       "solcConfig": {
@@ -343,7 +494,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -374,7 +526,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol": {
-      "lastModificationDate": 1662238294470,
+      "lastModificationDate": 1669746327968,
       "contentHash": "a407c5f8256246823385d0d7f0a83f57",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
       "solcConfig": {
@@ -384,7 +536,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -415,7 +568,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol": {
-      "lastModificationDate": 1662238294475,
+      "lastModificationDate": 1669746327975,
       "contentHash": "ba28cf60b52b00d2b3a190bcdf0952bd",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol",
       "solcConfig": {
@@ -425,7 +578,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -454,7 +608,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
-      "lastModificationDate": 1662238294422,
+      "lastModificationDate": 1669746327908,
       "contentHash": "2e908c762a799baea365e68a50500e2c",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
       "solcConfig": {
@@ -464,7 +618,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -493,7 +648,7 @@
       }
     },
     "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol": {
-      "lastModificationDate": 1662238294472,
+      "lastModificationDate": 1669746327969,
       "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
       "sourceName": "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
       "solcConfig": {
@@ -503,7 +658,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -532,8 +688,8 @@
       }
     },
     "script/Deploy.s.sol": {
-      "lastModificationDate": 1665513391004,
-      "contentHash": "aba802763274ffeedd2ac5bb91c68b2f",
+      "lastModificationDate": 1668785373078,
+      "contentHash": "ae21b9131535315835089005323b2f02",
       "sourceName": "script/Deploy.s.sol",
       "solcConfig": {
         "settings": {
@@ -542,7 +698,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -563,15 +720,203 @@
         }
       },
       "imports": [],
-      "versionRequirement": null,
+      "versionRequirement": ">=0.8",
       "artifacts": {
         "Deploy.s": {
           "0.8.15+commit.e14f2714.Darwin.appleclang": "Deploy.s.sol/Deploy.s.json"
         }
       }
     },
+    "src/AdditionalPrice/AdditionalPrice.sol": {
+      "lastModificationDate": 1669746254931,
+      "contentHash": "47a345fdd53f4b4df08a6b1776fadc9d",
+      "sourceName": "src/AdditionalPrice/AdditionalPrice.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
+        "src/AdditionalPrice/structs/AdditionalPriceParams.sol",
+        "src/AdditionalPrice/structs/CurrenciesParams.sol",
+        "src/AdditionalPrice/structs/CurrencyAdditionalParams.sol",
+        "src/Slice/interfaces/IFundsModule.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/ISliceCore.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/interfaces/ISlicerManager.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SliceParams.sol",
+        "src/Slice/structs/SlicerParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "AdditionalPrice": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "AdditionalPrice.sol/AdditionalPrice.json"
+        }
+      }
+    },
+    "src/AdditionalPrice/structs/AdditionalPriceParams.sol": {
+      "lastModificationDate": 1669746254936,
+      "contentHash": "f3b875c3ee590f0ed7e0c180330656fd",
+      "sourceName": "src/AdditionalPrice/structs/AdditionalPriceParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "AdditionalPriceParams": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "AdditionalPriceParams.sol/AdditionalPriceParams.json"
+        }
+      }
+    },
+    "src/AdditionalPrice/structs/CurrenciesParams.sol": {
+      "lastModificationDate": 1669746254937,
+      "contentHash": "bcbab12c4b4b0ec324c77eeb834f1162",
+      "sourceName": "src/AdditionalPrice/structs/CurrenciesParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/AdditionalPrice/structs/AdditionalPriceParams.sol",
+        "src/AdditionalPrice/structs/CurrencyAdditionalParams.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "CurrenciesParams": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "CurrenciesParams.sol/CurrenciesParams.json"
+        }
+      }
+    },
+    "src/AdditionalPrice/structs/CurrencyAdditionalParams.sol": {
+      "lastModificationDate": 1669746254940,
+      "contentHash": "20ab7668169607f6d7981e3738272c04",
+      "sourceName": "src/AdditionalPrice/structs/CurrencyAdditionalParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "CurrencyAdditionalParams": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "CurrencyAdditionalParams.sol/CurrencyAdditionalParams.json"
+        }
+      }
+    },
     "src/Slice/interfaces/IFundsModule.sol": {
-      "lastModificationDate": 1665260528270,
+      "lastModificationDate": 1668785373078,
       "contentHash": "e9d7d0e3184ee300a4841202232dca00",
       "sourceName": "src/Slice/interfaces/IFundsModule.sol",
       "solcConfig": {
@@ -581,7 +926,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -623,7 +969,7 @@
       }
     },
     "src/Slice/interfaces/IProductsModule.sol": {
-      "lastModificationDate": 1665260534707,
+      "lastModificationDate": 1668785373079,
       "contentHash": "2b2ef2fe7cb5a6255756849529844781",
       "sourceName": "src/Slice/interfaces/IProductsModule.sol",
       "solcConfig": {
@@ -633,7 +979,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -682,7 +1029,7 @@
       }
     },
     "src/Slice/interfaces/ISliceCore.sol": {
-      "lastModificationDate": 1665260561085,
+      "lastModificationDate": 1668785373079,
       "contentHash": "b4393ee80133c07537c758cd28b6504e",
       "sourceName": "src/Slice/interfaces/ISliceCore.sol",
       "solcConfig": {
@@ -692,7 +1039,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -733,7 +1081,7 @@
       }
     },
     "src/Slice/interfaces/ISlicer.sol": {
-      "lastModificationDate": 1665260651235,
+      "lastModificationDate": 1668785373079,
       "contentHash": "429d2b48ace94f7e1fc03caa6e888c93",
       "sourceName": "src/Slice/interfaces/ISlicer.sol",
       "solcConfig": {
@@ -743,7 +1091,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -776,7 +1125,7 @@
       }
     },
     "src/Slice/interfaces/ISlicerManager.sol": {
-      "lastModificationDate": 1665260654297,
+      "lastModificationDate": 1668785373080,
       "contentHash": "3b2c48f2eeafbb31e3fab76d46060c77",
       "sourceName": "src/Slice/interfaces/ISlicerManager.sol",
       "solcConfig": {
@@ -786,7 +1135,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -818,7 +1168,7 @@
       }
     },
     "src/Slice/interfaces/utils/IPriceFeed.sol": {
-      "lastModificationDate": 1665260632161,
+      "lastModificationDate": 1668785373080,
       "contentHash": "a0b374602630053dcad7f2e4e9969466",
       "sourceName": "src/Slice/interfaces/utils/IPriceFeed.sol",
       "solcConfig": {
@@ -828,7 +1178,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -859,7 +1210,7 @@
       }
     },
     "src/Slice/interfaces/utils/ISliceProductPrice.sol": {
-      "lastModificationDate": 1665260503408,
+      "lastModificationDate": 1668785373080,
       "contentHash": "2aae20dec0467366441d6312193acaa6",
       "sourceName": "src/Slice/interfaces/utils/ISliceProductPrice.sol",
       "solcConfig": {
@@ -869,7 +1220,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -898,7 +1250,7 @@
       }
     },
     "src/Slice/structs/Balance.sol": {
-      "lastModificationDate": 1662070083253,
+      "lastModificationDate": 1668785373081,
       "contentHash": "8a55f2209d0b8d2adbd9107b383292d9",
       "sourceName": "src/Slice/structs/Balance.sol",
       "solcConfig": {
@@ -908,7 +1260,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -937,7 +1290,7 @@
       }
     },
     "src/Slice/structs/Category.sol": {
-      "lastModificationDate": 1662070083254,
+      "lastModificationDate": 1668785373081,
       "contentHash": "79f464927c54481220ce96aceef42d4f",
       "sourceName": "src/Slice/structs/Category.sol",
       "solcConfig": {
@@ -947,7 +1300,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -976,7 +1330,7 @@
       }
     },
     "src/Slice/structs/CurrencyPrice.sol": {
-      "lastModificationDate": 1662070083254,
+      "lastModificationDate": 1668785373081,
       "contentHash": "bc9bd5826ea92c0d9eab035349ef45ad",
       "sourceName": "src/Slice/structs/CurrencyPrice.sol",
       "solcConfig": {
@@ -986,7 +1340,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1015,7 +1370,7 @@
       }
     },
     "src/Slice/structs/Function.sol": {
-      "lastModificationDate": 1662070083255,
+      "lastModificationDate": 1668785373081,
       "contentHash": "dd62d6f974d576ad2124c0c5e07637db",
       "sourceName": "src/Slice/structs/Function.sol",
       "solcConfig": {
@@ -1025,7 +1380,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1054,7 +1410,7 @@
       }
     },
     "src/Slice/structs/Payee.sol": {
-      "lastModificationDate": 1662070083255,
+      "lastModificationDate": 1668785373081,
       "contentHash": "de6d2bb01c7e7a8417a19fd1ee8c9471",
       "sourceName": "src/Slice/structs/Payee.sol",
       "solcConfig": {
@@ -1064,7 +1420,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1093,7 +1450,7 @@
       }
     },
     "src/Slice/structs/PoolData.sol": {
-      "lastModificationDate": 1665260627479,
+      "lastModificationDate": 1668785373082,
       "contentHash": "b5d4147ed6a6f9656fcd4aef83dab3cb",
       "sourceName": "src/Slice/structs/PoolData.sol",
       "solcConfig": {
@@ -1103,7 +1460,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1132,7 +1490,7 @@
       }
     },
     "src/Slice/structs/Price.sol": {
-      "lastModificationDate": 1662070083256,
+      "lastModificationDate": 1668785373082,
       "contentHash": "080184ac2a724ad0eec934121eb53890",
       "sourceName": "src/Slice/structs/Price.sol",
       "solcConfig": {
@@ -1142,7 +1500,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1171,7 +1530,7 @@
       }
     },
     "src/Slice/structs/Product.sol": {
-      "lastModificationDate": 1662070083256,
+      "lastModificationDate": 1668785373082,
       "contentHash": "5a27b3b8d510040901f7c75f206c4d1d",
       "sourceName": "src/Slice/structs/Product.sol",
       "solcConfig": {
@@ -1181,7 +1540,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1215,7 +1575,7 @@
       }
     },
     "src/Slice/structs/ProductParams.sol": {
-      "lastModificationDate": 1662070083257,
+      "lastModificationDate": 1668785373082,
       "contentHash": "ab6fb1f0584082a1bf8531a064f5631e",
       "sourceName": "src/Slice/structs/ProductParams.sol",
       "solcConfig": {
@@ -1225,7 +1585,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1257,7 +1618,7 @@
       }
     },
     "src/Slice/structs/ProductPrice.sol": {
-      "lastModificationDate": 1662070083257,
+      "lastModificationDate": 1668785373082,
       "contentHash": "32235466b4c4d71f4f7cfe5583634653",
       "sourceName": "src/Slice/structs/ProductPrice.sol",
       "solcConfig": {
@@ -1267,7 +1628,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1296,7 +1658,7 @@
       }
     },
     "src/Slice/structs/PurchaseParams.sol": {
-      "lastModificationDate": 1662070083258,
+      "lastModificationDate": 1668785373082,
       "contentHash": "e385200548046b401b67ce7262befaa3",
       "sourceName": "src/Slice/structs/PurchaseParams.sol",
       "solcConfig": {
@@ -1306,7 +1668,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1335,7 +1698,7 @@
       }
     },
     "src/Slice/structs/Purchases.sol": {
-      "lastModificationDate": 1662070083258,
+      "lastModificationDate": 1668785373083,
       "contentHash": "6317bd77da5aaf96cf5823f38409ed25",
       "sourceName": "src/Slice/structs/Purchases.sol",
       "solcConfig": {
@@ -1345,7 +1708,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1374,7 +1738,7 @@
       }
     },
     "src/Slice/structs/SliceParams.sol": {
-      "lastModificationDate": 1662070083258,
+      "lastModificationDate": 1668785373083,
       "contentHash": "c9c22d2b1b433432961ee3678db9d0fb",
       "sourceName": "src/Slice/structs/SliceParams.sol",
       "solcConfig": {
@@ -1384,7 +1748,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1415,7 +1780,7 @@
       }
     },
     "src/Slice/structs/SlicerParams.sol": {
-      "lastModificationDate": 1662070083259,
+      "lastModificationDate": 1668785373083,
       "contentHash": "5efcf1cdf6dd83ce0b3031a8f53b09d8",
       "sourceName": "src/Slice/structs/SlicerParams.sol",
       "solcConfig": {
@@ -1425,7 +1790,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1459,7 +1825,7 @@
       }
     },
     "src/Slice/structs/SlicerProductInfo.sol": {
-      "lastModificationDate": 1662070083259,
+      "lastModificationDate": 1668785373083,
       "contentHash": "c52e365f94c2726435d952e03c6a2f7c",
       "sourceName": "src/Slice/structs/SlicerProductInfo.sol",
       "solcConfig": {
@@ -1469,7 +1835,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1509,7 +1876,7 @@
       }
     },
     "src/Slice/structs/SubSlicerProduct.sol": {
-      "lastModificationDate": 1662070083260,
+      "lastModificationDate": 1668785373083,
       "contentHash": "a1a3e8db46139515537b7f404aaf8807",
       "sourceName": "src/Slice/structs/SubSlicerProduct.sol",
       "solcConfig": {
@@ -1519,7 +1886,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1548,7 +1916,7 @@
       }
     },
     "src/VRGDA/LinearVRGDAPrices.sol": {
-      "lastModificationDate": 1665512371408,
+      "lastModificationDate": 1668785373084,
       "contentHash": "6b75f6fef84e5b2e4c96843f22453de7",
       "sourceName": "src/VRGDA/LinearVRGDAPrices.sol",
       "solcConfig": {
@@ -1558,7 +1926,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1613,7 +1982,7 @@
       }
     },
     "src/VRGDA/LogisticVRGDAPrices.sol": {
-      "lastModificationDate": 1665513217634,
+      "lastModificationDate": 1668785373084,
       "contentHash": "1b84a50abef2126a2bc1515efc978546",
       "sourceName": "src/VRGDA/LogisticVRGDAPrices.sol",
       "solcConfig": {
@@ -1623,7 +1992,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1678,7 +2048,7 @@
       }
     },
     "src/VRGDA/VRGDAPrices.sol": {
-      "lastModificationDate": 1662380532678,
+      "lastModificationDate": 1668785373084,
       "contentHash": "b31e541f04fac1bafd544e3cc4cc3938",
       "sourceName": "src/VRGDA/VRGDAPrices.sol",
       "solcConfig": {
@@ -1688,7 +2058,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1740,7 +2111,7 @@
       }
     },
     "src/VRGDA/structs/LinearProductParams.sol": {
-      "lastModificationDate": 1662318087377,
+      "lastModificationDate": 1668785373085,
       "contentHash": "ffb3e0d1ada4a8b5aca6c156ded763c0",
       "sourceName": "src/VRGDA/structs/LinearProductParams.sol",
       "solcConfig": {
@@ -1750,7 +2121,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1781,7 +2153,7 @@
       }
     },
     "src/VRGDA/structs/LinearVRGDAParams.sol": {
-      "lastModificationDate": 1662318085208,
+      "lastModificationDate": 1668785373085,
       "contentHash": "24b88b8868692f351c63569658ef09ae",
       "sourceName": "src/VRGDA/structs/LinearVRGDAParams.sol",
       "solcConfig": {
@@ -1791,7 +2163,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1820,8 +2193,8 @@
       }
     },
     "src/VRGDA/structs/LogisticProductParams.sol": {
-      "lastModificationDate": 1662318086543,
-      "contentHash": "450abb437e898ac3e266fa5e2357335b",
+      "lastModificationDate": 1668794240513,
+      "contentHash": "edadaa62ad3dd523a05c8f8b8304c70e",
       "sourceName": "src/VRGDA/structs/LogisticProductParams.sol",
       "solcConfig": {
         "settings": {
@@ -1830,7 +2203,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1861,7 +2235,7 @@
       }
     },
     "src/VRGDA/structs/LogisticVRGDAParams.sol": {
-      "lastModificationDate": 1662318085790,
+      "lastModificationDate": 1668785373085,
       "contentHash": "bab774055951c7639e5a3296aca227fe",
       "sourceName": "src/VRGDA/structs/LogisticVRGDAParams.sol",
       "solcConfig": {
@@ -1871,7 +2245,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1900,7 +2275,7 @@
       }
     },
     "src/utils/SignedWadMath.sol": {
-      "lastModificationDate": 1661989408851,
+      "lastModificationDate": 1668785373086,
       "contentHash": "8f176fb16f1c7f5af416a5db1fbe4006",
       "sourceName": "src/utils/SignedWadMath.sol",
       "solcConfig": {
@@ -1910,7 +2285,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1938,8 +2314,82 @@
         }
       }
     },
+    "test/AdditionalPrice.t.sol": {
+      "lastModificationDate": 1669746363964,
+      "contentHash": "e76d9a47bdfe287375b2e65b974a1b72",
+      "sourceName": "test/AdditionalPrice.t.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/ds-test/src/test.sol",
+        "lib/forge-std/src/Script.sol",
+        "lib/forge-std/src/StdJson.sol",
+        "lib/forge-std/src/Test.sol",
+        "lib/forge-std/src/Vm.sol",
+        "lib/forge-std/src/console.sol",
+        "lib/forge-std/src/console2.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol",
+        "node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
+        "src/AdditionalPrice/AdditionalPrice.sol",
+        "src/AdditionalPrice/structs/AdditionalPriceParams.sol",
+        "src/AdditionalPrice/structs/CurrenciesParams.sol",
+        "src/AdditionalPrice/structs/CurrencyAdditionalParams.sol",
+        "src/Slice/interfaces/IFundsModule.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/ISliceCore.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/interfaces/ISlicerManager.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SliceParams.sol",
+        "src/Slice/structs/SlicerParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "test/mocks/MockProductsModule.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "TestAdditionalPrice": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "AdditionalPrice.t.sol/TestAdditionalPrice.json"
+        }
+      }
+    },
     "test/LinearVRGDA.t.sol": {
-      "lastModificationDate": 1665512000514,
+      "lastModificationDate": 1668785373086,
       "contentHash": "3608397838dc2ba46286e49c29615ca7",
       "sourceName": "test/LinearVRGDA.t.sol",
       "solcConfig": {
@@ -1949,7 +2399,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2010,7 +2461,7 @@
       }
     },
     "test/LogisticVRGDA.t.sol": {
-      "lastModificationDate": 1664471574418,
+      "lastModificationDate": 1668785373086,
       "contentHash": "13b125197a72c14606a3b1229128d1e6",
       "sourceName": "test/LogisticVRGDA.t.sol",
       "solcConfig": {
@@ -2020,7 +2471,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2082,7 +2534,7 @@
       }
     },
     "test/correctness/LinearVRGDACorrectness.t.sol": {
-      "lastModificationDate": 1664470236812,
+      "lastModificationDate": 1668785373087,
       "contentHash": "dd27cfe01ed123538902da6fa1b08c72",
       "sourceName": "test/correctness/LinearVRGDACorrectness.t.sol",
       "solcConfig": {
@@ -2092,7 +2544,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2155,7 +2608,7 @@
       }
     },
     "test/mocks/MockLinearVRGDAPrices.sol": {
-      "lastModificationDate": 1662320450293,
+      "lastModificationDate": 1668785373088,
       "contentHash": "6bb60f782fa7ae4557e4723599eaeb8c",
       "sourceName": "test/mocks/MockLinearVRGDAPrices.sol",
       "solcConfig": {
@@ -2165,7 +2618,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2221,7 +2675,7 @@
       }
     },
     "test/mocks/MockLogisticVRGDAPrices.sol": {
-      "lastModificationDate": 1662320450293,
+      "lastModificationDate": 1668785373088,
       "contentHash": "678c812d46ac68066336678b20843041",
       "sourceName": "test/mocks/MockLogisticVRGDAPrices.sol",
       "solcConfig": {
@@ -2231,7 +2685,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2286,9 +2741,49 @@
         }
       }
     },
+    "test/mocks/MockProductsModule copy.sol": {
+      "lastModificationDate": 1669746269678,
+      "contentHash": "4f844d62ba30b1f6cd4c764667f400cf",
+      "sourceName": "test/mocks/MockProductsModule copy.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": ">=0.8.0",
+      "artifacts": {
+        "MockProductsModule": {
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "MockProductsModule copy.sol/MockProductsModule.json"
+        }
+      }
+    },
     "test/mocks/MockProductsModule.sol": {
-      "lastModificationDate": 1662301982293,
-      "contentHash": "70f50c5be67b51d333cace4a47c8fcbb",
+      "lastModificationDate": 1669746477717,
+      "contentHash": "9139bacbced0e984cd38f4362bf3c206",
       "sourceName": "test/mocks/MockProductsModule.sol",
       "solcConfig": {
         "settings": {
@@ -2297,7 +2792,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
