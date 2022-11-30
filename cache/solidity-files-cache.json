@@ -728,8 +728,8 @@
       }
     },
     "src/AdditionalPrice/AdditionalPrice.sol": {
-      "lastModificationDate": 1669746254931,
-      "contentHash": "47a345fdd53f4b4df08a6b1776fadc9d",
+      "lastModificationDate": 1669824123776,
+      "contentHash": "bf58da7ed9c59dfa0df3e8dd5870746b",
       "sourceName": "src/AdditionalPrice/AdditionalPrice.sol",
       "solcConfig": {
         "settings": {
@@ -793,8 +793,8 @@
       }
     },
     "src/AdditionalPrice/structs/AdditionalPriceParams.sol": {
-      "lastModificationDate": 1669746254936,
-      "contentHash": "f3b875c3ee590f0ed7e0c180330656fd",
+      "lastModificationDate": 1669823710666,
+      "contentHash": "66e53e0014877788ec6e1c723319e061",
       "sourceName": "src/AdditionalPrice/structs/AdditionalPriceParams.sol",
       "solcConfig": {
         "settings": {
@@ -833,8 +833,8 @@
       }
     },
     "src/AdditionalPrice/structs/CurrenciesParams.sol": {
-      "lastModificationDate": 1669746254937,
-      "contentHash": "bcbab12c4b4b0ec324c77eeb834f1162",
+      "lastModificationDate": 1669823829889,
+      "contentHash": "0707114eb9bc1892ee023da8d0f84808",
       "sourceName": "src/AdditionalPrice/structs/CurrenciesParams.sol",
       "solcConfig": {
         "settings": {
@@ -2315,8 +2315,8 @@
       }
     },
     "test/AdditionalPrice.t.sol": {
-      "lastModificationDate": 1669746363964,
-      "contentHash": "e76d9a47bdfe287375b2e65b974a1b72",
+      "lastModificationDate": 1669822261518,
+      "contentHash": "aacb5d0a8d027a6145086ddd08a2aad8",
       "sourceName": "test/AdditionalPrice.t.sol",
       "solcConfig": {
         "settings": {
@@ -2389,7 +2389,7 @@
       }
     },
     "test/LinearVRGDA.t.sol": {
-      "lastModificationDate": 1668785373086,
+      "lastModificationDate": 1669822233385,
       "contentHash": "3608397838dc2ba46286e49c29615ca7",
       "sourceName": "test/LinearVRGDA.t.sol",
       "solcConfig": {
@@ -2742,8 +2742,8 @@
       }
     },
     "test/mocks/MockProductsModule.sol": {
-      "lastModificationDate": 1669746502852,
-      "contentHash": "720b73b2283b378da8db323c2722c7e9",
+      "lastModificationDate": 1669822258204,
+      "contentHash": "4f844d62ba30b1f6cd4c764667f400cf",
       "sourceName": "test/mocks/MockProductsModule.sol",
       "solcConfig": {
         "settings": {
