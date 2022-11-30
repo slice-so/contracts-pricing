@@ -18,6 +18,16 @@ Slice-specific implementations modified from https://github.com/transmissions11/
 - [Linear VRGDA](/src/VRGDA/LinearVRGDAPrices.sol)
 - [Logistic VRGDA](/src/VRGDA/LogisticVRGDAPrices.sol)
 
+### Additional price
+
+This contract allows to calculate price based on user inputs.
+Strategies:
+
+- Custom -> Additional price value is set for each currency and each input
+- Percentage -> Percentage value to add for each currency and each input
+
+- [AdditionalPrice](/src/AdditionalPrice/AdditionalPrice.sol)
+
 ## Contributing
 
 You will need a copy of [Foundry](https://github.com/foundry-rs/foundry) installed before proceeding. See the [installation guide](https://github.com/foundry-rs/foundry#installation) for details.

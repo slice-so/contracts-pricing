@@ -5,16 +5,15 @@ contract MockProductsModule {
   function isProductOwner(
     uint256,
     uint256,
-    address account
+    address
   ) external pure returns (bool isAllowed) {
-    isAllowed = account == address(0);
+    isAllowed = true;
   }
 
-  function availableUnits(uint256, uint256)
-    external
-    pure
-    returns (uint256 units, bool isInfinite)
-  {
+  function availableUnits(
+    uint256,
+    uint256
+  ) external pure returns (uint256 units, bool isInfinite) {
     units = 6392;
     isInfinite = false;
   }
