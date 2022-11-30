@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {CurrencyAdditionalParams} from './CurrencyAdditionalParams.sol';
-import {Strategy} from './AdditionalPriceParams.sol';
+import { CurrencyAdditionalParams } from "./CurrencyAdditionalParams.sol";
+import { Strategy } from "./AdditionalPriceParams.sol";
 
 /// @param currency currency address for a product
 /// @param basePrice base price for a currency

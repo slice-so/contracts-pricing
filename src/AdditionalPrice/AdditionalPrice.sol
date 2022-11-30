@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import {ISliceProductPrice} from '../Slice/interfaces/utils/ISliceProductPrice.sol';
-import {IProductsModule} from '../Slice/interfaces/IProductsModule.sol';
-import './structs/AdditionalPriceParams.sol';
-import './structs/CurrenciesParams.sol';
+import { ISliceProductPrice } from "../Slice/interfaces/utils/ISliceProductPrice.sol";
+import { IProductsModule } from "../Slice/interfaces/IProductsModule.sol";
+import "./structs/AdditionalPriceParams.sol";
+import "./structs/CurrenciesParams.sol";
 
 /**
   @title Adjust product price based on custom input - Slice pricing strategy
@@ -20,6 +20,12 @@ import './structs/CurrenciesParams.sol';
  */
 
 contract AdditionalPrice is ISliceProductPrice {
+  //*********************************************************************//
+  // --------------------------- custom errors ------------------------- //
+  //*********************************************************************//
+
+  error OVERFLOW();
+
   //*********************************************************************//
   // ------------------------ immutable storage ------------------------ //
   //*********************************************************************//
@@ -60,8 +66,12 @@ contract AdditionalPrice is ISliceProductPrice {
   */
   modifier onlyProductOwner(uint256 _slicerId, uint256 _productId) {
     require(
-      IProductsModule(productsModuleAddress).isProductOwner(_slicerId, _productId, msg.sender),
-      'NOT_PRODUCT_OWNER'
+      IProductsModule(productsModuleAddress).isProductOwner(
+        _slicerId,
+        _productId,
+        msg.sender
+      ),
+      "NOT_PRODUCT_OWNER"
     );
     _;
   }
@@ -88,12 +98,15 @@ contract AdditionalPrice is ISliceProductPrice {
     /// For each strategy, grouped by currency
     for (uint256 i; i < _currenciesParams.length; ) {
       /// Access to AdditionalPriceParams for a specific slice, product and currency
-      AdditionalPriceParams storage params = productParams[_slicerId][_productId][
-        _currenciesParams[i].currency
-      ];
+      AdditionalPriceParams storage params = productParams[_slicerId][
+        _productId
+      ][_currenciesParams[i].currency];
+
+      /// Safe cast basePrice
+      if (_currenciesParams[i].basePrice > type(uint240).max) revert OVERFLOW();
 
       /// Save currency base price and strategy values
-      params.basePrice = _currenciesParams[i].basePrice;
+      params.basePrice = uint240(_currenciesParams[i].basePrice);
       params.strategy = _currenciesParams[i].strategy;
       params.dependsOnQuantity = _currenciesParams[i].dependsOnQuantity;
 
@@ -105,7 +118,8 @@ contract AdditionalPrice is ISliceProductPrice {
         if (_currencyAdd[j].customInputId == 0) revert();
 
         /// Save the additional value for the j input
-        params.additionalPrices[_currencyAdd[j].customInputId] = _currencyAdd[j].additionalPrice;
+        params.additionalPrices[_currencyAdd[j].customInputId] = _currencyAdd[j]
+          .additionalPrice;
 
         unchecked {
           ++j;
@@ -142,9 +156,12 @@ contract AdditionalPrice is ISliceProductPrice {
     bytes memory _data /// data in here corresponds to the choosen customId
   ) public view override returns (uint256 ethPrice, uint256 currencyPrice) {
     /// get basePrice, strategy and dependsOnQuantity from storage
-    uint256 basePrice = productParams[_slicerId][_productId][_currency].basePrice;
-    Strategy strategy = productParams[_slicerId][_productId][_currency].strategy;
-    bool dependsOnQuantity = productParams[_slicerId][_productId][_currency].dependsOnQuantity;
+    uint256 basePrice = productParams[_slicerId][_productId][_currency]
+      .basePrice;
+    Strategy strategy = productParams[_slicerId][_productId][_currency]
+      .strategy;
+    bool dependsOnQuantity = productParams[_slicerId][_productId][_currency]
+      .dependsOnQuantity;
     /// decode the customId from byte to uint
     uint256 customId = abi.decode(_data, (uint256));
 
@@ -152,11 +169,18 @@ contract AdditionalPrice is ISliceProductPrice {
     uint256 additionalPrice;
     /// if customId is 0 additionalPrice is 0, this function returns the basePrice * quantity
     if (customId != 0) {
-      additionalPrice = productParams[_slicerId][_productId][_currency].additionalPrices[customId];
+      additionalPrice = productParams[_slicerId][_productId][_currency]
+        .additionalPrices[customId];
     }
 
     uint256 price = additionalPrice != 0
-      ? getPriceBasedOnStrategy(strategy, dependsOnQuantity, basePrice, additionalPrice, _quantity)
+      ? getPriceBasedOnStrategy(
+        strategy,
+        dependsOnQuantity,
+        basePrice,
+        additionalPrice,
+        _quantity
+      )
       : _quantity * basePrice;
 
     // Set ethPrice or currencyPrice based on chosen currency
@@ -195,7 +219,10 @@ contract AdditionalPrice is ISliceProductPrice {
         : _quantity * _basePrice + _additionalPrice;
     } else if (_strategy == Strategy.Percentage) {
       _strategyPrice = _dependsOnQuantity
-        ? _quantity * _basePrice + (_quantity * _basePrice * _additionalPrice) / 100
+        ? _quantity *
+          _basePrice +
+          (_quantity * _basePrice * _additionalPrice) /
+          100
         : _quantity * _basePrice + (_basePrice * _additionalPrice) / 100;
     } else {
       _strategyPrice = _quantity * _basePrice;
