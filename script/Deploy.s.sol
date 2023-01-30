@@ -1,17 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8;
 
-// TODO: Verify goerli deployments
-// staging
-// "LinearVRGDA": "0x2Dcc4D44812Ab8c3a6AccDE007A44A79b7278d36",
-// "LogisticVRGDA": "0x7F9699ACc1340791b262D89D2A2f52645F6a7Ade"
-
-// testnet
-// "LinearVRGDA": "0x108E201E906521F7811B77479A00acAFb803959d",
-// "LogisticVRGDA": "0xb47968E526A503f64966Fd1562ea9cA54d5278aF"
-
-//////////////////////////////////////////////////////////////////////////////////////
-
 import "forge-std/Script.sol";
 
 import { LinearVRGDAPrices } from "../src/VRGDA/LinearVRGDAPrices.sol";
