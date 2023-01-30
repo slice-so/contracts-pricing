@@ -5,11 +5,11 @@ import "../structs/Product.sol";
 
 import "../interfaces/ISlicer.sol";
 
-import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import "@openzeppelin-upgradeable/utils/CountersUpgradeable.sol";
 
 struct SlicerProductInfo {
-    CountersUpgradeable.Counter productCounter;
-    mapping(uint256 => Product) products;
-    uint256 ethBalance;
-    address slicerAddress;
+  CountersUpgradeable.Counter productCounter;
+  mapping(uint256 => Product) products;
+  uint256 ethBalance;
+  address slicerAddress;
 }

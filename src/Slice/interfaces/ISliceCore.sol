@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import "./ISlicerManager.sol";
 import "../structs/SliceParams.sol";
 import "../structs/SlicerParams.sol";
-import "@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol";
+import "@openzeppelin-upgradeable/interfaces/IERC1155Upgradeable.sol";
+import "@openzeppelin-upgradeable/interfaces/IERC2981Upgradeable.sol";
 
 interface ISliceCore is IERC1155Upgradeable, IERC2981Upgradeable {
   function slicerManager()
