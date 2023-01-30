@@ -13,7 +13,7 @@
   },
   "files": {
     "lib/ds-test/src/test.sol": {
-      "lastModificationDate": 1662233281506,
+      "lastModificationDate": 1662380313227,
       "contentHash": "962996f0e05d5218857a538a62d7c47e",
       "sourceName": "lib/ds-test/src/test.sol",
       "solcConfig": {
@@ -23,7 +23,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -62,7 +63,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -91,7 +93,7 @@
       }
     },
     "lib/forge-std/src/console.sol": {
-      "lastModificationDate": 1662233296355,
+      "lastModificationDate": 1662380313284,
       "contentHash": "100b8a33b917da1147740d7ab8b0ded3",
       "sourceName": "lib/forge-std/src/console.sol",
       "solcConfig": {
@@ -101,7 +103,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -130,7 +133,7 @@
       }
     },
     "lib/forge-std/src/console2.sol": {
-      "lastModificationDate": 1662233296355,
+      "lastModificationDate": 1662380313284,
       "contentHash": "5df91f8e93efbfcccf68973dc1b74a70",
       "sourceName": "lib/forge-std/src/console2.sol",
       "solcConfig": {
@@ -140,7 +143,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -169,7 +173,7 @@
       }
     },
     "lib/solmate/src/test/utils/DSTestPlus.sol": {
-      "lastModificationDate": 1662233249442,
+      "lastModificationDate": 1662380313539,
       "contentHash": "233425f6b5fcb4396d9ecb115f13cfab",
       "sourceName": "lib/solmate/src/test/utils/DSTestPlus.sol",
       "solcConfig": {
@@ -179,7 +183,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -211,7 +216,7 @@
       }
     },
     "lib/solmate/src/test/utils/Hevm.sol": {
-      "lastModificationDate": 1662233249442,
+      "lastModificationDate": 1662380313539,
       "contentHash": "60742aa83f930a4226fbe7676f06b607",
       "sourceName": "lib/solmate/src/test/utils/Hevm.sol",
       "solcConfig": {
@@ -221,7 +226,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -260,7 +266,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -302,7 +309,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -343,7 +351,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -384,7 +393,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -425,7 +435,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -464,7 +475,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -503,7 +515,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -532,8 +545,8 @@
       }
     },
     "script/Deploy.s.sol": {
-      "lastModificationDate": 1665513391004,
-      "contentHash": "aba802763274ffeedd2ac5bb91c68b2f",
+      "lastModificationDate": 1665514630371,
+      "contentHash": "ae21b9131535315835089005323b2f02",
       "sourceName": "script/Deploy.s.sol",
       "solcConfig": {
         "settings": {
@@ -542,7 +555,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -563,7 +577,7 @@
         }
       },
       "imports": [],
-      "versionRequirement": null,
+      "versionRequirement": ">=0.8",
       "artifacts": {
         "Deploy.s": {
           "0.8.15+commit.e14f2714.Darwin.appleclang": "Deploy.s.sol/Deploy.s.json"
@@ -581,7 +595,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -633,7 +648,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -692,7 +708,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -743,7 +760,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -786,7 +804,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -828,7 +847,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -869,7 +889,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -908,7 +929,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -947,7 +969,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -986,7 +1009,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1025,7 +1049,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1064,7 +1089,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1103,7 +1129,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1142,7 +1169,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1181,7 +1209,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1225,7 +1254,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1267,7 +1297,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1306,7 +1337,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1345,7 +1377,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1384,7 +1417,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1425,7 +1459,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1469,7 +1504,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1519,7 +1555,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1548,8 +1585,8 @@
       }
     },
     "src/VRGDA/LinearVRGDAPrices.sol": {
-      "lastModificationDate": 1665512371408,
-      "contentHash": "6b75f6fef84e5b2e4c96843f22453de7",
+      "lastModificationDate": 1675105169071,
+      "contentHash": "5efe29f958ed04814b7b9f2a22ab1233",
       "sourceName": "src/VRGDA/LinearVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1558,7 +1595,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1623,7 +1661,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1678,8 +1717,8 @@
       }
     },
     "src/VRGDA/VRGDAPrices.sol": {
-      "lastModificationDate": 1662380532678,
-      "contentHash": "b31e541f04fac1bafd544e3cc4cc3938",
+      "lastModificationDate": 1675105406148,
+      "contentHash": "473167ac6904fdac80530cf2b165d3c8",
       "sourceName": "src/VRGDA/VRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -1688,7 +1727,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1740,8 +1780,8 @@
       }
     },
     "src/VRGDA/structs/LinearProductParams.sol": {
-      "lastModificationDate": 1662318087377,
-      "contentHash": "ffb3e0d1ada4a8b5aca6c156ded763c0",
+      "lastModificationDate": 1675103866508,
+      "contentHash": "2b9830c4691947bb439554fed329bcf0",
       "sourceName": "src/VRGDA/structs/LinearProductParams.sol",
       "solcConfig": {
         "settings": {
@@ -1750,7 +1790,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1781,8 +1822,8 @@
       }
     },
     "src/VRGDA/structs/LinearVRGDAParams.sol": {
-      "lastModificationDate": 1662318085208,
-      "contentHash": "24b88b8868692f351c63569658ef09ae",
+      "lastModificationDate": 1675105160860,
+      "contentHash": "05062e457cdc91057b739bcb0481dc14",
       "sourceName": "src/VRGDA/structs/LinearVRGDAParams.sol",
       "solcConfig": {
         "settings": {
@@ -1791,7 +1832,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1820,7 +1862,7 @@
       }
     },
     "src/VRGDA/structs/LogisticProductParams.sol": {
-      "lastModificationDate": 1662318086543,
+      "lastModificationDate": 1662320450291,
       "contentHash": "450abb437e898ac3e266fa5e2357335b",
       "sourceName": "src/VRGDA/structs/LogisticProductParams.sol",
       "solcConfig": {
@@ -1830,7 +1872,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1861,7 +1904,7 @@
       }
     },
     "src/VRGDA/structs/LogisticVRGDAParams.sol": {
-      "lastModificationDate": 1662318085790,
+      "lastModificationDate": 1662320450292,
       "contentHash": "bab774055951c7639e5a3296aca227fe",
       "sourceName": "src/VRGDA/structs/LogisticVRGDAParams.sol",
       "solcConfig": {
@@ -1871,7 +1914,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1900,7 +1944,7 @@
       }
     },
     "src/utils/SignedWadMath.sol": {
-      "lastModificationDate": 1661989408851,
+      "lastModificationDate": 1662320450290,
       "contentHash": "8f176fb16f1c7f5af416a5db1fbe4006",
       "sourceName": "src/utils/SignedWadMath.sol",
       "solcConfig": {
@@ -1910,7 +1954,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1939,8 +1984,8 @@
       }
     },
     "test/LinearVRGDA.t.sol": {
-      "lastModificationDate": 1665512000514,
-      "contentHash": "3608397838dc2ba46286e49c29615ca7",
+      "lastModificationDate": 1675105532320,
+      "contentHash": "88000e2310fbfb6e74b748d278f9f8cb",
       "sourceName": "test/LinearVRGDA.t.sol",
       "solcConfig": {
         "settings": {
@@ -1949,7 +1994,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1971,6 +2017,7 @@
       },
       "imports": [
         "lib/ds-test/src/test.sol",
+        "lib/forge-std/src/console2.sol",
         "lib/solmate/src/test/utils/DSTestPlus.sol",
         "lib/solmate/src/test/utils/Hevm.sol",
         "node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1155Upgradeable.sol",
@@ -2020,7 +2067,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2082,8 +2130,8 @@
       }
     },
     "test/correctness/LinearVRGDACorrectness.t.sol": {
-      "lastModificationDate": 1664470236812,
-      "contentHash": "dd27cfe01ed123538902da6fa1b08c72",
+      "lastModificationDate": 1675105441069,
+      "contentHash": "6ce984c672d74bfeb0ef6958d81ee51c",
       "sourceName": "test/correctness/LinearVRGDACorrectness.t.sol",
       "solcConfig": {
         "settings": {
@@ -2092,7 +2140,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2155,8 +2204,8 @@
       }
     },
     "test/mocks/MockLinearVRGDAPrices.sol": {
-      "lastModificationDate": 1662320450293,
-      "contentHash": "6bb60f782fa7ae4557e4723599eaeb8c",
+      "lastModificationDate": 1675104351736,
+      "contentHash": "86717d3adb664ccc8146fdd3f619f376",
       "sourceName": "test/mocks/MockLinearVRGDAPrices.sol",
       "solcConfig": {
         "settings": {
@@ -2165,7 +2214,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2231,7 +2281,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -2287,7 +2338,7 @@
       }
     },
     "test/mocks/MockProductsModule.sol": {
-      "lastModificationDate": 1662301982293,
+      "lastModificationDate": 1662320450294,
       "contentHash": "70f50c5be67b51d333cace4a47c8fcbb",
       "sourceName": "test/mocks/MockProductsModule.sol",
       "solcConfig": {
@@ -2297,7 +2348,8 @@
             "runs": 1000000
           },
           "metadata": {
-            "bytecodeHash": "none"
+            "bytecodeHash": "none",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {

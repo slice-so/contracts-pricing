@@ -8,8 +8,8 @@ import { LinearVRGDAParams } from "./LinearVRGDAParams.sol";
 /// @param decayConstant Precomputed constant that allows us to rewrite a pow() as an exp().
 /// @param pricingParams See `LinearVRGDAParams`
 struct LinearProductParams {
-  uint256 startTime;
-  uint256 startUnits;
-  int256 decayConstant;
+  uint40 startTime;
+  uint32 startUnits;
+  int184 decayConstant;
   mapping(address => LinearVRGDAParams) pricingParams;
 }

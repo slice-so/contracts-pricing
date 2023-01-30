@@ -13,10 +13,6 @@ import { VRGDAPrices } from "./VRGDAPrices.sol";
 /// @author transmissions11 <t11s@paradigm.xyz>
 /// @author FrankieIsLost <frankie@paradigm.xyz>
 /// @notice VRGDA with a linear issuance curve - Price library with different params for each Slice product.
-/// Differences from original implementation:
-/// - Storage-related logic is added to `setProductPrice`
-/// - Adds `productPrice` which uses `getAdjustedVRGDAPrice` to calculate price based on quantity,
-/// and derives sold units from available ones
 contract LinearVRGDAPrices is VRGDAPrices {
   /*//////////////////////////////////////////////////////////////
                                 STORAGE
@@ -42,24 +38,24 @@ contract LinearVRGDAPrices is VRGDAPrices {
   /// @param slicerId ID of the slicer to set the price params for.
   /// @param productId ID of the product to set the price params for.
   /// @param currencies currencies of the product to set the price params for.
-  /// @param targetPrices for a product if sold on pace, scaled by 1e18.
+  /// @param linearParams see `LinearVRGDAParams`.
   /// @param priceDecayPercent The percent price decays per unit of time with no sales, scaled by 1e18.
-  /// @param perTimeUnit The number of products to target selling in 1 full unit of time, scaled by 1e18.
   function setProductPrice(
     uint256 slicerId,
     uint256 productId,
-    address[] memory currencies,
-    int256[] memory targetPrices,
-    int256 priceDecayPercent,
-    int256 perTimeUnit
+    address[] calldata currencies,
+    LinearVRGDAParams[] calldata linearParams,
+    int256 priceDecayPercent
   ) external onlyProductOwner(slicerId, productId) {
-    require(targetPrices.length == currencies.length, "INVALID_INPUTS");
+    require(linearParams.length == currencies.length, "INVALID_INPUTS");
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
     // The decay constant must be negative for VRGDAs to work.
     require(decayConstant < 0, "NON_NEGATIVE_DECAY_CONSTANT");
+    require(decayConstant >= type(int184).min, "MIN_DECAY_CONSTANT_EXCEEDED");
 
-    // Get product availability and isInfinite
+    /// Get product availability and isInfinite
+    /// @dev available units is a uint32
     (uint256 availableUnits, bool isInfinite) = IProductsModule(
       _productsModuleAddress
     ).availableUnits(slicerId, productId);
@@ -68,15 +64,15 @@ contract LinearVRGDAPrices is VRGDAPrices {
     require(!isInfinite, "NOT_FINITE_AVAILABILITY");
 
     // Set product params
-    _productParams[slicerId][productId].startTime = block.timestamp;
-    _productParams[slicerId][productId].startUnits = availableUnits;
-    _productParams[slicerId][productId].decayConstant = decayConstant;
+    _productParams[slicerId][productId].startTime = uint40(block.timestamp);
+    _productParams[slicerId][productId].startUnits = uint32(availableUnits);
+    _productParams[slicerId][productId].decayConstant = int184(decayConstant);
 
     // Set currency params
     for (uint256 i; i < currencies.length; ) {
       _productParams[slicerId][productId].pricingParams[
         currencies[i]
-      ] = LinearVRGDAParams(targetPrices[i], perTimeUnit);
+      ] = linearParams[i];
 
       unchecked {
         ++i;
@@ -143,6 +139,7 @@ contract LinearVRGDAPrices is VRGDAPrices {
         toDaysWadUnsafe(block.timestamp - productParams.startTime),
         soldUnits,
         pricingParams.perTimeUnit,
+        pricingParams.min,
         quantity
       );
     } else {
@@ -152,6 +149,7 @@ contract LinearVRGDAPrices is VRGDAPrices {
         toDaysWadUnsafe(block.timestamp - productParams.startTime),
         soldUnits,
         pricingParams.perTimeUnit,
+        pricingParams.min,
         quantity
       );
     }

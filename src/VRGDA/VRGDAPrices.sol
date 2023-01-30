@@ -6,20 +6,9 @@ import { ISliceProductPrice } from "../Slice/interfaces/utils/ISliceProductPrice
 import { IProductsModule } from "../Slice/interfaces/IProductsModule.sol";
 
 /// @title Variable Rate Gradual Dutch Auction - Slice pricing strategy
-/// @author transmissions11 <t11s@paradigm.xyz>
-/// @author FrankieIsLost <frankie@paradigm.xyz>
-/// @notice Sell tokens roughly according to an issuance schedule.
+/// @author jacopo <jacopo@slice.so>
+/// @notice Price library with configurable params for each Slice product.
 
-/// @author Edited by jjranalli
-/// @notice Price library with different params for each Slice product.
-/// Differences from original implementation:
-/// - Inherits `ISliceProductPrice` interface
-/// - Constructor logic sets Slice contract addresses in storage
-/// - Storage-related logic was moved from the constructor into `setProductPrice` in implementations
-/// of this contract
-/// - Adds product-dependent variables to `getVRGDAPrice` and `getTargetSaleTime`
-/// - Adds `getAdjustedVRGDAPrice` to calculate price based on quantity
-/// - Adds onlyProductOwner modifier used to verify sender's permissions on Slice before setting product params
 abstract contract VRGDAPrices is ISliceProductPrice {
   /*//////////////////////////////////////////////////////////////
                                  STORAGE
@@ -63,23 +52,27 @@ abstract contract VRGDAPrices is ISliceProductPrice {
   /// @param timeSinceStart Time passed since the VRGDA began, scaled by 1e18.
   /// @param sold The total number of products sold so far.
   /// @param timeFactor Time-dependent factor used to calculate target sale time.
+  /// @param min minimum price to be paid for a token, scaled by 1e18
   /// @return The price of a product according to VRGDA, scaled by 1e18.
   function getVRGDAPrice(
     int256 targetPrice,
     int256 decayConstant,
     int256 timeSinceStart,
     uint256 sold,
-    int256 timeFactor
+    int256 timeFactor,
+    uint256 min
   ) public view virtual returns (uint256) {
     unchecked {
       // prettier-ignore
-      return uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
+      uint256 VRGDAPrice =  uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
                 // We use sold + 1 as the VRGDA formula's n param represents the nth product and sold is the 
                 // n-1th product.
                 timeSinceStart - getTargetSaleTime(
                   toWadUnsafe(sold + 1), timeFactor
                 )
             ))));
+
+      return VRGDAPrice > min ? VRGDAPrice : min;
     }
   }
 
@@ -101,6 +94,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
   /// @param timeSinceStart Time passed since the VRGDA began, scaled by 1e18.
   /// @param sold The total number of products sold so far.
   /// @param timeFactor Time-dependent factor used to calculate target sale time.
+  /// @param min minimum price to be paid for a token, scaled by 1e18
   /// @param quantity Number of units purchased
   /// @return price of product * quantity according to VRGDA, scaled by 1e18.
   function getAdjustedVRGDAPrice(
@@ -109,6 +103,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
     int256 timeSinceStart,
     uint256 sold,
     int256 timeFactor,
+    uint256 min,
     uint256 quantity
   ) public view virtual returns (uint256 price) {
     for (uint256 i; i < quantity; ) {
@@ -117,7 +112,8 @@ abstract contract VRGDAPrices is ISliceProductPrice {
         decayConstant,
         timeSinceStart,
         sold + i,
-        timeFactor
+        timeFactor,
+        min
       );
 
       unchecked {

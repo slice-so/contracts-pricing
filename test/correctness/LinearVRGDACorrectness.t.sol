@@ -5,7 +5,7 @@ import { DSTestPlus } from "lib/solmate/src/test/utils/DSTestPlus.sol";
 
 import { wadLn, toWadUnsafe } from "src/utils/SignedWadMath.sol";
 
-import { MockLinearVRGDAPrices } from "../mocks/MockLinearVRGDAPrices.sol";
+import "../mocks/MockLinearVRGDAPrices.sol";
 import { MockProductsModule } from "../mocks/MockProductsModule.sol";
 
 import { console } from "lib/forge-std/src/console.sol";
@@ -15,14 +15,15 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
   Vm public constant vm = Vm(address(hevm));
 
   // Sample parameters for differential fuzzing campaign.
-  uint256 immutable maxTimeframe = 356 days * 10;
-  uint256 immutable maxSellable = 10000;
+  uint256 constant maxTimeframe = 356 days * 10;
+  uint256 constant maxSellable = 10000;
 
   uint256 constant slicerId = 0;
   uint256 constant productId = 1;
-  int256 immutable targetPriceConstant = 69.42e18;
-  int256 immutable priceDecayPercent = 0.31e18;
-  int256 immutable perTimeUnit = 2e18;
+  int128 constant targetPriceConstant = 69.42e18;
+  uint128 constant min = 1e18;
+  int256 constant priceDecayPercent = 0.31e18;
+  int256 constant perTimeUnit = 2e18;
 
   MockLinearVRGDAPrices vrgda;
   MockProductsModule productsModule;
@@ -31,8 +32,8 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
     productsModule = new MockProductsModule();
     vrgda = new MockLinearVRGDAPrices(address(productsModule));
 
-    int256[] memory targetPrice = new int256[](1);
-    targetPrice[0] = targetPriceConstant;
+    LinearVRGDAParams[] memory linearParams = new LinearVRGDAParams[](1);
+    linearParams[0] = LinearVRGDAParams(targetPriceConstant, min, perTimeUnit);
     address[] memory ethCurrency = new address[](1);
     ethCurrency[0] = address(0);
 
@@ -41,9 +42,8 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
       slicerId,
       productId,
       ethCurrency,
-      targetPrice,
-      priceDecayPercent,
-      perTimeUnit
+      linearParams,
+      priceDecayPercent
     );
   }
 
@@ -60,7 +60,8 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
       decayConstant,
       int256(timeSinceStart),
       numSold,
-      perTimeUnit
+      perTimeUnit,
+      min
     );
 
     uint256 expectedPrice = calculatePrice(
@@ -101,7 +102,8 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
         decayConstant,
         int256(timeSinceStart),
         numSold,
-        perTimeUnit
+        perTimeUnit,
+        min
       )
     returns (uint256 actualPrice) {
       uint256 expectedPrice = calculatePrice(
