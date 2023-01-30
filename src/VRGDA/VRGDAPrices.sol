@@ -64,7 +64,7 @@ abstract contract VRGDAPrices is ISliceProductPrice {
   ) public view virtual returns (uint256) {
     unchecked {
       // prettier-ignore
-      uint256 VRGDAPrice =  uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
+      uint256 VRGDAPrice = uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
                 // We use sold + 1 as the VRGDA formula's n param represents the nth product and sold is the 
                 // n-1th product.
                 timeSinceStart - getTargetSaleTime(

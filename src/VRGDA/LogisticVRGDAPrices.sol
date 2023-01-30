@@ -9,16 +9,8 @@ import { LogisticVRGDAParams } from "./structs/LogisticVRGDAParams.sol";
 import { VRGDAPrices } from "./VRGDAPrices.sol";
 
 /// @title Logistic Variable Rate Gradual Dutch Auction - Slice pricing strategy
-/// @author jacopo.eth <jacopo@slice.so>
-/// @author transmissions11 <t11s@paradigm.xyz>
-/// @author FrankieIsLost <frankie@paradigm.xyz>
+/// @author jacopo <jacopo@slice.so>
 /// @notice VRGDA with a logistic issuance curve - Price library with different params for each Slice product.
-/// Differences from original implementation:
-/// - Storage-related logic is added to `setProductPrice`
-/// based on availableUnits rather than soldUnits.
-/// - Adds `getVRGDALogisticPrice` and `getAdjustedVRGDALogisticPrice` which are specific to this
-/// implementation and substitute the standard ones
-/// - Adds `productPrice` which uses `getAdjustedVRGDALogisticPrice` to calculate price based on quantity
 contract LogisticVRGDAPrices is VRGDAPrices {
   /*//////////////////////////////////////////////////////////////
                                 STORAGE
@@ -44,23 +36,22 @@ contract LogisticVRGDAPrices is VRGDAPrices {
   /// @param slicerId ID of the slicer to set the price params for.
   /// @param productId ID of the product to set the price params for.
   /// @param currencies currencies of the product to set the price params for.
-  /// @param targetPrices for a product if sold on pace, scaled by 1e18.
+  /// @param logisticParams see `LogisticVRGDAParams`.
   /// @param priceDecayPercent The percent price decays per unit of time with no sales, scaled by 1e18.
-  /// @param timeScale Time scale controls the steepness of the logistic curve,
   /// which affects how quickly we will reach the curve's asymptote, scaled by 1e18.
   function setProductPrice(
     uint256 slicerId,
     uint256 productId,
-    address[] memory currencies,
-    int256[] memory targetPrices,
-    int256 priceDecayPercent,
-    int256 timeScale
+    address[] calldata currencies,
+    LogisticVRGDAParams[] calldata logisticParams,
+    int256 priceDecayPercent
   ) external onlyProductOwner(slicerId, productId) {
-    require(targetPrices.length == currencies.length, "INVALID_INPUTS");
+    require(logisticParams.length == currencies.length, "INVALID_INPUTS");
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
     // The decay constant must be negative for VRGDAs to work.
     require(decayConstant < 0, "NON_NEGATIVE_DECAY_CONSTANT");
+    require(decayConstant >= type(int184).min, "MIN_DECAY_CONSTANT_EXCEEDED");
 
     // Get product availability and isInfinite
     (uint256 availableUnits, bool isInfinite) = IProductsModule(
@@ -71,15 +62,15 @@ contract LogisticVRGDAPrices is VRGDAPrices {
     require(!isInfinite, "NON_FINITE_AVAILABILITY");
 
     // Set product params
-    _productParams[slicerId][productId].startTime = block.timestamp;
-    _productParams[slicerId][productId].startUnits = availableUnits;
-    _productParams[slicerId][productId].decayConstant = decayConstant;
+    _productParams[slicerId][productId].startTime = uint40(block.timestamp);
+    _productParams[slicerId][productId].startUnits = uint32(availableUnits);
+    _productParams[slicerId][productId].decayConstant = int184(decayConstant);
 
     // Set currency params
     for (uint256 i; i < currencies.length; ) {
       _productParams[slicerId][productId].pricingParams[
         currencies[i]
-      ] = LogisticVRGDAParams(targetPrices[i], timeScale);
+      ] = logisticParams[i];
 
       unchecked {
         ++i;
@@ -100,6 +91,7 @@ contract LogisticVRGDAPrices is VRGDAPrices {
   /// @param logisticLimitDouble The maximum number of products to sell + 1 multiplied by 2.
   /// @param sold The total number of products sold so far.
   /// @param timeFactor Time-dependent factor used to calculate target sale time.
+  /// @param min minimum price to be paid for a token, scaled by 1e18
   /// @return The price of a product according to VRGDA, scaled by 1e18.
   function getVRGDALogisticPrice(
     int256 targetPrice,
@@ -108,11 +100,12 @@ contract LogisticVRGDAPrices is VRGDAPrices {
     int256 logisticLimit,
     int256 logisticLimitDouble,
     uint256 sold,
-    int256 timeFactor
+    int256 timeFactor,
+    uint256 min
   ) public pure returns (uint256) {
     unchecked {
       // prettier-ignore
-      return uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
+      uint256 VRGDAPrice = uint256(wadMul(targetPrice, wadExp(unsafeWadMul(decayConstant,
           // We use sold + 1 as the VRGDA formula's n param represents the nth product and sold is the 
           // n-1th product.
           timeSinceStart - getTargetSaleTime(
@@ -122,6 +115,8 @@ contract LogisticVRGDAPrices is VRGDAPrices {
             ), timeFactor
           )
       ))));
+
+      return VRGDAPrice > min ? VRGDAPrice : min;
     }
   }
 
@@ -132,6 +127,7 @@ contract LogisticVRGDAPrices is VRGDAPrices {
   /// @param logisticLimit The maximum number of products to sell + 1.
   /// @param sold The total number of products sold so far.
   /// @param timeFactor Time-dependent factor used to calculate target sale time.
+  /// @param min minimum price to be paid for a token, scaled by 1e18
   /// @param quantity Number of units purchased
   /// @return price of product * quantity according to VRGDA, scaled by 1e18.
   function getAdjustedVRGDALogisticPrice(
@@ -141,6 +137,7 @@ contract LogisticVRGDAPrices is VRGDAPrices {
     int256 logisticLimit,
     uint256 sold,
     int256 timeFactor,
+    uint256 min,
     uint256 quantity
   ) public pure returns (uint256 price) {
     int256 logisticLimitDouble = logisticLimit * 2e18;
@@ -152,7 +149,8 @@ contract LogisticVRGDAPrices is VRGDAPrices {
         logisticLimit,
         logisticLimitDouble,
         sold + i,
-        timeFactor
+        timeFactor,
+        min
       );
 
       unchecked {
@@ -216,6 +214,7 @@ contract LogisticVRGDAPrices is VRGDAPrices {
         toWadUnsafe(productParams.startUnits + 1),
         productParams.startUnits - availableUnits,
         pricingParams.timeScale,
+        pricingParams.min,
         quantity
       );
     } else {
@@ -226,6 +225,7 @@ contract LogisticVRGDAPrices is VRGDAPrices {
         toWadUnsafe(productParams.startUnits + 1),
         productParams.startUnits - availableUnits,
         pricingParams.timeScale,
+        pricingParams.min,
         quantity
       );
     }

@@ -5,7 +5,7 @@ import { DSTestPlus } from "lib/solmate/src/test/utils/DSTestPlus.sol";
 
 import { unsafeDiv, wadLn, toWadUnsafe, toDaysWadUnsafe, fromDaysWadUnsafe } from "src/utils/SignedWadMath.sol";
 
-import { MockLogisticVRGDAPrices } from "./mocks/MockLogisticVRGDAPrices.sol";
+import "./mocks/MockLogisticVRGDAPrices.sol";
 import { MockProductsModule } from "./mocks/MockProductsModule.sol";
 import "forge-std/console2.sol";
 
@@ -15,7 +15,8 @@ uint256 constant MAX_SELLABLE = 6392;
 
 uint256 constant slicerId = 0;
 uint256 constant productId = 1;
-int256 constant targetPriceConstant = 69.42e18;
+int128 constant targetPriceConstant = 69.42e18;
+uint128 constant min = 1e18;
 int256 constant priceDecayPercent = 0.31e18;
 int256 constant timeScale = 0.0023e18;
 int256 constant logisticLimitAdjusted = int256((MAX_SELLABLE + 1) * 2e18);
@@ -29,8 +30,12 @@ contract LogisticVRGDATest is DSTestPlus {
     productsModule = new MockProductsModule();
     vrgda = new MockLogisticVRGDAPrices(address(productsModule));
 
-    int256[] memory targetPrice = new int256[](1);
-    targetPrice[0] = targetPriceConstant;
+    LogisticVRGDAParams[] memory logisticParams = new LogisticVRGDAParams[](1);
+    logisticParams[0] = LogisticVRGDAParams(
+      targetPriceConstant,
+      min,
+      timeScale
+    );
     address[] memory ethCurrency = new address[](1);
     ethCurrency[0] = address(0);
     address[] memory erc20Currency = new address[](1);
@@ -41,17 +46,15 @@ contract LogisticVRGDATest is DSTestPlus {
       slicerId,
       productId,
       ethCurrency,
-      targetPrice,
-      priceDecayPercent,
-      timeScale
+      logisticParams,
+      priceDecayPercent
     );
     vrgda.setProductPrice(
       slicerId,
       productId,
       erc20Currency,
-      targetPrice,
-      priceDecayPercent,
-      timeScale
+      logisticParams,
+      priceDecayPercent
     );
     hevm.stopPrank();
   }
@@ -78,9 +81,14 @@ contract LogisticVRGDATest is DSTestPlus {
       logisticLimit,
       logisticLimit * 2e18,
       sold,
-      timeScale
+      timeScale,
+      min
     );
-    assertRelApproxEq(cost, uint256(targetPriceConstant), 0.0000001e18);
+    assertRelApproxEq(
+      cost,
+      uint256(uint128(targetPriceConstant)),
+      0.0000001e18
+    );
   }
 
   function testPricingBasic() public {
@@ -99,11 +107,34 @@ contract LogisticVRGDATest is DSTestPlus {
       logisticLimit,
       logisticLimit * 2e18,
       numMint,
-      timeScale
+      timeScale,
+      min
     );
 
     // Equal within 2 percent since num mint is rounded from true decimal amount.
-    assertRelApproxEq(cost, uint256(targetPriceConstant), 0.02e18);
+    assertRelApproxEq(cost, uint256(uint128(targetPriceConstant)), 0.02e18);
+  }
+
+  function testPricingMin() public {
+    // Our VRGDA targets this number of mints at given time.
+    uint256 timeDelta = 120 days;
+    uint256 numMint = 793;
+    int256 logisticLimit = toWadUnsafe(MAX_SELLABLE + 1);
+    int256 decayConstant = wadLn(1e18 - priceDecayPercent);
+
+    hevm.warp(block.timestamp + timeDelta);
+
+    uint256 cost = vrgda.getVRGDALogisticPrice(
+      targetPriceConstant,
+      decayConstant,
+      toDaysWadUnsafe(block.timestamp),
+      logisticLimit,
+      logisticLimit * 2e18,
+      numMint,
+      timeScale,
+      min
+    );
+    assertEq(cost, min);
   }
 
   function testPricingAdjustedByQuantity() public {
@@ -121,6 +152,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       numMint,
       timeScale,
+      min,
       1
     );
     uint256 costProduct2 = vrgda.getAdjustedVRGDALogisticPrice(
@@ -130,6 +162,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       numMint + 1,
       timeScale,
+      min,
       1
     );
     uint256 costProduct3 = vrgda.getAdjustedVRGDALogisticPrice(
@@ -139,6 +172,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       numMint + 2,
       timeScale,
+      min,
       1
     );
     uint256 costMultiple = vrgda.getAdjustedVRGDALogisticPrice(
@@ -148,6 +182,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       numMint,
       timeScale,
+      min,
       3
     );
 
@@ -161,9 +196,17 @@ contract LogisticVRGDATest is DSTestPlus {
   function testSetMultiplePrices() public {
     uint256 targetPriceTest = 7.3013e18;
     uint256 productIdTest = 2;
-    int256[] memory targetPrices = new int256[](2);
-    targetPrices[0] = targetPriceConstant;
-    targetPrices[1] = targetPriceConstant;
+    LogisticVRGDAParams[] memory logisticParams = new LogisticVRGDAParams[](2);
+    logisticParams[0] = LogisticVRGDAParams(
+      targetPriceConstant,
+      min,
+      timeScale
+    );
+    logisticParams[1] = LogisticVRGDAParams(
+      targetPriceConstant,
+      min,
+      timeScale
+    );
     address[] memory currencies = new address[](2);
     currencies[0] = address(0);
     currencies[1] = address(20);
@@ -173,9 +216,8 @@ contract LogisticVRGDATest is DSTestPlus {
       slicerId,
       productIdTest,
       currencies,
-      targetPrices,
-      priceDecayPercent,
-      timeScale
+      logisticParams,
+      priceDecayPercent
     );
     hevm.stopPrank();
 
@@ -220,6 +262,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       0,
       timeScale,
+      min,
       1
     );
 
@@ -252,6 +295,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       0,
       timeScale,
+      min,
       1
     );
 
@@ -284,6 +328,7 @@ contract LogisticVRGDATest is DSTestPlus {
       toWadUnsafe(MAX_SELLABLE + 1),
       0,
       timeScale,
+      min,
       3
     );
     (uint256 ethPrice, ) = vrgda.productPrice(
@@ -332,7 +377,8 @@ contract LogisticVRGDATest is DSTestPlus {
       logisticLimit,
       logisticLimit * 2e18,
       bound(sold, 0, 1730),
-      timeScale
+      timeScale,
+      min
     );
   }
 
@@ -351,7 +397,8 @@ contract LogisticVRGDATest is DSTestPlus {
       logisticLimit,
       logisticLimit * 2e18,
       bound(sold, 0, 6391),
-      timeScale
+      timeScale,
+      min
     );
   }
 
@@ -369,7 +416,8 @@ contract LogisticVRGDATest is DSTestPlus {
       logisticLimit,
       logisticLimit * 2e18,
       bound(sold, 6392, type(uint128).max),
-      timeScale
+      timeScale,
+      min
     );
   }
 
@@ -390,9 +438,10 @@ contract LogisticVRGDATest is DSTestPlus {
         logisticLimit,
         logisticLimit * 2e18,
         sold,
-        timeScale
+        timeScale,
+        min
       ),
-      uint256(targetPriceConstant),
+      uint256(uint128(targetPriceConstant)),
       0.00001e18
     );
   }

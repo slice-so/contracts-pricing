@@ -9,9 +9,7 @@ import { LinearVRGDAParams } from "./structs/LinearVRGDAParams.sol";
 import { VRGDAPrices } from "./VRGDAPrices.sol";
 
 /// @title Linear Variable Rate Gradual Dutch Auction - Slice pricing strategy
-/// @author jacopo.eth <jacopo@slice.so>
-/// @author transmissions11 <t11s@paradigm.xyz>
-/// @author FrankieIsLost <frankie@paradigm.xyz>
+/// @author jacopo <jacopo@slice.so>
 /// @notice VRGDA with a linear issuance curve - Price library with different params for each Slice product.
 contract LinearVRGDAPrices is VRGDAPrices {
   /*//////////////////////////////////////////////////////////////
