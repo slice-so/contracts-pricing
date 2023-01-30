@@ -1,0 +1,10 @@
+{
+  "goerli-staging": {
+    "LinearVRGDAPrices": "0xb32e0747B02717f13f82DB0f74C7CA453646Aa42",
+    "LogisticVRGDAPrices": "0x70A50E201036147296AE83d1F4E9B785B2a7CCe7"
+  },
+  "production": {
+    "LinearVRGDAPrices": "0x3b155175B16AE142023827e03C61EF45f68D01b6",
+    "LogisticVRGDAPrices": "0xf50D1e551806b1A84cF5fd0C47BEF9f878555B82"
+  }
+}
