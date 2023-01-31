@@ -16,8 +16,8 @@ contract DeployScript is Script {
       0x9fBB3DF7C40Da2e5A0dE984fFE2CCB7C47cd0ABf
     );
 
-    // address productsModule = 0x689Bba0e25c259b205ECe8e6152Ee1eAcF307f5F; // mainnet
-    address productsModule = 0xcA6b9D59849EC880e82210e9cb8237E1d0cAA69e; // goerli testnet
+    address productsModule = 0x689Bba0e25c259b205ECe8e6152Ee1eAcF307f5F; // mainnet
+    // address productsModule = 0xcA6b9D59849EC880e82210e9cb8237E1d0cAA69e; // goerli testnet
     // address productsModule = 0x0FD0d9aa44a05Ee158DDf6F01d7dcF503388781d; // goerli staging
 
     bytes32 saltLin = keccak256(bytes(vm.envString("SALT_LIN")));
