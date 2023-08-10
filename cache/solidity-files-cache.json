@@ -12,90 +12,6 @@
     ]
   },
   "files": {
-    "lib/create3-factory/src/CREATE3Factory.sol": {
-      "lastModificationDate": 1665511685264,
-      "contentHash": "f4aeed4869318dc29e2deba47f3b7cfc",
-      "sourceName": "lib/create3-factory/src/CREATE3Factory.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "lib/create3-factory/src/ICREATE3Factory.sol",
-        "lib/solmate/src/utils/Bytes32AddressLib.sol",
-        "lib/solmate/src/utils/CREATE3.sol"
-      ],
-      "versionRequirement": "^0.8.13",
-      "artifacts": {
-        "CREATE3Factory": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "CREATE3Factory.sol/CREATE3Factory.json"
-        }
-      }
-    },
-    "lib/create3-factory/src/ICREATE3Factory.sol": {
-      "lastModificationDate": 1665511685264,
-      "contentHash": "c174a508c539cd647b014ccef5c858ad",
-      "sourceName": "lib/create3-factory/src/ICREATE3Factory.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": ">=0.6.0",
-      "artifacts": {
-        "ICREATE3Factory": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "ICREATE3Factory.sol/ICREATE3Factory.json"
-        }
-      }
-    },
     "lib/ds-test/src/test.sol": {
       "lastModificationDate": 1662380313227,
       "contentHash": "962996f0e05d5218857a538a62d7c47e",
@@ -107,6 +23,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -124,7 +41,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -147,6 +64,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -164,7 +82,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -192,6 +110,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -209,7 +128,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -234,6 +153,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -251,7 +171,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -274,6 +194,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -291,7 +212,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -314,6 +235,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -331,7 +253,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -354,6 +276,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -371,7 +294,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -382,7 +305,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "IERC1155Upgradeable": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "interfaces/IERC1155Upgradeable.sol/IERC1155Upgradeable.json"
+          "0.8.15+commit.e14f2714.Darwin.appleclang": "IERC1155Upgradeable.sol/IERC1155Upgradeable.json"
         }
       }
     },
@@ -397,6 +320,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -414,7 +338,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -439,6 +363,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -456,7 +381,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -481,6 +406,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -498,7 +424,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -523,6 +449,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -540,7 +467,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -563,6 +490,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -580,7 +508,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -603,6 +531,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -620,7 +549,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -643,6 +572,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -660,7 +590,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -686,6 +616,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -703,7 +634,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -715,91 +646,9 @@
         }
       }
     },
-    "lib/solmate/src/utils/Bytes32AddressLib.sol": {
-      "lastModificationDate": 1662380313541,
-      "contentHash": "8a05c8576a41e44d3e96a6e169162327",
-      "sourceName": "lib/solmate/src/utils/Bytes32AddressLib.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": ">=0.8.0",
-      "artifacts": {
-        "Bytes32AddressLib": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "Bytes32AddressLib.sol/Bytes32AddressLib.json"
-        }
-      }
-    },
-    "lib/solmate/src/utils/CREATE3.sol": {
-      "lastModificationDate": 1662380313541,
-      "contentHash": "0714614c146b2eeb737405c770da9f8a",
-      "sourceName": "lib/solmate/src/utils/CREATE3.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "london",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "lib/solmate/src/utils/Bytes32AddressLib.sol"
-      ],
-      "versionRequirement": ">=0.8.0",
-      "artifacts": {
-        "CREATE3": {
-          "0.8.15+commit.e14f2714.Darwin.appleclang": "CREATE3.sol/CREATE3.json"
-        }
-      }
-    },
     "script/Deploy.s.sol": {
-      "lastModificationDate": 1675122957757,
-      "contentHash": "de4ce0cceee8bad06d797f8899f11fd6",
+      "lastModificationDate": 1691701258831,
+      "contentHash": "2f9cc12ddc982cf78d5cbbd58dfd2e4d",
       "sourceName": "script/Deploy.s.sol",
       "solcConfig": {
         "settings": {
@@ -808,6 +657,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -825,13 +675,11 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
       "imports": [
-        "lib/create3-factory/src/CREATE3Factory.sol",
-        "lib/create3-factory/src/ICREATE3Factory.sol",
         "lib/forge-std/src/Script.sol",
         "lib/forge-std/src/StdJson.sol",
         "lib/forge-std/src/Vm.sol",
@@ -843,8 +691,6 @@
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
-        "lib/solmate/src/utils/Bytes32AddressLib.sol",
-        "lib/solmate/src/utils/CREATE3.sol",
         "src/Slice/interfaces/IFundsModule.sol",
         "src/Slice/interfaces/IProductsModule.sol",
         "src/Slice/interfaces/ISliceCore.sol",
@@ -887,6 +733,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -904,7 +751,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -940,6 +787,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -957,7 +805,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1000,6 +848,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1017,7 +866,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1052,6 +901,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1069,7 +919,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1096,6 +946,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1113,7 +964,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1139,6 +990,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1156,7 +1008,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1181,6 +1033,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1198,7 +1051,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1221,6 +1074,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1238,7 +1092,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1261,6 +1115,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1278,7 +1133,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1301,6 +1156,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1318,7 +1174,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1341,6 +1197,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1358,7 +1215,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1381,6 +1238,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1398,7 +1256,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1421,6 +1279,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1438,7 +1297,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1461,6 +1320,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1478,7 +1338,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1501,6 +1361,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1518,7 +1379,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1546,6 +1407,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1563,7 +1425,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1589,6 +1451,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1606,7 +1469,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1629,6 +1492,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1646,7 +1510,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1669,6 +1533,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1686,7 +1551,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1709,6 +1574,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1726,7 +1592,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1751,6 +1617,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1768,7 +1635,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1796,6 +1663,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1813,7 +1681,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1847,6 +1715,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1864,7 +1733,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1887,6 +1756,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1904,7 +1774,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -1953,6 +1823,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -1970,7 +1841,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2019,6 +1890,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2036,7 +1908,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2082,6 +1954,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2099,7 +1972,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2124,6 +1997,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2141,7 +2015,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2164,6 +2038,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2181,7 +2056,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2196,7 +2071,7 @@
       }
     },
     "src/VRGDA/structs/LogisticVRGDAParams.sol": {
-      "lastModificationDate": 1675105780684,
+      "lastModificationDate": 1675106516337,
       "contentHash": "527f0d8aaebb1a4910c6edeaba36ea9a",
       "sourceName": "src/VRGDA/structs/LogisticVRGDAParams.sol",
       "solcConfig": {
@@ -2206,6 +2081,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2223,7 +2099,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2246,6 +2122,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2263,7 +2140,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2286,6 +2163,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2303,7 +2181,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2359,6 +2237,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2376,7 +2255,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2432,6 +2311,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2449,7 +2329,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2506,6 +2386,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2523,7 +2404,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2573,6 +2454,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2590,7 +2472,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
@@ -2640,6 +2522,7 @@
             "runs": 1000000
           },
           "metadata": {
+            "useLiteralContent": false,
             "bytecodeHash": "none",
             "appendCBOR": true
           },
@@ -2657,7 +2540,7 @@
               ]
             }
           },
-          "evmVersion": "london",
+          "evmVersion": "paris",
           "libraries": {}
         }
       },
