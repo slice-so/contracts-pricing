@@ -90,29 +90,30 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     ) external onlyProductOwner(slicerId, productId) {
         /// For each strategy, grouped by currency
         for (uint256 i; i < currenciesParams.length; ) {
-            /// Access to DiscountParams for a specific slicer, product and currency
-            DiscountParams memory params;
+            /// Ref of `CurrenciesParams` struct
+            CurrenciesParams memory params = currenciesParams[i];
+
+            // Initialize the storage reference for the nftDiscountsArray
+            DiscountParams storage discountParamsRef = productParams[slicerId][
+                productId
+            ][params.currency];
+
+            // Set the values for the storage reference
+            discountParamsRef.basePrice = params.basePrice;
+            discountParamsRef.strategy = params.strategy;
+            discountParamsRef.dependsOnQuantity = params.dependsOnQuantity;
 
             /// Access to array of NFTDiscountParams for a specific slicer, product and currency
-            NFTDiscountParams[] memory discountsRef = currenciesParams[i]
-                .discounts;
+            NFTDiscountParams[] memory discountsRef = params.discounts;
 
-            /// Save `currency` `basePrice` `strategy` and `nftDiscounts` values
-            params.basePrice = currenciesParams[i].basePrice;
-            params.strategy = currenciesParams[i].strategy;
-            params.dependsOnQuantity = currenciesParams[i].dependsOnQuantity;
-            params.nftDiscounts = discountsRef;
-
-            /// Save `params` in storage for a specific slicer, product and currency
-            productParams[slicerId][productId][
-                currenciesParams[i].currency
-            ] = params;
-
-            /// Set discount values for each nft in the nftDiscounts mapping
             for (uint256 j; j < discountsRef.length; ) {
+                /// Set discount values for each nft in the nftDiscounts mapping
                 nftDiscounts[slicerId][productId][currenciesParams[i].currency][
                     discountsRef[j].nftAddress
                 ] = discountsRef[j].discount;
+
+                /// Manually copy each element from memory to storage on DiscountParams
+                discountParamsRef.nftDiscountsArray.push(discountsRef[j]);
 
                 unchecked {
                     ++j;
@@ -220,7 +221,7 @@ contract ERC721GatedDiscount is ISliceProductPrice {
         } else {
             /// If the address of the NFT is empty, loop through all NFTs and get the highest discount
             /// NFTs are sorted from highest to lowest discount, so the first discount found is the highest
-            NFTDiscountParams[] memory discountsRef = params.nftDiscounts;
+            NFTDiscountParams[] memory discountsRef = params.nftDiscountsArray;
             for (uint256 i; i < discountsRef.length; ) {
                 /// check if user has the nft
                 if (IERC721(discountsRef[i].nftAddress).balanceOf(buyer) > 0) {

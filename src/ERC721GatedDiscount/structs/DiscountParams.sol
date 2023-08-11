@@ -18,5 +18,5 @@ struct DiscountParams {
     uint256 basePrice;
     Strategy strategy;
     bool dependsOnQuantity;
-    NFTDiscountParams[] nftDiscounts;
+    NFTDiscountParams[] nftDiscountsArray;
 }
