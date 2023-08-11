@@ -18,6 +18,12 @@ Slice-specific implementations modified from https://github.com/transmissions11/
 - [Linear VRGDA](/src/VRGDA/LinearVRGDAPrices.sol)
 - [Logistic VRGDA](/src/VRGDA/LogisticVRGDAPrices.sol)
 
+### ERC721 Gated Discount
+
+A discount strategy that allows a product owner to set a discount for a product if the buyer owns a specific ERC721 token.
+
+- [ERC721 Gated Discount](/src/ERC721GatedDiscount/ERC721GatedDiscount.sol)
+
 ## Contributing
 
 You will need a copy of [Foundry](https://github.com/foundry-rs/foundry) installed before proceeding. See the [installation guide](https://github.com/foundry-rs/foundry#installation) for details.
