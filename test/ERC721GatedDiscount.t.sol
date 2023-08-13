@@ -16,13 +16,20 @@ uint256 constant slicerId = 0;
 uint256 constant productId = 1;
 address constant owner = address(0);
 address constant buyer = address(10);
+uint256 constant fixedDiscountOne = 100;
+uint256 constant fixedDiscountTwo = 200;
+uint256 constant percentDiscount = 10;
+bool constant dependsOnQuantity = true;
+bool constant notDependsOnQuantity = false;
 
-contract LinearVRGDATest is DSTestPlus {
+contract ERC721GatedDiscountTest is DSTestPlus {
     ERC721GatedDiscount erc721GatedDiscount;
     MockProductsModule productsModule;
     ERC721PresetMinterPauserAutoId nftOne;
+    ERC721PresetMinterPauserAutoId nftTwo;
 
     uint256 basePrice = 1000;
+    uint256 quantity = 1;
 
     function setUp() public {
         productsModule = new MockProductsModule();
@@ -34,6 +41,12 @@ contract LinearVRGDATest is DSTestPlus {
             "https://nft.one/"
         );
         nftOne.mint(buyer);
+
+        nftTwo = new ERC721PresetMinterPauserAutoId(
+            "NFTTwo",
+            "NFT2",
+            "https://nft.two/"
+        );
     }
 
     function testDeploy() public {
@@ -46,7 +59,7 @@ contract LinearVRGDATest is DSTestPlus {
         /// set product price with additional custom inputs
         discounts[0] = NFTDiscountParams({
             nftAddress: address(nftOne),
-            discount: 100
+            discount: fixedDiscountOne
         });
 
         CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](1);
@@ -54,7 +67,7 @@ contract LinearVRGDATest is DSTestPlus {
             ETH,
             basePrice,
             Strategy.Fixed,
-            false,
+            notDependsOnQuantity,
             discounts
         );
 
@@ -67,9 +80,97 @@ contract LinearVRGDATest is DSTestPlus {
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
-            .productPrice(slicerId, productId, ETH, 1, buyer, "");
+            .productPrice(slicerId, productId, ETH, quantity, buyer, "");
 
-        assertTrue(ethPrice == basePrice - 100);
+        assertTrue(ethPrice == (quantity * basePrice) - fixedDiscountOne);
         assertTrue(currencyPrice == 0);
+    }
+
+    function testSetProductPrice__ERC20() public {
+        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+
+        /// set product price with additional custom inputs
+        discounts[0] = NFTDiscountParams({
+            nftAddress: address(nftOne),
+            discount: fixedDiscountOne
+        });
+
+        CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](1);
+        currenciesParams[0] = CurrenciesParams(
+            USDC,
+            basePrice,
+            Strategy.Fixed,
+            notDependsOnQuantity,
+            discounts
+        );
+
+        hevm.prank(owner);
+        erc721GatedDiscount.setProductPrice(
+            slicerId,
+            productId,
+            currenciesParams
+        );
+
+        /// check product price
+        (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
+            .productPrice(slicerId, productId, USDC, quantity, buyer, "");
+
+        assertTrue(currencyPrice == (quantity * basePrice) - fixedDiscountOne);
+        assertTrue(ethPrice == 0);
+    }
+
+    function testSetProductPrice__MultipleCurrencies() public {
+        NFTDiscountParams[] memory discountsOne = new NFTDiscountParams[](1);
+        NFTDiscountParams[] memory discountsTwo = new NFTDiscountParams[](1);
+        CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](2);
+
+        /// set product price with additional custom inputs
+        discountsOne[0] = NFTDiscountParams({
+            nftAddress: address(nftOne),
+            discount: fixedDiscountOne
+        });
+
+        currenciesParams[0] = CurrenciesParams(
+            ETH,
+            basePrice,
+            Strategy.Fixed,
+            notDependsOnQuantity,
+            discountsOne
+        );
+
+        /// set product price with different discount for different currency
+        discountsTwo[0] = NFTDiscountParams({
+            nftAddress: address(nftOne),
+            discount: fixedDiscountTwo
+        });
+
+        currenciesParams[1] = CurrenciesParams(
+            USDC,
+            basePrice,
+            Strategy.Fixed,
+            notDependsOnQuantity,
+            discountsTwo
+        );
+
+        hevm.prank(owner);
+        erc721GatedDiscount.setProductPrice(
+            slicerId,
+            productId,
+            currenciesParams
+        );
+
+        /// check product price for ETH
+        (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
+            .productPrice(slicerId, productId, ETH, quantity, buyer, "");
+
+        assertTrue(ethPrice == (quantity * basePrice) - fixedDiscountOne);
+        assertTrue(currencyPrice == 0);
+
+        /// check product price for USDC
+        (uint256 ethPrice2, uint256 usdcPrice) = erc721GatedDiscount
+            .productPrice(slicerId, productId, USDC, quantity, buyer, "");
+
+        assertTrue(ethPrice2 == 0);
+        assertTrue(usdcPrice == (quantity * basePrice) - fixedDiscountTwo);
     }
 }
