@@ -25,6 +25,7 @@ contract ERC721GatedDiscountTest is DSTestPlus {
     MockProductsModule productsModule;
     MockERC721 nftOne;
     MockERC721 nftTwo;
+    MockERC721 nftThree;
 
     uint256 basePrice = 1000;
     uint256 quantity = 1;
@@ -43,6 +44,11 @@ contract ERC721GatedDiscountTest is DSTestPlus {
         nftTwo = new MockERC721(
             "NFTTwo",
             "NFT2"
+        );
+
+        nftThree = new MockERC721(
+            "NFTThree",
+            "NFT3"
         );
     }
 
@@ -260,5 +266,45 @@ contract ERC721GatedDiscountTest is DSTestPlus {
 
         assertTrue(ethPrice == quantity * (basePrice - (basePrice * percentDiscount) / 100));
         assertTrue(currencyPrice == 0);
+    }
+
+    function testSetProductPrice__Edit() public {
+        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+
+        discounts[0] =
+            NFTDiscountParams({nftAddress: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+
+        createDiscount(discounts);
+
+        // mint NFT 2
+        nftTwo.mint(buyer);
+
+        /// check product price
+        (uint256 ethPrice, uint256 currencyPrice) =
+            erc721GatedDiscount.productPrice(slicerId, productId, ETH, quantity, buyer, "");
+
+        assertTrue(ethPrice == quantity * (basePrice - fixedDiscountTwo));
+        assertTrue(currencyPrice == 0);
+
+        NFTDiscountParams[] memory discountsTwo = new NFTDiscountParams[](2);
+
+        /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
+        discountsTwo[0] = NFTDiscountParams({
+            nftAddress: address(nftThree),
+            discount: fixedDiscountOne + 10,
+            minQuantity: minNftQuantity
+        });
+
+        discountsTwo[1] =
+            NFTDiscountParams({nftAddress: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+
+        createDiscount(discountsTwo);
+
+        /// check product price
+        (uint256 secondEthPrice, uint256 secondCurrencyPrice) =
+            erc721GatedDiscount.productPrice(slicerId, productId, ETH, quantity, buyer, "");
+
+        assertTrue(secondEthPrice == quantity * (basePrice - fixedDiscountOne));
+        assertTrue(secondCurrencyPrice == 0);
     }
 }
