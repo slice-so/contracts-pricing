@@ -11,12 +11,9 @@ enum Strategy {
 /// @param basePrice          base price for a currency
 /// @param strategy           0: Fixed discount (ex. 1000 wei)
 ///                           1: Percentage discount (ex. 10%)
-/// @param dependsOnQuantity  if true, the discount depends on the quantity of products
 /// @param nftDiscounts       array of structs {NFT address, fixed/percentage discount}
-
 struct DiscountParams {
     uint256 basePrice;
     Strategy strategy;
-    bool dependsOnQuantity;
-    NFTDiscountParams[] nftDiscountsArray;
+    NFTDiscountParams[] discountsArray;
 }

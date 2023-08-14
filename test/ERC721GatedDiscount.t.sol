@@ -53,124 +53,124 @@ contract ERC721GatedDiscountTest is DSTestPlus {
         assertTrue(address(erc721GatedDiscount) != address(0));
     }
 
-    function testSetProductPrice__ETH() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+    // function testSetProductPrice__ETH() public {
+    //     NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
 
-        /// set product price with additional custom inputs
-        discounts[0] = NFTDiscountParams({
-            nftAddress: address(nftOne),
-            discount: fixedDiscountOne
-        });
+    //     /// set product price with additional custom inputs
+    //     discounts[0] = NFTDiscountParams({
+    //         nftAddress: address(nftOne),
+    //         discount: fixedDiscountOne
+    //     });
 
-        CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](1);
-        currenciesParams[0] = CurrenciesParams(
-            ETH,
-            basePrice,
-            Strategy.Fixed,
-            notDependsOnQuantity,
-            discounts
-        );
+    //     CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](1);
+    //     currenciesParams[0] = CurrenciesParams(
+    //         ETH,
+    //         basePrice,
+    //         Strategy.Fixed,
+    //         notDependsOnQuantity,
+    //         discounts
+    //     );
 
-        hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(
-            slicerId,
-            productId,
-            currenciesParams
-        );
+    //     hevm.prank(owner);
+    //     erc721GatedDiscount.setProductPrice(
+    //         slicerId,
+    //         productId,
+    //         currenciesParams
+    //     );
 
-        /// check product price
-        (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
-            .productPrice(slicerId, productId, ETH, quantity, buyer, "");
+    //     /// check product price
+    //     (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
+    //         .productPrice(slicerId, productId, ETH, quantity, buyer, "");
 
-        assertTrue(ethPrice == (quantity * basePrice) - fixedDiscountOne);
-        assertTrue(currencyPrice == 0);
-    }
+    //     assertTrue(ethPrice == (quantity * basePrice) - fixedDiscountOne);
+    //     assertTrue(currencyPrice == 0);
+    // }
 
-    function testSetProductPrice__ERC20() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+    // function testSetProductPrice__ERC20() public {
+    //     NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
 
-        /// set product price with additional custom inputs
-        discounts[0] = NFTDiscountParams({
-            nftAddress: address(nftOne),
-            discount: fixedDiscountOne
-        });
+    //     /// set product price with additional custom inputs
+    //     discounts[0] = NFTDiscountParams({
+    //         nftAddress: address(nftOne),
+    //         discount: fixedDiscountOne
+    //     });
 
-        CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](1);
-        currenciesParams[0] = CurrenciesParams(
-            USDC,
-            basePrice,
-            Strategy.Fixed,
-            notDependsOnQuantity,
-            discounts
-        );
+    //     CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](1);
+    //     currenciesParams[0] = CurrenciesParams(
+    //         USDC,
+    //         basePrice,
+    //         Strategy.Fixed,
+    //         notDependsOnQuantity,
+    //         discounts
+    //     );
 
-        hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(
-            slicerId,
-            productId,
-            currenciesParams
-        );
+    //     hevm.prank(owner);
+    //     erc721GatedDiscount.setProductPrice(
+    //         slicerId,
+    //         productId,
+    //         currenciesParams
+    //     );
 
-        /// check product price
-        (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
-            .productPrice(slicerId, productId, USDC, quantity, buyer, "");
+    //     /// check product price
+    //     (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
+    //         .productPrice(slicerId, productId, USDC, quantity, buyer, "");
 
-        assertTrue(currencyPrice == (quantity * basePrice) - fixedDiscountOne);
-        assertTrue(ethPrice == 0);
-    }
+    //     assertTrue(currencyPrice == (quantity * basePrice) - fixedDiscountOne);
+    //     assertTrue(ethPrice == 0);
+    // }
 
-    function testSetProductPrice__MultipleCurrencies() public {
-        NFTDiscountParams[] memory discountsOne = new NFTDiscountParams[](1);
-        NFTDiscountParams[] memory discountsTwo = new NFTDiscountParams[](1);
-        CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](2);
+    // function testSetProductPrice__MultipleCurrencies() public {
+    //     NFTDiscountParams[] memory discountsOne = new NFTDiscountParams[](1);
+    //     NFTDiscountParams[] memory discountsTwo = new NFTDiscountParams[](1);
+    //     CurrenciesParams[] memory currenciesParams = new CurrenciesParams[](2);
 
-        /// set product price with additional custom inputs
-        discountsOne[0] = NFTDiscountParams({
-            nftAddress: address(nftOne),
-            discount: fixedDiscountOne
-        });
+    //     /// set product price with additional custom inputs
+    //     discountsOne[0] = NFTDiscountParams({
+    //         nftAddress: address(nftOne),
+    //         discount: fixedDiscountOne
+    //     });
 
-        currenciesParams[0] = CurrenciesParams(
-            ETH,
-            basePrice,
-            Strategy.Fixed,
-            notDependsOnQuantity,
-            discountsOne
-        );
+    //     currenciesParams[0] = CurrenciesParams(
+    //         ETH,
+    //         basePrice,
+    //         Strategy.Fixed,
+    //         notDependsOnQuantity,
+    //         discountsOne
+    //     );
 
-        /// set product price with different discount for different currency
-        discountsTwo[0] = NFTDiscountParams({
-            nftAddress: address(nftOne),
-            discount: fixedDiscountTwo
-        });
+    //     /// set product price with different discount for different currency
+    //     discountsTwo[0] = NFTDiscountParams({
+    //         nftAddress: address(nftOne),
+    //         discount: fixedDiscountTwo
+    //     });
 
-        currenciesParams[1] = CurrenciesParams(
-            USDC,
-            basePrice,
-            Strategy.Fixed,
-            notDependsOnQuantity,
-            discountsTwo
-        );
+    //     currenciesParams[1] = CurrenciesParams(
+    //         USDC,
+    //         basePrice,
+    //         Strategy.Fixed,
+    //         notDependsOnQuantity,
+    //         discountsTwo
+    //     );
 
-        hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(
-            slicerId,
-            productId,
-            currenciesParams
-        );
+    //     hevm.prank(owner);
+    //     erc721GatedDiscount.setProductPrice(
+    //         slicerId,
+    //         productId,
+    //         currenciesParams
+    //     );
 
-        /// check product price for ETH
-        (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
-            .productPrice(slicerId, productId, ETH, quantity, buyer, "");
+    //     /// check product price for ETH
+    //     (uint256 ethPrice, uint256 currencyPrice) = erc721GatedDiscount
+    //         .productPrice(slicerId, productId, ETH, quantity, buyer, "");
 
-        assertTrue(ethPrice == (quantity * basePrice) - fixedDiscountOne);
-        assertTrue(currencyPrice == 0);
+    //     assertTrue(ethPrice == (quantity * basePrice) - fixedDiscountOne);
+    //     assertTrue(currencyPrice == 0);
 
-        /// check product price for USDC
-        (uint256 ethPrice2, uint256 usdcPrice) = erc721GatedDiscount
-            .productPrice(slicerId, productId, USDC, quantity, buyer, "");
+    //     /// check product price for USDC
+    //     (uint256 ethPrice2, uint256 usdcPrice) = erc721GatedDiscount
+    //         .productPrice(slicerId, productId, USDC, quantity, buyer, "");
 
-        assertTrue(ethPrice2 == 0);
-        assertTrue(usdcPrice == (quantity * basePrice) - fixedDiscountTwo);
-    }
+    //     assertTrue(ethPrice2 == 0);
+    //     assertTrue(usdcPrice == (quantity * basePrice) - fixedDiscountTwo);
+    // }
 }

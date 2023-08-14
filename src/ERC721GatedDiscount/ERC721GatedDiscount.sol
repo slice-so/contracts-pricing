@@ -37,12 +37,6 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     mapping(uint256 => mapping(uint256 => mapping(address => DiscountParams)))
         public productParams;
 
-    /**
-    @notice Mapping from `slicerId` to `productId` to `currency` to `nftAddress` to `discount`
-  */
-    mapping(uint256 => mapping(uint256 => mapping(address => mapping(address => uint256))))
-        public nftDiscounts;
-
     //*********************************************************************//
     // -------------------------- constructor ---------------------------- //
     //*********************************************************************//
@@ -83,6 +77,10 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     @param currenciesParams Array of `CurrenciesParams` structs, 
                             remeber to pass discounts sorted from highest to lowest
   */
+    /**
+     @dev Inside currendiesParams array, 
+          the discounts must be sorted from highest to lowest
+  */
     function setProductPrice(
         uint256 slicerId,
         uint256 productId,
@@ -101,19 +99,27 @@ contract ERC721GatedDiscount is ISliceProductPrice {
             // Set the values for the storage reference
             discountParamsRef.basePrice = params.basePrice;
             discountParamsRef.strategy = params.strategy;
-            discountParamsRef.dependsOnQuantity = params.dependsOnQuantity;
 
             /// Access to array of NFTDiscountParams for a specific slicer, product and currency
-            NFTDiscountParams[] memory discountsRef = params.discounts;
+            NFTDiscountParams[] memory newDiscounts = params.discounts;
 
-            for (uint256 j; j < discountsRef.length; ) {
-                /// Set discount values for each nft in the nftDiscounts mapping
-                nftDiscounts[slicerId][productId][currenciesParams[i].currency][
-                    discountsRef[j].nftAddress
-                ] = discountsRef[j].discount;
+            uint256 oldLength = discountParamsRef.discountsArray.length;
+            uint256 newLength = newDiscounts.length;
+            uint256 maxLength = newLength > oldLength ? newLength : oldLength;
 
+            for (uint256 j; j < maxLength; ) {
                 /// Manually copy each element from memory to storage on DiscountParams
-                discountParamsRef.nftDiscountsArray.push(discountsRef[j]);
+                /// Handle the case where the new array is shorter than the old one or vice versa
+                if (j < oldLength && j < newLength) {
+                    // Update in place
+                    discountParamsRef.discountsArray[j] = newDiscounts[j];
+                } else if (j >= oldLength) {
+                    // Append new discounts
+                    discountParamsRef.discountsArray.push(newDiscounts[j]);
+                } else if (j >= newLength) {
+                    // Remove old discounts
+                    discountParamsRef.discountsArray.pop();
+                }
 
                 unchecked {
                     ++j;
@@ -139,7 +145,6 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     @param currency Currency chosen for the purchase
     @param quantity Number of units purchased
     @param buyer Address of the buyer
-    @param data Data passed to the function by the caller. In this case, the address of the NFT.
 
     @return ethPrice and currencyPrice of product.
    */
@@ -149,7 +154,7 @@ contract ERC721GatedDiscount is ISliceProductPrice {
         address currency,
         uint256 quantity,
         address buyer,
-        bytes memory data
+        bytes memory
     ) public view override returns (uint256 ethPrice, uint256 currencyPrice) {
         /// Access to DiscountParams for a specific slicer, product and currency
         DiscountParams memory params = productParams[slicerId][productId][
@@ -158,19 +163,11 @@ contract ERC721GatedDiscount is ISliceProductPrice {
 
         /// Based on the strategy, discount represents a value or a %.
         /// If user does not have an NFT, discount will be 0.
-        uint256 discount = _getDiscount(
-            params,
-            slicerId,
-            productId,
-            currency,
-            buyer,
-            data
-        );
+        uint256 discount = _getDiscount(params, buyer);
 
         uint256 price = discount != 0
             ? _getPriceBasedOnStrategy(
                 params.strategy,
-                params.dependsOnQuantity,
                 params.basePrice,
                 discount,
                 quantity
@@ -195,44 +192,29 @@ contract ERC721GatedDiscount is ISliceProductPrice {
 
     @param params DiscountParams struct
     @param buyer Address of the buyer
-    @param data Data passed to the function by the caller. In this case, the address of the NFT.
 
     @return discount value
    */
     function _getDiscount(
         DiscountParams memory params,
-        uint256 slicerId,
-        uint256 productId,
-        address currency,
-        address buyer,
-        bytes memory data
+        address buyer
     ) internal view returns (uint256 discount) {
-        /// If the address of the NFT is not empty, check if user has the NFT and get the discount for that NFT
-        if (data.length != 0) {
-            /// decode the address of the nft from byte to address
-            address nftAddress = abi.decode(data, (address));
-            /// check if user has the nft
-            if (IERC721(nftAddress).balanceOf(buyer) > 0) {
-                /// get the discount for the nft
-                discount = nftDiscounts[slicerId][productId][currency][
-                    nftAddress
-                ];
+        /// Loop through all NFTs and get the highest discount
+        /// NFTs are sorted from highest to lowest discount, so the first discount found is the highest
+        NFTDiscountParams[] memory discountsRef = params.discountsArray;
+        for (uint256 i; i < discountsRef.length; ) {
+            /// check if user has the amount of NFTs required
+            if (
+                IERC721(discountsRef[i].nftAddress).balanceOf(buyer) >=
+                discountsRef[i].minQuantity
+            ) {
+                /// get the discount for the nft and break the loop
+                discount = discountsRef[i].discount;
+                break;
             }
-        } else {
-            /// If the address of the NFT is empty, loop through all NFTs and get the highest discount
-            /// NFTs are sorted from highest to lowest discount, so the first discount found is the highest
-            NFTDiscountParams[] memory discountsRef = params.nftDiscountsArray;
-            for (uint256 i; i < discountsRef.length; ) {
-                /// check if user has the nft
-                if (IERC721(discountsRef[i].nftAddress).balanceOf(buyer) > 0) {
-                    /// get the discount for the nft and break the loop
-                    discount = discountsRef[i].discount;
-                    break;
-                }
 
-                unchecked {
-                    ++i;
-                }
+            unchecked {
+                ++i;
             }
         }
     }
@@ -241,7 +223,6 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     @notice Function called to handle price calculation logic based on strategies
 
     @param strategy ID of the slicer being queried
-    @param dependsOnQuantity ID of the product being queried
     @param basePrice Base price of the product
     @param discount Discount value, can be a value or a %
     @param quantity Number of units purchased
@@ -250,19 +231,18 @@ contract ERC721GatedDiscount is ISliceProductPrice {
    */
     function _getPriceBasedOnStrategy(
         Strategy strategy,
-        bool dependsOnQuantity,
         uint256 basePrice,
         uint256 discount,
         uint256 quantity
     ) internal pure returns (uint256 strategyPrice) {
         if (strategy == Strategy.Fixed) {
-            strategyPrice = dependsOnQuantity
-                ? quantity * (basePrice - discount)
-                : quantity * basePrice - discount;
+            strategyPrice = quantity * (basePrice - discount);
         } else if (strategy == Strategy.Percentage) {
-            strategyPrice = dependsOnQuantity
-                ? quantity * basePrice - (quantity * basePrice * discount) / 100
-                : quantity * basePrice - (basePrice * discount) / 100;
+            strategyPrice =
+                quantity *
+                basePrice -
+                (quantity * basePrice * discount) /
+                100;
         } else {
             strategyPrice = quantity * basePrice;
         }
