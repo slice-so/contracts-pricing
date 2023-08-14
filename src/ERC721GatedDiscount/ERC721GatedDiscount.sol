@@ -9,7 +9,7 @@ import {NFTDiscountParams} from "./structs/NFTDiscountParams.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
- * @title    NFT gated discount - Slice pricing strategy
+ *   @title    NFT gated discount - Slice pricing strategy
  *   @author   Dom-Mac <@zerohex_eth>
  *   @author   jacopo.eth
  *   @notice   Discount product prices based on NFT ownership
