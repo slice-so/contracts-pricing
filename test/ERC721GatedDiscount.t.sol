@@ -8,7 +8,7 @@ import {ERC721GatedDiscount} from "src/ERC721GatedDiscount/ERC721GatedDiscount.s
 import {DiscountParams, Strategy} from "src/ERC721GatedDiscount/structs/DiscountParams.sol";
 import {NFTDiscountParams} from "src/ERC721GatedDiscount/structs/NFTDiscountParams.sol";
 import {CurrenciesParams} from "src/ERC721GatedDiscount/structs/CurrenciesParams.sol";
-import {ERC721PresetMinterPauserAutoId} from "@openzeppelin/contracts/token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol";
+import {MockERC721} from "./mocks/MockERC721.sol";
 
 address constant ETH = address(0);
 address constant USDC = address(1);
@@ -25,8 +25,8 @@ bool constant notDependsOnQuantity = false;
 contract ERC721GatedDiscountTest is DSTestPlus {
     ERC721GatedDiscount erc721GatedDiscount;
     MockProductsModule productsModule;
-    ERC721PresetMinterPauserAutoId nftOne;
-    ERC721PresetMinterPauserAutoId nftTwo;
+    MockERC721 nftOne;
+    MockERC721 nftTwo;
 
     uint256 basePrice = 1000;
     uint256 quantity = 1;
@@ -35,17 +35,15 @@ contract ERC721GatedDiscountTest is DSTestPlus {
         productsModule = new MockProductsModule();
         erc721GatedDiscount = new ERC721GatedDiscount(address(productsModule));
 
-        nftOne = new ERC721PresetMinterPauserAutoId(
+        nftOne = new MockERC721(
             "NFTOne",
-            "NFT1",
-            "https://nft.one/"
+            "NFT1"
         );
         nftOne.mint(buyer);
 
-        nftTwo = new ERC721PresetMinterPauserAutoId(
+        nftTwo = new MockERC721(
             "NFTTwo",
-            "NFT2",
-            "https://nft.two/"
+            "NFT2"
         );
     }
 

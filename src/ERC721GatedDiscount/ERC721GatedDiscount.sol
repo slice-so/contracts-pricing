@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.15;
 
 import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
 import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
@@ -26,8 +26,8 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     // ------------------------- mutable storage ------------------------- //
     //*********************************************************************//
 
-    mapping(uint256 slicerId => mapping(uint256 productId => mapping(address currency => DiscountParams))) public
-        productParams;
+    /// @dev Mapping of slicerId => productId => currency => DiscountParams
+    mapping(uint256 => mapping(uint256 => mapping(address => DiscountParams))) public productParams;
 
     //*********************************************************************//
     // -------------------------- constructor ---------------------------- //
