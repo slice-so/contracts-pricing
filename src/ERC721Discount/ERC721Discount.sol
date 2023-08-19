@@ -92,6 +92,7 @@ contract ERC721Discount is ISliceProductPrice {
             productDiscount.isFree = params.isFree;
             productDiscount.discountType = params.discountType;
 
+            // Set values used in inner loop
             newDiscounts = params.discounts;
             prevDiscountsLength = productDiscount.discountsArray.length;
             currDiscountsLength = newDiscounts.length;
