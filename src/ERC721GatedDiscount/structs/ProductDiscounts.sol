@@ -9,10 +9,12 @@ enum DiscountType {
 }
 
 /// @param basePrice          base price for a currency
+/// @param isFree             boolean flag that allows purchase when basePrice == 0`
 /// @param discountType       type of discount, can be `Absolute` or `Relative`
 /// @param nftDiscounts       array of structs {NFT address, absolute/relative discount}
 struct ProductDiscounts {
-    uint248 basePrice;
+    uint240 basePrice;
+    bool isFree;
     DiscountType discountType;
     NFTDiscountParams[] discountsArray;
 }

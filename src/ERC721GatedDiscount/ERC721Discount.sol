@@ -6,6 +6,7 @@ import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
 import {ProductDiscounts, DiscountType} from "./structs/ProductDiscounts.sol";
 import {CurrencyParams} from "./structs/CurrencyParams.sol";
 import {NFTDiscountParams} from "./structs/NFTDiscountParams.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
  *   @title    ERC721Discount - Slice pricing strategy
@@ -20,7 +21,9 @@ contract ERC721Discount is ISliceProductPrice {
     //////////////////////////////////////////////////////////////*/
 
     error NotProductOwner();
-    error InvalidDiscountType();
+    error WrongCurrency();
+    error InvalidRelativeDiscount();
+    error DiscountsNotDescending(address nft);
 
     /*//////////////////////////////////////////////////////////////
                            IMMUTABLE STORAGE
@@ -62,48 +65,64 @@ contract ERC721Discount is ISliceProductPrice {
     //////////////////////////////////////////////////////////////*/
 
     /**
-     * @notice Set NFTs and related discount for product.
-     * @dev Inside `currencyParams` array, the discounts must be sorted in descending order
+     * @notice Set base price and NFT discounts for a product.
+     * @dev Discounts must be sorted in descending order
      *
      * @param slicerId ID of the slicer to set the price params for.
      * @param productId ID of the product to set the price params for.
-     * @param currencyParams Array of `CurrencyParams` structs,
-     *                         remeber to pass discounts sorted from highest to lowest
+     * @param currencyParams Array of `CurrencyParams` structs
      */
     function setProductPrice(uint256 slicerId, uint256 productId, CurrencyParams[] memory currencyParams)
         external
         onlyProductOwner(slicerId, productId)
     {
-        /// For each strategy, grouped by currency
+        CurrencyParams memory params;
+        NFTDiscountParams[] memory newDiscounts;
+        uint256 prevDiscountValue;
+        uint256 prevDiscountsLength;
+        uint256 currDiscountsLength;
+        uint256 maxLength;
+        uint256 minLength;
         for (uint256 i; i < currencyParams.length;) {
-            /// Ref of `CurrencyParams` struct
-            CurrencyParams memory params = currencyParams[i];
+            params = currencyParams[i];
 
-            DiscountParams storage discountParamsRef = productParams[slicerId][productId][params.currency];
+            ProductDiscounts storage productDiscount = productDiscounts[slicerId][productId][params.currency];
 
-            // Set the values for the storage reference
-            discountParamsRef.basePrice = params.basePrice;
-            discountParamsRef.discountType = params.discountType;
+            // Set `productDiscount` values
+            productDiscount.basePrice = params.basePrice;
+            productDiscount.isFree = params.isFree;
+            productDiscount.discountType = params.discountType;
 
-            /// Access to array of NFTDiscountParams for a specific slicer, product and currency
-            NFTDiscountParams[] memory newDiscounts = params.discounts;
-
-            uint256 oldLength = discountParamsRef.discountsArray.length;
-            uint256 newLength = newDiscounts.length;
-            uint256 maxLength = newLength > oldLength ? newLength : oldLength;
+            newDiscounts = params.discounts;
+            prevDiscountsLength = productDiscount.discountsArray.length;
+            currDiscountsLength = newDiscounts.length;
+            maxLength = currDiscountsLength > prevDiscountsLength ? currDiscountsLength : prevDiscountsLength;
+            minLength = maxLength == prevDiscountsLength ? currDiscountsLength : prevDiscountsLength;
 
             for (uint256 j; j < maxLength;) {
-                /// Manually copy each element from memory to storage on DiscountParams
-                /// Handle the case where the new array is shorter than the old one or vice versa
-                if (j < oldLength && j < newLength) {
+                // Check relative discount doesn't exceed max value of 1e4
+                if (params.discountType == DiscountType.Relative) {
+                    if (newDiscounts[j].discount > 1e4) revert InvalidRelativeDiscount();
+                }
+
+                // Check discounts are sorted in descending order
+                if (j > 0) {
+                    if (newDiscounts[j].discount > prevDiscountValue) {
+                        revert DiscountsNotDescending(newDiscounts[j].nft);
+                    }
+                }
+
+                prevDiscountValue = newDiscounts[j].discount;
+
+                if (j < minLength) {
                     // Update in place
-                    discountParamsRef.discountsArray[j] = newDiscounts[j];
-                } else if (j >= oldLength) {
+                    productDiscount.discountsArray[j] = newDiscounts[j];
+                } else if (j >= prevDiscountsLength) {
                     // Append new discounts
-                    discountParamsRef.discountsArray.push(newDiscounts[j]);
-                } else if (j >= newLength) {
+                    productDiscount.discountsArray.push(newDiscounts[j]);
+                } else if (j >= currDiscountsLength) {
                     // Remove old discounts
-                    discountParamsRef.discountsArray.pop();
+                    productDiscount.discountsArray.pop();
                 }
 
                 unchecked {
@@ -137,23 +156,22 @@ contract ERC721Discount is ISliceProductPrice {
         address buyer,
         bytes memory
     ) public view override returns (uint256 ethPrice, uint256 currencyPrice) {
-        /// Access to DiscountParams for a specific slicer, product and currency
-        DiscountParams memory discountParams = productParams[slicerId][productId][currency];
+        ProductDiscounts memory discountParams = productDiscounts[slicerId][productId][currency];
 
-        /// Based on the strategy, discount represents a value or a %.
-        /// If user does not have an NFT, discount will be 0.
-        uint256 discount = _getDiscount(discountParams, buyer);
-
-        uint256 price = discount != 0
-            ? _getPriceBasedOnDiscountType(discountParams.basePrice, discountParams.discountType, discount, quantity)
-            : quantity * discountParams.basePrice;
-
-        // Set ethPrice or currencyPrice based on chosen currency
-        // TODO: Make sure a price is always returned, otherwise people could purchase for free by pointing to an unset currency
-        if (currency == address(0)) {
-            ethPrice = price;
+        if (discountParams.basePrice == 0) {
+            if (!discountParams.isFree) revert WrongCurrency();
         } else {
-            currencyPrice = price;
+            uint256 discount = _getHighestDiscount(discountParams, buyer);
+
+            uint256 price = discount != 0
+                ? _getPriceBasedOnDiscountType(discountParams.basePrice, discountParams.discountType, discount, quantity)
+                : quantity * discountParams.basePrice;
+
+            if (currency == address(0)) {
+                ethPrice = price;
+            } else {
+                currencyPrice = price;
+            }
         }
     }
 
@@ -164,12 +182,16 @@ contract ERC721Discount is ISliceProductPrice {
     /**
      * @notice Gets the highest discount available for a user, based on owned NFTs.
      *
-     * @param discountParams `DiscountParams` struct
+     * @param discountParams `ProductDiscounts` struct
      * @param buyer Address of the buyer
      *
      * @return Discount value
      */
-    function _getDiscount(DiscountParams memory discountParams, address buyer) internal view returns (uint256) {
+    function _getHighestDiscount(ProductDiscounts memory discountParams, address buyer)
+        internal
+        view
+        returns (uint256)
+    {
         NFTDiscountParams[] memory discounts = discountParams.discountsArray;
         uint256 length = discounts.length;
         NFTDiscountParams memory el;
@@ -177,7 +199,7 @@ contract ERC721Discount is ISliceProductPrice {
         for (uint256 i; i < length;) {
             el = discounts[i];
             // Check if user has at enough NFT to qualify for the discount
-            if (el.nft.balanceOf(buyer) >= el.minQuantity) {
+            if (IERC721(el.nft).balanceOf(buyer) >= el.minQuantity) {
                 return el.discount;
             }
 
