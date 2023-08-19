@@ -12,7 +12,7 @@ enum DiscountType {
 /// @param discountType       type of discount, can be `Absolute` or `Relative`
 /// @param nftDiscounts       array of structs {NFT address, absolute/relative discount}
 struct DiscountParams {
-    uint256 basePrice;
+    uint248 basePrice;
     DiscountType discountType;
     NFTDiscountParams[] discountsArray;
 }

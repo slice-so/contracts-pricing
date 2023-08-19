@@ -10,7 +10,7 @@ import {DiscountType} from "./DiscountParams.sol";
 /// @param discounts            array of NFTDiscountParams
 struct CurrenciesParams {
     address currency;
-    uint256 basePrice;
+    uint248 basePrice;
     DiscountType discountType;
     NFTDiscountParams[] discounts;
 }
