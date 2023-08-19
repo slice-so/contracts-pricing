@@ -3,17 +3,16 @@ pragma solidity ^0.8.0;
 
 import {NFTDiscountParams} from "./NFTDiscountParams.sol";
 
-enum Strategy {
-    Fixed,
-    Percentage
+enum DiscountType {
+    Absolute,
+    Relative
 }
 
 /// @param basePrice          base price for a currency
-/// @param strategy           0: Fixed discount (ex. 1000 wei)
-///                           1: Percentage discount (ex. 10%)
-/// @param nftDiscounts       array of structs {NFT address, fixed/percentage discount}
+/// @param discountType       type of discount, can be `Absolute` or `Relative`
+/// @param nftDiscounts       array of structs {NFT address, absolute/relative discount}
 struct DiscountParams {
     uint256 basePrice;
-    Strategy strategy;
+    DiscountType discountType;
     NFTDiscountParams[] discountsArray;
 }

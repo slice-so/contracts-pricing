@@ -3,19 +3,19 @@ pragma solidity ^0.8.15;
 
 import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
 import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
-import {DiscountParams, Strategy} from "./structs/DiscountParams.sol";
+import {DiscountParams, DiscountType} from "./structs/DiscountParams.sol";
 import {CurrenciesParams} from "./structs/CurrenciesParams.sol";
 import {NFTDiscountParams} from "./structs/NFTDiscountParams.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
- *   @title    NFT gated discount - Slice pricing strategy
+ *   @title    ERC721Discount - Slice pricing strategy
  *   @author   Dom-Mac <@zerohex_eth>
  *   @author   jacopo.eth
- *   @notice   Discount product prices based on NFT ownership
+ *   @notice   Product prices with discounts based on NFT ownership
  */
 
-contract ERC721GatedDiscount is ISliceProductPrice {
+contract ERC721Discount is ISliceProductPrice {
     //*********************************************************************//
     // ------------------------ immutable storage ------------------------ //
     //*********************************************************************//
@@ -82,7 +82,7 @@ contract ERC721GatedDiscount is ISliceProductPrice {
 
             // Set the values for the storage reference
             discountParamsRef.basePrice = params.basePrice;
-            discountParamsRef.strategy = params.strategy;
+            discountParamsRef.discountType = params.discountType;
 
             /// Access to array of NFTDiscountParams for a specific slicer, product and currency
             NFTDiscountParams[] memory newDiscounts = params.discounts;
@@ -148,7 +148,7 @@ contract ERC721GatedDiscount is ISliceProductPrice {
         uint256 discount = _getDiscount(params, buyer);
 
         uint256 price = discount != 0
-            ? _getPriceBasedOnStrategy(params.strategy, params.basePrice, discount, quantity)
+            ? _getPriceBasedOnStrategy(params.discountType, params.basePrice, discount, quantity)
             : quantity * params.basePrice;
 
         // Set ethPrice or currencyPrice based on chosen currency
@@ -193,21 +193,21 @@ contract ERC721GatedDiscount is ISliceProductPrice {
     /**
      * @notice Function called to handle price calculation logic based on strategies
      *
-     * @param strategy ID of the slicer being queried
+     * @param discountType type of discount, can be `Absolute` or `Relative`
      * @param basePrice Base price of the product
      * @param discount Discount value, can be a value or a %
      * @param quantity Number of units purchased
      *
      * @return strategyPrice of product.
      */
-    function _getPriceBasedOnStrategy(Strategy strategy, uint256 basePrice, uint256 discount, uint256 quantity)
+    function _getPriceBasedOnStrategy(DiscountType discountType, uint256 basePrice, uint256 discount, uint256 quantity)
         internal
         pure
         returns (uint256 strategyPrice)
     {
-        if (strategy == Strategy.Fixed) {
+        if (discountType == DiscountType.Absolute) {
             strategyPrice = quantity * (basePrice - discount);
-        } else if (strategy == Strategy.Percentage) {
+        } else if (discountType == DiscountType.Relative) {
             strategyPrice = quantity * basePrice - (quantity * basePrice * discount) / 100;
         } else {
             strategyPrice = quantity * basePrice;
