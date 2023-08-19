@@ -22,7 +22,7 @@ contract ERC721Discount is ISliceProductPrice {
     error NotProductOwner();
     error WrongCurrency();
     error InvalidRelativeDiscount();
-    error DiscountsNotDescending(address nft);
+    error DiscountsNotDescending(NFTDiscountParams nft);
 
     /*//////////////////////////////////////////////////////////////
                            IMMUTABLE STORAGE
@@ -107,7 +107,7 @@ contract ERC721Discount is ISliceProductPrice {
                 // Check discounts are sorted in descending order
                 if (j > 0) {
                     if (newDiscounts[j].discount > prevDiscountValue) {
-                        revert DiscountsNotDescending(newDiscounts[j].nft);
+                        revert DiscountsNotDescending(newDiscounts[j]);
                     }
                 }
 
