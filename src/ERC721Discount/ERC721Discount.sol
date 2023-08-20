@@ -9,9 +9,9 @@ import {NFTDiscountParams} from "./structs/NFTDiscountParams.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
- *   @title    ERC721Discount - Slice pricing strategy with discounts based on NFT ownership
- *   @author   Dom-Mac <@zerohex_eth>
- *   @author   jacopo <@jj_ranalli>
+ * @title   ERC721Discount - Slice pricing strategy with discounts based on NFT ownership
+ * @author  Dom-Mac <@zerohex_eth>
+ * @author  jacopo <@jj_ranalli>
  */
 
 contract ERC721Discount is ISliceProductPrice {

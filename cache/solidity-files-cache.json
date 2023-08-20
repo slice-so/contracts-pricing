@@ -1087,8 +1087,8 @@
       }
     },
     "script/Deploy.s.sol": {
-      "lastModificationDate": 1691701559531,
-      "contentHash": "b9f19b38c35130657aff9a781e9ce144",
+      "lastModificationDate": 1692541377685,
+      "contentHash": "302be59ed57cf83c96708ed1ab89be29",
       "sourceName": "script/Deploy.s.sol",
       "solcConfig": {
         "settings": {
@@ -1125,12 +1125,18 @@
         "lib/forge-std/src/Vm.sol",
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1155Upgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC2981Upgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
+        "src/ERC721Discount/ERC721Discount.sol",
+        "src/ERC721Discount/structs/CurrencyParams.sol",
+        "src/ERC721Discount/structs/NFTDiscountParams.sol",
+        "src/ERC721Discount/structs/ProductDiscounts.sol",
         "src/Slice/interfaces/IFundsModule.sol",
         "src/Slice/interfaces/IProductsModule.sol",
         "src/Slice/interfaces/ISliceCore.sol",
@@ -1163,8 +1169,8 @@
       }
     },
     "src/ERC721Discount/ERC721Discount.sol": {
-      "lastModificationDate": 1692469704541,
-      "contentHash": "0b6fbf5e722fe56bb836fb0add1a69d8",
+      "lastModificationDate": 1692541385821,
+      "contentHash": "4d7017901705f3d188665a6466fd172a",
       "sourceName": "src/ERC721Discount/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
