@@ -263,7 +263,7 @@ contract ERC721DiscountTest is DSTestPlus {
         assertTrue(currencyPrice == 0);
     }
 
-    function testSetProductPrice__Edit() public {
+    function testSetProductPrice__Edit_Add() public {
         NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
 
         discounts[0] =
@@ -281,16 +281,16 @@ contract ERC721DiscountTest is DSTestPlus {
         assertTrue(ethPrice == quantity * (basePrice - fixedDiscountTwo));
         assertTrue(currencyPrice == 0);
 
-        NFTDiscountParams[] memory discountsTwo = new NFTDiscountParams[](2);
+        discounts = new NFTDiscountParams[](2);
 
         /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
-        discountsTwo[0] =
+        discounts[0] =
             NFTDiscountParams({nft: address(nftThree), discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
 
-        discountsTwo[1] =
+        discounts[1] =
             NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
-        createDiscount(discountsTwo);
+        createDiscount(discounts);
 
         /// check product price
         (uint256 secondEthPrice, uint256 secondCurrencyPrice) =
@@ -298,5 +298,42 @@ contract ERC721DiscountTest is DSTestPlus {
 
         assertTrue(secondEthPrice == quantity * (basePrice - fixedDiscountOne));
         assertTrue(secondCurrencyPrice == 0);
+    }
+
+    function testSetProductPrice__Edit_Remove() public {
+        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](2);
+
+        // mint NFT 2
+        nftTwo.mint(buyer);
+
+        /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
+        discounts[0] =
+            NFTDiscountParams({nft: address(nftThree), discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
+
+        discounts[1] =
+            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+
+        createDiscount(discounts);
+
+        /// check product price
+        (uint256 secondEthPrice, uint256 secondCurrencyPrice) =
+            erc721GatedDiscount.productPrice(slicerId, productId, ETH, quantity, buyer, "");
+
+        assertTrue(secondEthPrice == quantity * (basePrice - fixedDiscountOne));
+        assertTrue(secondCurrencyPrice == 0);
+
+        discounts = new NFTDiscountParams[](1);
+
+        discounts[0] =
+            NFTDiscountParams({nft: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+
+        createDiscount(discounts);
+
+        /// check product price
+        (uint256 ethPrice, uint256 currencyPrice) =
+            erc721GatedDiscount.productPrice(slicerId, productId, ETH, quantity, buyer, "");
+
+        assertTrue(ethPrice == quantity * (basePrice - fixedDiscountTwo));
+        assertTrue(currencyPrice == 0);
     }
 }

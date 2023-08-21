@@ -1169,8 +1169,8 @@
       }
     },
     "src/ERC721Discount/ERC721Discount.sol": {
-      "lastModificationDate": 1692541385821,
-      "contentHash": "4d7017901705f3d188665a6466fd172a",
+      "lastModificationDate": 1692632955952,
+      "contentHash": "0e867cc7a487d23dd16bfe894729a336",
       "sourceName": "src/ERC721Discount/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
@@ -2818,8 +2818,8 @@
       }
     },
     "test/ERC721Discount.sol": {
-      "lastModificationDate": 1692469391959,
-      "contentHash": "8cdb372cd7fc9819be05fdf01f6ca39c",
+      "lastModificationDate": 1692631290529,
+      "contentHash": "464ad469ffbd33ee00fc4cc60219e26c",
       "sourceName": "test/ERC721Discount.sol",
       "solcConfig": {
         "settings": {

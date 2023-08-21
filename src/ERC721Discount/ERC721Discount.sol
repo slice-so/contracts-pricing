@@ -100,27 +100,30 @@ contract ERC721Discount is ISliceProductPrice {
             minLength = maxLength == prevDiscountsLength ? currDiscountsLength : prevDiscountsLength;
 
             for (uint256 j; j < maxLength;) {
-                // Check relative discount doesn't exceed max value of 1e4
-                if (params.discountType == DiscountType.Relative) {
-                    if (newDiscounts[j].discount > 1e4) revert InvalidRelativeDiscount();
-                }
-
-                // Check discounts are sorted in descending order
-                if (j > 0) {
-                    if (newDiscounts[j].discount > prevDiscountValue) {
-                        revert DiscountsNotDescending(newDiscounts[j]);
+                // If `j` is within bounds of `newDiscounts`
+                if (currDiscountsLength > j) {
+                    // Check relative discount doesn't exceed max value of 1e4
+                    if (params.discountType == DiscountType.Relative) {
+                        if (newDiscounts[j].discount > 1e4) revert InvalidRelativeDiscount();
                     }
-                }
 
-                prevDiscountValue = newDiscounts[j].discount;
+                    // Check discounts are sorted in descending order
+                    if (j > 0) {
+                        if (newDiscounts[j].discount > prevDiscountValue) {
+                            revert DiscountsNotDescending(newDiscounts[j]);
+                        }
+                    }
 
-                if (j < minLength) {
-                    // Update in place
-                    productDiscount.discountsArray[j] = newDiscounts[j];
-                } else if (j >= prevDiscountsLength) {
-                    // Append new discounts
-                    productDiscount.discountsArray.push(newDiscounts[j]);
-                } else if (j >= currDiscountsLength) {
+                    prevDiscountValue = newDiscounts[j].discount;
+
+                    if (j < minLength) {
+                        // Update in place
+                        productDiscount.discountsArray[j] = newDiscounts[j];
+                    } else if (j >= prevDiscountsLength) {
+                        // Append new discounts
+                        productDiscount.discountsArray.push(newDiscounts[j]);
+                    }
+                } else {
                     // Remove old discounts
                     productDiscount.discountsArray.pop();
                 }
