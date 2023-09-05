@@ -1087,8 +1087,8 @@
       }
     },
     "script/Deploy.s.sol": {
-      "lastModificationDate": 1692541377685,
-      "contentHash": "302be59ed57cf83c96708ed1ab89be29",
+      "lastModificationDate": 1693904008194,
+      "contentHash": "ff704c0125193e70f70bcb137470b77f",
       "sourceName": "script/Deploy.s.sol",
       "solcConfig": {
         "settings": {
@@ -1133,10 +1133,6 @@
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
         "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
-        "src/ERC721Discount/ERC721Discount.sol",
-        "src/ERC721Discount/structs/CurrencyParams.sol",
-        "src/ERC721Discount/structs/NFTDiscountParams.sol",
-        "src/ERC721Discount/structs/ProductDiscounts.sol",
         "src/Slice/interfaces/IFundsModule.sol",
         "src/Slice/interfaces/IProductsModule.sol",
         "src/Slice/interfaces/ISliceCore.sol",
@@ -1152,215 +1148,19 @@
         "src/Slice/structs/SliceParams.sol",
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
-        "src/VRGDA/LinearVRGDAPrices.sol",
-        "src/VRGDA/LogisticVRGDAPrices.sol",
-        "src/VRGDA/VRGDAPrices.sol",
-        "src/VRGDA/structs/LinearProductParams.sol",
-        "src/VRGDA/structs/LinearVRGDAParams.sol",
-        "src/VRGDA/structs/LogisticProductParams.sol",
-        "src/VRGDA/structs/LogisticVRGDAParams.sol",
-        "src/utils/SignedWadMath.sol"
+        "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
+        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
+        "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
+        "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
       ],
       "versionRequirement": ">=0.8",
       "artifacts": {
         "DeployScript": {
           "0.8.19+commit.7dd6d404.Darwin.appleclang": "Deploy.s.sol/DeployScript.json"
-        }
-      }
-    },
-    "src/ERC721Discount/ERC721Discount.sol": {
-      "lastModificationDate": 1692632955952,
-      "contentHash": "0e867cc7a487d23dd16bfe894729a336",
-      "sourceName": "src/ERC721Discount/ERC721Discount.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
-        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
-        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1155Upgradeable.sol",
-        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC2981Upgradeable.sol",
-        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
-        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
-        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
-        "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
-        "src/ERC721Discount/structs/CurrencyParams.sol",
-        "src/ERC721Discount/structs/NFTDiscountParams.sol",
-        "src/ERC721Discount/structs/ProductDiscounts.sol",
-        "src/Slice/interfaces/IFundsModule.sol",
-        "src/Slice/interfaces/IProductsModule.sol",
-        "src/Slice/interfaces/ISliceCore.sol",
-        "src/Slice/interfaces/ISlicer.sol",
-        "src/Slice/interfaces/ISlicerManager.sol",
-        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
-        "src/Slice/structs/CurrencyPrice.sol",
-        "src/Slice/structs/Function.sol",
-        "src/Slice/structs/Payee.sol",
-        "src/Slice/structs/Price.sol",
-        "src/Slice/structs/ProductParams.sol",
-        "src/Slice/structs/PurchaseParams.sol",
-        "src/Slice/structs/SliceParams.sol",
-        "src/Slice/structs/SlicerParams.sol",
-        "src/Slice/structs/SubSlicerProduct.sol"
-      ],
-      "versionRequirement": "^0.8.19",
-      "artifacts": {
-        "ERC721Discount": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "ERC721Discount.sol/ERC721Discount.json"
-        }
-      }
-    },
-    "src/ERC721Discount/structs/CurrencyParams.sol": {
-      "lastModificationDate": 1692468140401,
-      "contentHash": "c6e64b0b96be8d75ae00c6eb601bb998",
-      "sourceName": "src/ERC721Discount/structs/CurrencyParams.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "src/ERC721Discount/structs/NFTDiscountParams.sol",
-        "src/ERC721Discount/structs/ProductDiscounts.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "CurrencyParams": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "CurrencyParams.sol/CurrencyParams.json"
-        }
-      }
-    },
-    "src/ERC721Discount/structs/NFTDiscountParams.sol": {
-      "lastModificationDate": 1692468776448,
-      "contentHash": "249df3d82cd6755f0d271a13760c6722",
-      "sourceName": "src/ERC721Discount/structs/NFTDiscountParams.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "NFTDiscountParams": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "NFTDiscountParams.sol/NFTDiscountParams.json"
-        }
-      }
-    },
-    "src/ERC721Discount/structs/ProductDiscounts.sol": {
-      "lastModificationDate": 1692466345762,
-      "contentHash": "c2b3fae1efe7f6adde35249479292bf7",
-      "sourceName": "src/ERC721Discount/structs/ProductDiscounts.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "src/ERC721Discount/structs/NFTDiscountParams.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "ProductDiscounts": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "ProductDiscounts.sol/ProductDiscounts.json"
         }
       }
     },
@@ -2402,6 +2202,425 @@
         }
       }
     },
+    "src/TieredDiscount/ERC721Discount/ERC721Discount.sol": {
+      "lastModificationDate": 1693901796636,
+      "contentHash": "d6ec595d5655b6bbed0bdcb252277cff",
+      "sourceName": "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC2981Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
+        "src/Slice/interfaces/IFundsModule.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/ISliceCore.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/interfaces/ISlicerManager.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SliceParams.sol",
+        "src/Slice/structs/SlicerParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
+      ],
+      "versionRequirement": "^0.8.19",
+      "artifacts": {
+        "ERC721Discount": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "ERC721Discount.sol/ERC721Discount.json"
+        }
+      }
+    },
+    "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol": {
+      "lastModificationDate": 1693900424192,
+      "contentHash": "1567568b4163f5b19e6852cc6c8aaa23",
+      "sourceName": "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "CurrencyParams": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "CurrencyParams.sol/CurrencyParams.json"
+        }
+      }
+    },
+    "src/TieredDiscount/KeysDiscount/KeysDiscount.sol": {
+      "lastModificationDate": 1693901916132,
+      "contentHash": "7c2c1517313c40f0b97af78e6613ba33",
+      "sourceName": "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC2981Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
+        "src/Slice/interfaces/IFundsModule.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/ISliceCore.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/interfaces/ISlicerManager.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SliceParams.sol",
+        "src/Slice/structs/SlicerParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
+        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
+        "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
+      ],
+      "versionRequirement": "^0.8.19",
+      "artifacts": {
+        "KeysDiscount": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "KeysDiscount.sol/KeysDiscount.json"
+        }
+      }
+    },
+    "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol": {
+      "lastModificationDate": 1693903126578,
+      "contentHash": "20ed947a70ce420793b8f0e51a9a5fb1",
+      "sourceName": "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IFriendTechShares": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "IFriendTechShares.sol/IFriendTechShares.json"
+        }
+      }
+    },
+    "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol": {
+      "lastModificationDate": 1693900517372,
+      "contentHash": "1567568b4163f5b19e6852cc6c8aaa23",
+      "sourceName": "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "CurrencyParams": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "CurrencyParams.sol/CurrencyParams.json"
+        }
+      }
+    },
+    "src/TieredDiscount/TieredDiscount.sol": {
+      "lastModificationDate": 1693900442094,
+      "contentHash": "8814a644fbe5e4e2f8d7d258e9c1f92d",
+      "sourceName": "src/TieredDiscount/TieredDiscount.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC2981Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
+        "src/Slice/interfaces/IFundsModule.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/ISliceCore.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/interfaces/ISlicerManager.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SliceParams.sol",
+        "src/Slice/structs/SlicerParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
+      ],
+      "versionRequirement": "^0.8.19",
+      "artifacts": {
+        "TieredDiscount": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "TieredDiscount.sol/TieredDiscount.json"
+        }
+      }
+    },
+    "src/TieredDiscount/structs/DiscountParams.sol": {
+      "lastModificationDate": 1693901058712,
+      "contentHash": "7ed5331095e8da8266d04321bb82acac",
+      "sourceName": "src/TieredDiscount/structs/DiscountParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "DiscountParams": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "DiscountParams.sol/DiscountParams.json"
+        }
+      }
+    },
+    "src/TieredDiscount/structs/ProductDiscounts.sol": {
+      "lastModificationDate": 1693898580571,
+      "contentHash": "c3eaffc766dad5ab58e23b8023b2b163",
+      "sourceName": "src/TieredDiscount/structs/ProductDiscounts.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/TieredDiscount/structs/DiscountParams.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "ProductDiscounts": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "ProductDiscounts.sol/ProductDiscounts.json"
+        }
+      }
+    },
     "src/VRGDA/LinearVRGDAPrices.sol": {
       "lastModificationDate": 1675105734253,
       "contentHash": "450f0291cf0fbb9f22202b7a10be1e5f",
@@ -2818,8 +3037,8 @@
       }
     },
     "test/ERC721Discount.sol": {
-      "lastModificationDate": 1692892288349,
-      "contentHash": "464ad469ffbd33ee00fc4cc60219e26c",
+      "lastModificationDate": 1693900771356,
+      "contentHash": "fcdb8ac237a8a51589ca99e2eb82dd20",
       "sourceName": "test/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
@@ -2871,10 +3090,6 @@
         "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
         "lib/solmate/src/test/utils/DSTestPlus.sol",
         "lib/solmate/src/test/utils/Hevm.sol",
-        "src/ERC721Discount/ERC721Discount.sol",
-        "src/ERC721Discount/structs/CurrencyParams.sol",
-        "src/ERC721Discount/structs/NFTDiscountParams.sol",
-        "src/ERC721Discount/structs/ProductDiscounts.sol",
         "src/Slice/interfaces/IFundsModule.sol",
         "src/Slice/interfaces/IProductsModule.sol",
         "src/Slice/interfaces/ISliceCore.sol",
@@ -2890,6 +3105,11 @@
         "src/Slice/structs/SliceParams.sol",
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
+        "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
+        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol",
         "test/mocks/MockERC721.sol",
         "test/mocks/MockProductsModule.sol"
       ],
@@ -2897,6 +3117,97 @@
       "artifacts": {
         "ERC721DiscountTest": {
           "0.8.19+commit.7dd6d404.Darwin.appleclang": "ERC721Discount.sol/ERC721DiscountTest.json"
+        }
+      }
+    },
+    "test/KeysDiscount.sol": {
+      "lastModificationDate": 1693903932062,
+      "contentHash": "58f5f5bf9c8fdac09ecc2477b31e0cb2",
+      "sourceName": "test/KeysDiscount.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/ds-test/src/test.sol",
+        "lib/forge-std/src/Script.sol",
+        "lib/forge-std/src/StdJson.sol",
+        "lib/forge-std/src/Vm.sol",
+        "lib/forge-std/src/console.sol",
+        "lib/forge-std/src/console2.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Context.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+        "lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC2981Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC1155/IERC1155Upgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/token/ERC721/IERC721ReceiverUpgradeable.sol",
+        "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol",
+        "lib/solmate/src/test/utils/DSTestPlus.sol",
+        "lib/solmate/src/test/utils/Hevm.sol",
+        "src/Slice/interfaces/IFundsModule.sol",
+        "src/Slice/interfaces/IProductsModule.sol",
+        "src/Slice/interfaces/ISliceCore.sol",
+        "src/Slice/interfaces/ISlicer.sol",
+        "src/Slice/interfaces/ISlicerManager.sol",
+        "src/Slice/interfaces/utils/ISliceProductPrice.sol",
+        "src/Slice/structs/CurrencyPrice.sol",
+        "src/Slice/structs/Function.sol",
+        "src/Slice/structs/Payee.sol",
+        "src/Slice/structs/Price.sol",
+        "src/Slice/structs/ProductParams.sol",
+        "src/Slice/structs/PurchaseParams.sol",
+        "src/Slice/structs/SliceParams.sol",
+        "src/Slice/structs/SlicerParams.sol",
+        "src/Slice/structs/SubSlicerProduct.sol",
+        "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
+        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
+        "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
+        "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
+        "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol",
+        "test/mocks/MockERC721.sol",
+        "test/mocks/MockProductsModule.sol"
+      ],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "KeysDiscountTest": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "KeysDiscount.sol/KeysDiscountTest.json"
         }
       }
     },

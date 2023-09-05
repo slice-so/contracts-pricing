@@ -2,7 +2,12 @@
   "goerli-staging": {
     "LinearVRGDAPrices": "0xb32e0747B02717f13f82DB0f74C7CA453646Aa42",
     "LogisticVRGDAPrices": "0x70A50E201036147296AE83d1F4E9B785B2a7CCe7",
-    "ERC721Discount": ""
+    "ERC721Discount": "0x6704dCe82375181fFD2B7C9E010Ac80e3861d9e0"
+  },
+  "goerli-testnet": {
+    "LinearVRGDAPrices": "0x3b155175B16AE142023827e03C61EF45f68D01b6",
+    "LogisticVRGDAPrices": "0xf50D1e551806b1A84cF5fd0C47BEF9f878555B82",
+    "ERC721Discount": "0x44f27E72dCA18177C90FeEcC9792c00cBEDeFDCc"
   },
   "mainnet": {
     "LinearVRGDAPrices": "0x3b155175B16AE142023827e03C61EF45f68D01b6",
@@ -12,7 +17,8 @@
   "base": {
     "LinearVRGDAPrices": "0xc49976EaA3c18f10793dfB268BC376D4a926843b",
     "LogisticVRGDAPrices": "0xd2258C1450A2323f5a94e1f3F51E2c3f7A5162E8",
-    "ERC721Discount": ""
+    "ERC721Discount": "0x21da1b084175f95285B49b22C018889c45E1820d",
+    "KeysDiscount": "0xb6383De3DFaF32b441e9d2E6f3029F88B024798F"
   },
   "base-goerli": {
     "LinearVRGDAPrices": "0xA42e189a2886Aa6686952b57b01f6b2a741b0C1c",
