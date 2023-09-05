@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
 import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
+import {CurrencyParams} from "./structs/CurrencyParams.sol";
 import {ProductDiscounts, DiscountType} from "./structs/ProductDiscounts.sol";
 import {DiscountParams} from "./structs/DiscountParams.sol";
 
@@ -69,7 +70,7 @@ abstract contract TieredDiscount is ISliceProductPrice {
      * @param productId ID of the product to set the price params for.
      * @param params Array of `CurrencyParams` structs
      */
-    function setProductPrice(uint256 slicerId, uint256 productId, bytes memory params)
+    function setProductPrice(uint256 slicerId, uint256 productId, CurrencyParams[] memory params)
         external
         onlyProductOwner(slicerId, productId)
     {
@@ -109,7 +110,7 @@ abstract contract TieredDiscount is ISliceProductPrice {
                                 INTERNAL
     //////////////////////////////////////////////////////////////*/
 
-    function _setProductPrice(uint256 slicerId, uint256 productId, bytes memory params) internal virtual;
+    function _setProductPrice(uint256 slicerId, uint256 productId, CurrencyParams[] memory params) internal virtual;
 
     function _productPrice(
         uint256 slicerId,

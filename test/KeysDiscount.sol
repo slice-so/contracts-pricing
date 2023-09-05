@@ -67,7 +67,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
         hevm.prank(owner);
-        keysDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
+        keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
     }
 
     function testDeploy() public {
@@ -84,7 +84,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
         hevm.prank(owner);
-        keysDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
+        keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -104,7 +104,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
 
         hevm.prank(owner);
-        keysDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
+        keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -130,7 +130,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         currenciesParams[1] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discountsTwo);
 
         hevm.prank(owner);
-        keysDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
+        keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price for ETH
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -228,7 +228,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
         hevm.prank(owner);
-        keysDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
+        keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -248,7 +248,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
         hevm.prank(owner);
-        keysDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
+        keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         // buy multiple products
         quantity = 6;

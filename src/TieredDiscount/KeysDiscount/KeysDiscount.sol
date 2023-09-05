@@ -1,8 +1,13 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {CurrencyParams} from "./structs/CurrencyParams.sol";
-import {DiscountParams, ProductDiscounts, DiscountType, ERC721Discount} from "../ERC721Discount/ERC721Discount.sol";
+import {
+    CurrencyParams,
+    DiscountParams,
+    ProductDiscounts,
+    DiscountType,
+    ERC721Discount
+} from "../ERC721Discount/ERC721Discount.sol";
 import {IFriendTechShares} from "./interfaces/IFriendTechShares.sol";
 
 /**

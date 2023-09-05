@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {CurrencyParams} from "./structs/CurrencyParams.sol";
-import {DiscountParams, ProductDiscounts, DiscountType, TieredDiscount} from "../TieredDiscount.sol";
+import {CurrencyParams, DiscountParams, ProductDiscounts, DiscountType, TieredDiscount} from "../TieredDiscount.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
@@ -28,11 +27,13 @@ contract ERC721Discount is TieredDiscount {
      *
      * @param slicerId ID of the slicer to set the price params for.
      * @param productId ID of the product to set the price params for.
-     * @param params Array of `CurrencyParams` structs
+     * @param allCurrencyParams Array of `CurrencyParams` structs
      */
-    function _setProductPrice(uint256 slicerId, uint256 productId, bytes memory params) internal virtual override {
-        CurrencyParams[] memory allCurrencyParams = abi.decode(params, (CurrencyParams[]));
-
+    function _setProductPrice(uint256 slicerId, uint256 productId, CurrencyParams[] memory allCurrencyParams)
+        internal
+        virtual
+        override
+    {
         CurrencyParams memory currencyParams;
         DiscountParams[] memory newDiscounts;
         uint256 prevDiscountValue;

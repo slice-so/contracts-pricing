@@ -1149,11 +1149,10 @@
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
         "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
-        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
         "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
         "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
-        "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
         "src/TieredDiscount/structs/ProductDiscounts.sol",
         "src/VRGDA/LinearVRGDAPrices.sol",
@@ -2211,8 +2210,8 @@
       }
     },
     "src/TieredDiscount/ERC721Discount/ERC721Discount.sol": {
-      "lastModificationDate": 1693915478275,
-      "contentHash": "643dcc15d0b28b39629751a3ac392520",
+      "lastModificationDate": 1693917771891,
+      "contentHash": "40d12bb6a6449569f5391e61e3ce88a9",
       "sourceName": "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
@@ -2267,8 +2266,8 @@
         "src/Slice/structs/SliceParams.sol",
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
-        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
         "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
         "src/TieredDiscount/structs/ProductDiscounts.sol"
       ],
@@ -2279,53 +2278,9 @@
         }
       }
     },
-    "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol": {
-      "lastModificationDate": 1693900424192,
-      "contentHash": "1567568b4163f5b19e6852cc6c8aaa23",
-      "sourceName": "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "src/TieredDiscount/structs/DiscountParams.sol",
-        "src/TieredDiscount/structs/ProductDiscounts.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "CurrencyParams": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "CurrencyParams.sol/CurrencyParams.json"
-        }
-      }
-    },
     "src/TieredDiscount/KeysDiscount/KeysDiscount.sol": {
-      "lastModificationDate": 1693915494509,
-      "contentHash": "f0455b9875fc66d2bb040f54eb21c621",
+      "lastModificationDate": 1693917644957,
+      "contentHash": "8b126439485c3275a7cf97e7ab7516ac",
       "sourceName": "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
       "solcConfig": {
         "settings": {
@@ -2381,10 +2336,9 @@
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
         "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
-        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
         "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
-        "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
         "src/TieredDiscount/structs/ProductDiscounts.sol"
       ],
@@ -2436,53 +2390,9 @@
         }
       }
     },
-    "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol": {
-      "lastModificationDate": 1693900517372,
-      "contentHash": "1567568b4163f5b19e6852cc6c8aaa23",
-      "sourceName": "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "src/TieredDiscount/structs/DiscountParams.sol",
-        "src/TieredDiscount/structs/ProductDiscounts.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "CurrencyParams": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "CurrencyParams.sol/CurrencyParams.json"
-        }
-      }
-    },
     "src/TieredDiscount/TieredDiscount.sol": {
-      "lastModificationDate": 1693900442094,
-      "contentHash": "8814a644fbe5e4e2f8d7d258e9c1f92d",
+      "lastModificationDate": 1693917770410,
+      "contentHash": "48051f132cd334cc93a3a7364679d811",
       "sourceName": "src/TieredDiscount/TieredDiscount.sol",
       "solcConfig": {
         "settings": {
@@ -2535,6 +2445,7 @@
         "src/Slice/structs/SliceParams.sol",
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
+        "src/TieredDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
         "src/TieredDiscount/structs/ProductDiscounts.sol"
       ],
@@ -2542,6 +2453,50 @@
       "artifacts": {
         "TieredDiscount": {
           "0.8.19+commit.7dd6d404.Darwin.appleclang": "TieredDiscount.sol/TieredDiscount.json"
+        }
+      }
+    },
+    "src/TieredDiscount/structs/CurrencyParams.sol": {
+      "lastModificationDate": 1693917685847,
+      "contentHash": "3fdba0d6bd743d65c508f7e7bdb28597",
+      "sourceName": "src/TieredDiscount/structs/CurrencyParams.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/TieredDiscount/structs/DiscountParams.sol",
+        "src/TieredDiscount/structs/ProductDiscounts.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "CurrencyParams": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "CurrencyParams.sol/CurrencyParams.json"
         }
       }
     },
@@ -3045,8 +3000,8 @@
       }
     },
     "test/ERC721Discount.sol": {
-      "lastModificationDate": 1693915457973,
-      "contentHash": "9df1936e834f6f170d40362b6273086d",
+      "lastModificationDate": 1693917718397,
+      "contentHash": "68bc90eea1caee15310367cc2e1c144c",
       "sourceName": "test/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
@@ -3114,8 +3069,8 @@
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
         "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
-        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
         "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
         "src/TieredDiscount/structs/ProductDiscounts.sol",
         "test/mocks/MockERC721.sol",
@@ -3129,8 +3084,8 @@
       }
     },
     "test/KeysDiscount.sol": {
-      "lastModificationDate": 1693915433244,
-      "contentHash": "055355aadada958b223a24e437593287",
+      "lastModificationDate": 1693917724807,
+      "contentHash": "7197676ad0a25e6e4ae4475d650a25dd",
       "sourceName": "test/KeysDiscount.sol",
       "solcConfig": {
         "settings": {
@@ -3202,11 +3157,10 @@
         "src/Slice/structs/SlicerParams.sol",
         "src/Slice/structs/SubSlicerProduct.sol",
         "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
-        "src/TieredDiscount/ERC721Discount/structs/CurrencyParams.sol",
         "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
         "src/TieredDiscount/KeysDiscount/interfaces/IFriendTechShares.sol",
-        "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/TieredDiscount.sol",
+        "src/TieredDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
         "src/TieredDiscount/structs/ProductDiscounts.sol",
         "test/mocks/MockERC721.sol",

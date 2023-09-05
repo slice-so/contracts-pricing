@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {DiscountParams} from "../../structs/DiscountParams.sol";
-import {DiscountType} from "../../structs/ProductDiscounts.sol";
+import {DiscountParams} from "./DiscountParams.sol";
+import {DiscountType} from "./ProductDiscounts.sol";
 
 /// @param currency             currency address
 /// @param basePrice            base price for a currency
