@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
-import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
-import {ProductDiscounts, DiscountType} from "./structs/ProductDiscounts.sol";
 import {CurrencyParams} from "./structs/CurrencyParams.sol";
-import {NFTDiscountParams} from "./structs/NFTDiscountParams.sol";
+import {DiscountParams, ProductDiscounts, DiscountType, TieredDiscount} from "../TieredDiscount.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
@@ -14,50 +11,12 @@ import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
  * @author  jacopo <@jj_ranalli>
  */
 
-contract ERC721Discount is ISliceProductPrice {
-    /*//////////////////////////////////////////////////////////////
-                                 ERRORS
-    //////////////////////////////////////////////////////////////*/
-
-    error NotProductOwner();
-    error WrongCurrency();
-    error InvalidRelativeDiscount();
-    error DiscountsNotDescending(NFTDiscountParams nft);
-
-    /*//////////////////////////////////////////////////////////////
-                           IMMUTABLE STORAGE
-    //////////////////////////////////////////////////////////////*/
-
-    address public immutable productsModuleAddress;
-
-    /*//////////////////////////////////////////////////////////////
-                            MUTABLE STORAGE
-    //////////////////////////////////////////////////////////////*/
-
-    mapping(uint256 slicerId => mapping(uint256 productId => mapping(address currency => ProductDiscounts))) public
-        productDiscounts;
-
+contract ERC721Discount is TieredDiscount {
     /*//////////////////////////////////////////////////////////////
                               CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
-    constructor(address _productsModuleAddress) {
-        productsModuleAddress = _productsModuleAddress;
-    }
-
-    /*//////////////////////////////////////////////////////////////
-                               MODIFIERS
-    //////////////////////////////////////////////////////////////*/
-
-    /**
-     * @notice Check if msg.sender is owner of a product. Used to manage access to `setProductPrice`.
-     */
-    modifier onlyProductOwner(uint256 slicerId, uint256 productId) {
-        if (!IProductsModule(productsModuleAddress).isProductOwner(slicerId, productId, msg.sender)) {
-            revert NotProductOwner();
-        }
-        _;
-    }
+    constructor(address _productsModuleAddress) TieredDiscount(_productsModuleAddress) {}
 
     /*//////////////////////////////////////////////////////////////
                                FUNCTIONS
@@ -69,31 +28,30 @@ contract ERC721Discount is ISliceProductPrice {
      *
      * @param slicerId ID of the slicer to set the price params for.
      * @param productId ID of the product to set the price params for.
-     * @param currencyParams Array of `CurrencyParams` structs
+     * @param params Array of `CurrencyParams` structs
      */
-    function setProductPrice(uint256 slicerId, uint256 productId, CurrencyParams[] memory currencyParams)
-        external
-        onlyProductOwner(slicerId, productId)
-    {
-        CurrencyParams memory params;
-        NFTDiscountParams[] memory newDiscounts;
+    function _setProductPrice(uint256 slicerId, uint256 productId, bytes memory params) internal virtual override {
+        CurrencyParams[] memory allCurrencyParams = abi.decode(params, (CurrencyParams[]));
+
+        CurrencyParams memory currencyParams;
+        DiscountParams[] memory newDiscounts;
         uint256 prevDiscountValue;
         uint256 prevDiscountsLength;
         uint256 currDiscountsLength;
         uint256 maxLength;
         uint256 minLength;
-        for (uint256 i; i < currencyParams.length;) {
-            params = currencyParams[i];
+        for (uint256 i; i < allCurrencyParams.length;) {
+            currencyParams = allCurrencyParams[i];
 
-            ProductDiscounts storage productDiscount = productDiscounts[slicerId][productId][params.currency];
+            ProductDiscounts storage productDiscount = productDiscounts[slicerId][productId][currencyParams.currency];
 
             // Set `productDiscount` values
-            productDiscount.basePrice = params.basePrice;
-            productDiscount.isFree = params.isFree;
-            productDiscount.discountType = params.discountType;
+            productDiscount.basePrice = currencyParams.basePrice;
+            productDiscount.isFree = currencyParams.isFree;
+            productDiscount.discountType = currencyParams.discountType;
 
             // Set values used in inner loop
-            newDiscounts = params.discounts;
+            newDiscounts = currencyParams.discounts;
             prevDiscountsLength = productDiscount.discountsArray.length;
             currDiscountsLength = newDiscounts.length;
             maxLength = currDiscountsLength > prevDiscountsLength ? currDiscountsLength : prevDiscountsLength;
@@ -103,9 +61,11 @@ contract ERC721Discount is ISliceProductPrice {
                 // If `j` is within bounds of `newDiscounts`
                 if (currDiscountsLength > j) {
                     // Check relative discount doesn't exceed max value of 1e4
-                    if (params.discountType == DiscountType.Relative) {
+                    if (currencyParams.discountType == DiscountType.Relative) {
                         if (newDiscounts[j].discount > 1e4) revert InvalidRelativeDiscount();
                     }
+
+                    if (newDiscounts[j].minQuantity == 0) revert InvalidMinQuantity();
 
                     // Check discounts are sorted in descending order
                     if (j > 0) {
@@ -143,38 +103,32 @@ contract ERC721Discount is ISliceProductPrice {
      * @notice Function called by Slice protocol to calculate current product price.
      *         Base price is returned if user does not have a discount.
      *
-     * @param slicerId ID of the slicer being queried
-     * @param productId ID of the product being queried
      * @param currency Currency chosen for the purchase
      * @param quantity Number of units purchased
      * @param buyer Address of the buyer
+     * @param discountParams `ProductDiscounts` struct
      *
      * @return ethPrice and currencyPrice of product.
      */
-    function productPrice(
-        uint256 slicerId,
-        uint256 productId,
+    function _productPrice(
+        uint256,
+        uint256,
         address currency,
         uint256 quantity,
         address buyer,
-        bytes memory
-    ) public view override returns (uint256 ethPrice, uint256 currencyPrice) {
-        ProductDiscounts memory discountParams = productDiscounts[slicerId][productId][currency];
+        bytes memory,
+        ProductDiscounts memory discountParams
+    ) internal view virtual override returns (uint256 ethPrice, uint256 currencyPrice) {
+        uint256 discount = _getHighestDiscount(discountParams, buyer);
 
-        if (discountParams.basePrice == 0) {
-            if (!discountParams.isFree) revert WrongCurrency();
+        uint256 price = discount != 0
+            ? _getPriceBasedOnDiscountType(discountParams.basePrice, discountParams.discountType, discount, quantity)
+            : quantity * discountParams.basePrice;
+
+        if (currency == address(0)) {
+            ethPrice = price;
         } else {
-            uint256 discount = _getHighestDiscount(discountParams, buyer);
-
-            uint256 price = discount != 0
-                ? _getPriceBasedOnDiscountType(discountParams.basePrice, discountParams.discountType, discount, quantity)
-                : quantity * discountParams.basePrice;
-
-            if (currency == address(0)) {
-                ethPrice = price;
-            } else {
-                currencyPrice = price;
-            }
+            currencyPrice = price;
         }
     }
 
@@ -193,18 +147,29 @@ contract ERC721Discount is ISliceProductPrice {
     function _getHighestDiscount(ProductDiscounts memory discountParams, address buyer)
         internal
         view
+        virtual
         returns (uint256)
     {
-        NFTDiscountParams[] memory discounts = discountParams.discountsArray;
+        DiscountParams[] memory discounts = discountParams.discountsArray;
         uint256 length = discounts.length;
-        NFTDiscountParams memory el;
+        DiscountParams memory el;
 
+        address prevAsset;
+        uint256 nftBalance;
         for (uint256 i; i < length;) {
             el = discounts[i];
+
+            // Skip retrieving balance if asset is the same as previous iteration
+            if (prevAsset != el.asset) {
+                nftBalance = IERC721(el.asset).balanceOf(buyer);
+            }
+
             // Check if user has at enough NFT to qualify for the discount
-            if (IERC721(el.nft).balanceOf(buyer) >= el.minQuantity) {
+            if (nftBalance >= el.minQuantity) {
                 return el.discount;
             }
+
+            prevAsset = el.asset;
 
             unchecked {
                 ++i;
@@ -230,7 +195,7 @@ contract ERC721Discount is ISliceProductPrice {
         DiscountType discountType,
         uint256 discount,
         uint256 quantity
-    ) internal pure returns (uint256 price) {
+    ) internal pure virtual returns (uint256 price) {
         if (discountType == DiscountType.Absolute) {
             price = (basePrice - discount) * quantity;
         } else {

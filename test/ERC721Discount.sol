@@ -4,10 +4,13 @@ pragma solidity 0.8.19;
 import {DSTestPlus} from "lib/solmate/src/test/utils/DSTestPlus.sol";
 import {console2} from "lib/forge-std/src/console2.sol";
 import {MockProductsModule} from "./mocks/MockProductsModule.sol";
-import {ERC721Discount} from "src/ERC721Discount/ERC721Discount.sol";
-import {ProductDiscounts, DiscountType} from "src/ERC721Discount/structs/ProductDiscounts.sol";
-import {NFTDiscountParams} from "src/ERC721Discount/structs/NFTDiscountParams.sol";
-import {CurrencyParams} from "src/ERC721Discount/structs/CurrencyParams.sol";
+import {
+    ERC721Discount,
+    ProductDiscounts,
+    DiscountType,
+    DiscountParams,
+    CurrencyParams
+} from "src/TieredDiscount/ERC721Discount/ERC721Discount.sol";
 import {MockERC721} from "./mocks/MockERC721.sol";
 
 address constant ETH = address(0);
@@ -52,18 +55,18 @@ contract ERC721DiscountTest is DSTestPlus {
         );
     }
 
-    function createDiscount(NFTDiscountParams[] memory nftDiscountParams) internal {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](nftDiscountParams.length);
+    function createDiscount(DiscountParams[] memory discountParams) internal {
+        DiscountParams[] memory discounts = new DiscountParams[](discountParams.length);
 
-        for (uint256 i = 0; i < nftDiscountParams.length; i++) {
-            discounts[i] = nftDiscountParams[i];
+        for (uint256 i = 0; i < discountParams.length; i++) {
+            discounts[i] = discountParams[i];
         }
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
         hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
+        erc721GatedDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
     }
 
     function testDeploy() public {
@@ -71,17 +74,16 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testSetProductPrice__ETH() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price with additional custom inputs
-        discounts[0] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
         hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
+        erc721GatedDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -92,17 +94,16 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testSetProductPrice__ERC20() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price with additional custom inputs
-        discounts[0] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
 
         hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
+        erc721GatedDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -113,24 +114,24 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testSetProductPrice__MultipleCurrencies() public {
-        NFTDiscountParams[] memory discountsOne = new NFTDiscountParams[](1);
-        NFTDiscountParams[] memory discountsTwo = new NFTDiscountParams[](1);
+        DiscountParams[] memory discountsOne = new DiscountParams[](1);
+        DiscountParams[] memory discountsTwo = new DiscountParams[](1);
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](2);
 
         /// set product price with additional custom inputs
         discountsOne[0] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+            DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discountsOne);
 
         /// set product price with different discount for different currency
         discountsTwo[0] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+            DiscountParams({asset: address(nftOne), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
 
         currenciesParams[1] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discountsTwo);
 
         hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
+        erc721GatedDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
 
         /// check product price for ETH
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -148,11 +149,10 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testProductPrice__NotNFTOwner() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price for NFT that is not owned by buyer
-        discounts[0] =
-            NFTDiscountParams({nft: address(nftTwo), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftTwo), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         createDiscount(discounts);
 
@@ -165,11 +165,11 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testProductPrice__MinQuantity() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// Buyer owns 1 NFT, but minQuantity is 2
         discounts[0] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity + 1});
+            DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity + 1});
 
         createDiscount(discounts);
 
@@ -192,13 +192,11 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testProductPrice__HigherDiscount() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](2);
+        DiscountParams[] memory discounts = new DiscountParams[](2);
 
         /// NFT 2 has higher discount, but buyer owns only NFT 1
-        discounts[0] =
-            NFTDiscountParams({nft: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
-        discounts[1] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+        discounts[1] = DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         createDiscount(discounts);
 
@@ -221,16 +219,16 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testProductPrice__Relative() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = NFTDiscountParams({nft: address(nftOne), discount: percentDiscount, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftOne), discount: percentDiscount, minQuantity: minNftQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         /// set product price with percentage discount
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
         hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
+        erc721GatedDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
 
         /// check product price
         (uint256 ethPrice, uint256 currencyPrice) =
@@ -241,16 +239,16 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testProductPrice__MultipleBoughtQuantity() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = NFTDiscountParams({nft: address(nftOne), discount: percentDiscount, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftOne), discount: percentDiscount, minQuantity: minNftQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         /// set product price with percentage discount
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
         hevm.prank(owner);
-        erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
+        erc721GatedDiscount.setProductPrice(slicerId, productId, abi.encode(currenciesParams));
 
         // buy multiple products
         quantity = 6;
@@ -264,10 +262,9 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testSetProductPrice__Edit_Add() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](1);
+        DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] =
-            NFTDiscountParams({nft: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
 
         createDiscount(discounts);
 
@@ -281,14 +278,13 @@ contract ERC721DiscountTest is DSTestPlus {
         assertTrue(ethPrice == quantity * (basePrice - fixedDiscountTwo));
         assertTrue(currencyPrice == 0);
 
-        discounts = new NFTDiscountParams[](2);
+        discounts = new DiscountParams[](2);
 
         /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
         discounts[0] =
-            NFTDiscountParams({nft: address(nftThree), discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
+            DiscountParams({asset: address(nftThree), discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
 
-        discounts[1] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[1] = DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         createDiscount(discounts);
 
@@ -301,17 +297,16 @@ contract ERC721DiscountTest is DSTestPlus {
     }
 
     function testSetProductPrice__Edit_Remove() public {
-        NFTDiscountParams[] memory discounts = new NFTDiscountParams[](2);
+        DiscountParams[] memory discounts = new DiscountParams[](2);
 
         // mint NFT 2
         nftTwo.mint(buyer);
 
         /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
         discounts[0] =
-            NFTDiscountParams({nft: address(nftThree), discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
+            DiscountParams({asset: address(nftThree), discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
 
-        discounts[1] =
-            NFTDiscountParams({nft: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[1] = DiscountParams({asset: address(nftOne), discount: fixedDiscountOne, minQuantity: minNftQuantity});
 
         createDiscount(discounts);
 
@@ -322,10 +317,9 @@ contract ERC721DiscountTest is DSTestPlus {
         assertTrue(secondEthPrice == quantity * (basePrice - fixedDiscountOne));
         assertTrue(secondCurrencyPrice == 0);
 
-        discounts = new NFTDiscountParams[](1);
+        discounts = new DiscountParams[](1);
 
-        discounts[0] =
-            NFTDiscountParams({nft: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: address(nftTwo), discount: fixedDiscountTwo, minQuantity: minNftQuantity});
 
         createDiscount(discounts);
 
