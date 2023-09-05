@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 
 import {LinearVRGDAPrices} from "../src/VRGDA/LinearVRGDAPrices.sol";
 import {LogisticVRGDAPrices} from "../src/VRGDA/LogisticVRGDAPrices.sol";
-import {ERC721Discount} from "../src/ERC721Discount/ERC721Discount.sol";
+import {ERC721Discount} from "../src/TieredDiscount/ERC721Discount/ERC721Discount.sol";
 
 // import { CREATE3Factory } from "create3-factory/CREATE3Factory.sol";
 
