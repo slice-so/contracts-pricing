@@ -36,7 +36,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
 
     uint240 basePrice = 1000;
     uint256 quantity = 1;
-    uint8 minNftQuantity = 1;
+    uint8 minQuantity = 1;
 
     function setUp() public {
         string memory rpcUrl = vm.envString("RPC_URL_BASE");
@@ -78,7 +78,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price with additional custom inputs
-        discounts[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
@@ -98,7 +98,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price with additional custom inputs
-        discounts[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
@@ -120,14 +120,12 @@ contract KeysDiscountTest is DSTestPlus, Script {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](2);
 
         /// set product price with additional custom inputs
-        discountsOne[0] =
-            DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discountsOne[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
 
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discountsOne);
 
         /// set product price with different discount for different currency
-        discountsTwo[0] =
-            DiscountParams({asset: sharesSubject, discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+        discountsTwo[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountTwo, minQuantity: minQuantity});
 
         currenciesParams[1] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discountsTwo);
 
@@ -149,11 +147,11 @@ contract KeysDiscountTest is DSTestPlus, Script {
         assertTrue(usdcPrice == (quantity * basePrice) - fixedDiscountTwo);
     }
 
-    function testProductPrice__NotNFTOwner() public {
+    function testProductPrice__NotOwner() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        /// set product price for NFT that is not owned by buyer
-        discounts[0] = DiscountParams({asset: address(1), discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        /// set product price for key that is not owned by buyer
+        discounts[0] = DiscountParams({asset: address(1), discount: fixedDiscountOne, minQuantity: minQuantity});
 
         createDiscount(discounts);
 
@@ -168,9 +166,8 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testProductPrice__MinQuantity() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        /// Buyer owns 1 NFT, but minQuantity is 2
-        discounts[0] =
-            DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity + 1});
+        /// Buyer owns 1 key, but minQuantity is 2
+        discounts[0] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity + 1});
 
         createDiscount(discounts);
 
@@ -196,10 +193,9 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testProductPrice__HigherDiscount() public {
         DiscountParams[] memory discounts = new DiscountParams[](2);
 
-        /// NFT 2 has higher discount, but buyer owns only NFT 1
-        discounts[0] =
-            DiscountParams({asset: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minNftQuantity});
-        discounts[1] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        /// key 2 has higher discount, but buyer owns only key 1
+        discounts[0] = DiscountParams({asset: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minQuantity});
+        discounts[1] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
 
         createDiscount(discounts);
 
@@ -225,7 +221,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testProductPrice__Relative() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = DiscountParams({asset: sharesSubject, discount: percentDiscount, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: sharesSubject, discount: percentDiscount, minQuantity: minQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         /// set product price with percentage discount
@@ -245,7 +241,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testProductPrice__MultipleBoughtQuantity() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = DiscountParams({asset: sharesSubject, discount: percentDiscount, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: sharesSubject, discount: percentDiscount, minQuantity: minQuantity});
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         /// set product price with percentage discount
@@ -268,8 +264,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testSetProductPrice__Edit_Add() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] =
-            DiscountParams({asset: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minQuantity});
 
         createDiscount(discounts);
 
@@ -286,11 +281,11 @@ contract KeysDiscountTest is DSTestPlus, Script {
 
         discounts = new DiscountParams[](2);
 
-        /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
+        /// edit product price, with more keys and first key has higher discount but buyer owns only the second
         discounts[0] =
-            DiscountParams({asset: sharesSubjectAlt2, discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
+            DiscountParams({asset: sharesSubjectAlt2, discount: fixedDiscountOne + 10, minQuantity: minQuantity});
 
-        discounts[1] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[1] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
 
         createDiscount(discounts);
 
@@ -309,11 +304,11 @@ contract KeysDiscountTest is DSTestPlus, Script {
         vm.prank(buyer);
         friendTechShares.buyShares{value: 1 ether}(sharesSubjectAlt, 1);
 
-        /// edit product price, with more NFTs and first NFT has higher discount but buyer owns only the second
+        /// edit product price, with more keys and first key has higher discount but buyer owns only the second
         discounts[0] =
-            DiscountParams({asset: sharesSubjectAlt2, discount: fixedDiscountOne + 10, minQuantity: minNftQuantity});
+            DiscountParams({asset: sharesSubjectAlt2, discount: fixedDiscountOne + 10, minQuantity: minQuantity});
 
-        discounts[1] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minNftQuantity});
+        discounts[1] = DiscountParams({asset: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
 
         createDiscount(discounts);
 
@@ -326,8 +321,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
 
         discounts = new DiscountParams[](1);
 
-        discounts[0] =
-            DiscountParams({asset: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minNftQuantity});
+        discounts[0] = DiscountParams({asset: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minQuantity});
 
         createDiscount(discounts);
 
