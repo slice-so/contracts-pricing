@@ -52,8 +52,8 @@ contract KeysDiscount is ERC721Discount {
             el = discounts[i];
 
             // Skip retrieving balance if asset is the same as previous iteration
-            if (prevAsset != el.asset) {
-                keysBalance = friendTechShares.sharesBalance(el.asset, buyer);
+            if (prevAsset != el.nft) {
+                keysBalance = friendTechShares.sharesBalance(el.nft, buyer);
             }
 
             // Check if user has at enough keys to qualify for the discount
@@ -61,7 +61,7 @@ contract KeysDiscount is ERC721Discount {
                 return el.discount;
             }
 
-            prevAsset = el.asset;
+            prevAsset = el.nft;
 
             unchecked {
                 ++i;

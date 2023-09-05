@@ -1087,8 +1087,8 @@
       }
     },
     "script/Deploy.s.sol": {
-      "lastModificationDate": 1693904008194,
-      "contentHash": "ff704c0125193e70f70bcb137470b77f",
+      "lastModificationDate": 1693915564437,
+      "contentHash": "2da49f718347944d3e5a0f5d7b2e1185",
       "sourceName": "script/Deploy.s.sol",
       "solcConfig": {
         "settings": {
@@ -1155,7 +1155,15 @@
         "src/TieredDiscount/KeysDiscount/structs/CurrencyParams.sol",
         "src/TieredDiscount/TieredDiscount.sol",
         "src/TieredDiscount/structs/DiscountParams.sol",
-        "src/TieredDiscount/structs/ProductDiscounts.sol"
+        "src/TieredDiscount/structs/ProductDiscounts.sol",
+        "src/VRGDA/LinearVRGDAPrices.sol",
+        "src/VRGDA/LogisticVRGDAPrices.sol",
+        "src/VRGDA/VRGDAPrices.sol",
+        "src/VRGDA/structs/LinearProductParams.sol",
+        "src/VRGDA/structs/LinearVRGDAParams.sol",
+        "src/VRGDA/structs/LogisticProductParams.sol",
+        "src/VRGDA/structs/LogisticVRGDAParams.sol",
+        "src/utils/SignedWadMath.sol"
       ],
       "versionRequirement": ">=0.8",
       "artifacts": {
@@ -2203,8 +2211,8 @@
       }
     },
     "src/TieredDiscount/ERC721Discount/ERC721Discount.sol": {
-      "lastModificationDate": 1693901796636,
-      "contentHash": "d6ec595d5655b6bbed0bdcb252277cff",
+      "lastModificationDate": 1693915478275,
+      "contentHash": "643dcc15d0b28b39629751a3ac392520",
       "sourceName": "src/TieredDiscount/ERC721Discount/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
@@ -2316,8 +2324,8 @@
       }
     },
     "src/TieredDiscount/KeysDiscount/KeysDiscount.sol": {
-      "lastModificationDate": 1693901916132,
-      "contentHash": "7c2c1517313c40f0b97af78e6613ba33",
+      "lastModificationDate": 1693915494509,
+      "contentHash": "f0455b9875fc66d2bb040f54eb21c621",
       "sourceName": "src/TieredDiscount/KeysDiscount/KeysDiscount.sol",
       "solcConfig": {
         "settings": {
@@ -2538,8 +2546,8 @@
       }
     },
     "src/TieredDiscount/structs/DiscountParams.sol": {
-      "lastModificationDate": 1693901058712,
-      "contentHash": "7ed5331095e8da8266d04321bb82acac",
+      "lastModificationDate": 1693915399254,
+      "contentHash": "e6fe1455133ad1261ca5f66e1039cbe6",
       "sourceName": "src/TieredDiscount/structs/DiscountParams.sol",
       "solcConfig": {
         "settings": {
@@ -3037,8 +3045,8 @@
       }
     },
     "test/ERC721Discount.sol": {
-      "lastModificationDate": 1693900771356,
-      "contentHash": "fcdb8ac237a8a51589ca99e2eb82dd20",
+      "lastModificationDate": 1693915457973,
+      "contentHash": "9df1936e834f6f170d40362b6273086d",
       "sourceName": "test/ERC721Discount.sol",
       "solcConfig": {
         "settings": {
@@ -3121,8 +3129,8 @@
       }
     },
     "test/KeysDiscount.sol": {
-      "lastModificationDate": 1693903932062,
-      "contentHash": "58f5f5bf9c8fdac09ecc2477b31e0cb2",
+      "lastModificationDate": 1693915433244,
+      "contentHash": "055355aadada958b223a24e437593287",
       "sourceName": "test/KeysDiscount.sol",
       "solcConfig": {
         "settings": {

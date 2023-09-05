@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 
 import {LinearVRGDAPrices} from "../src/VRGDA/LinearVRGDAPrices.sol";
 import {LogisticVRGDAPrices} from "../src/VRGDA/LogisticVRGDAPrices.sol";
-import {ERC721Discount} from "../src/TieredDiscount/ERC721Discount/ERC721Discount.sol";
+import {KeysDiscount} from "../src/TieredDiscount/KeysDiscount/KeysDiscount.sol";
 
 // import { CREATE3Factory } from "create3-factory/CREATE3Factory.sol";
 
@@ -15,7 +15,7 @@ contract DeployScript is Script {
         returns (
             // LinearVRGDAPrices linear,
             // LogisticVRGDAPrices logistic,
-            ERC721Discount erc721Discount
+            KeysDiscount keysDiscount
         )
     {
         // CREATE3Factory create3Factory = CREATE3Factory(
@@ -25,8 +25,8 @@ contract DeployScript is Script {
         // address productsModule = 0x689Bba0e25c259b205ECe8e6152Ee1eAcF307f5F; // mainnet
         // address productsModule = 0xcA6b9D59849EC880e82210e9cb8237E1d0cAA69e; // goerli testnet
         // address productsModule = 0x0FD0d9aa44a05Ee158DDf6F01d7dcF503388781d; // goerli staging
-        address productsModule = 0x0FD0d9aa44a05Ee158DDf6F01d7dcF503388781d; // base goerli
-        // address productsModule = 0xb9d5B99d5D0fA04dD7eb2b0CD7753317C2ea1a84; // base
+        // address productsModule = 0x0FD0d9aa44a05Ee158DDf6F01d7dcF503388781d; // base goerli
+        address productsModule = 0xb9d5B99d5D0fA04dD7eb2b0CD7753317C2ea1a84; // base
         // address productsModule = 0x61bCd1ED11fC03C958A847A6687b1875f5eAcaaf; // optimism
 
         // bytes32 saltLin = keccak256(bytes(vm.envString("SALT_LIN")));
@@ -57,7 +57,7 @@ contract DeployScript is Script {
 
         // linear = new LinearVRGDAPrices(productsModule);
         // logistic = new LogisticVRGDAPrices(productsModule);
-        erc721Discount = new ERC721Discount(productsModule);
+        keysDiscount = new KeysDiscount(productsModule);
 
         vm.stopBroadcast();
     }

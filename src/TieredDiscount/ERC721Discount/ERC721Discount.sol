@@ -160,8 +160,8 @@ contract ERC721Discount is TieredDiscount {
             el = discounts[i];
 
             // Skip retrieving balance if asset is the same as previous iteration
-            if (prevAsset != el.asset) {
-                nftBalance = IERC721(el.asset).balanceOf(buyer);
+            if (prevAsset != el.nft) {
+                nftBalance = IERC721(el.nft).balanceOf(buyer);
             }
 
             // Check if user has at enough NFT to qualify for the discount
@@ -169,7 +169,7 @@ contract ERC721Discount is TieredDiscount {
                 return el.discount;
             }
 
-            prevAsset = el.asset;
+            prevAsset = el.nft;
 
             unchecked {
                 ++i;
