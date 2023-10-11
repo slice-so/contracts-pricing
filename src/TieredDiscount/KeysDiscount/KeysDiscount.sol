@@ -6,8 +6,9 @@ import {
     DiscountParams,
     ProductDiscounts,
     DiscountType,
-    ERC721Discount
-} from "../ERC721Discount/ERC721Discount.sol";
+    NFTDiscount,
+    NFTType
+} from "../NFTDiscount/NFTDiscount.sol";
 import {IFriendTechShares} from "./interfaces/IFriendTechShares.sol";
 
 /**
@@ -16,7 +17,7 @@ import {IFriendTechShares} from "./interfaces/IFriendTechShares.sol";
  * @author  jacopo <@jj_ranalli>
  */
 
-contract KeysDiscount is ERC721Discount {
+contract KeysDiscount is NFTDiscount {
     /*//////////////////////////////////////////////////////////////
                            IMMUTABLE STORAGE
     //////////////////////////////////////////////////////////////*/
@@ -27,7 +28,7 @@ contract KeysDiscount is ERC721Discount {
                               CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
-    constructor(address _productsModuleAddress) ERC721Discount(_productsModuleAddress) {}
+    constructor(address _productsModuleAddress) NFTDiscount(_productsModuleAddress) {}
 
     /*//////////////////////////////////////////////////////////////
                                 INTERNAL

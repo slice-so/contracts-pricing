@@ -11,7 +11,8 @@ import {
     DiscountType,
     DiscountParams,
     CurrencyParams,
-    IFriendTechShares
+    IFriendTechShares,
+    NFTType
 } from "src/TieredDiscount/KeysDiscount/KeysDiscount.sol";
 import {MockERC721} from "./mocks/MockERC721.sol";
 
@@ -21,9 +22,9 @@ uint256 constant slicerId = 0;
 uint256 constant productId = 1;
 address constant owner = address(0);
 address constant buyer = address(10);
-uint88 constant fixedDiscountOne = 100;
-uint88 constant fixedDiscountTwo = 200;
-uint88 constant percentDiscount = 1000; // 10%
+uint80 constant fixedDiscountOne = 100;
+uint80 constant fixedDiscountTwo = 200;
+uint80 constant percentDiscount = 1000; // 10%
 
 contract KeysDiscountTest is DSTestPlus, Script {
     KeysDiscount keysDiscount;
@@ -78,7 +79,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price with additional custom inputs
-        discounts[0] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
@@ -98,7 +105,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price with additional custom inputs
-        discounts[0] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
@@ -120,12 +133,24 @@ contract KeysDiscountTest is DSTestPlus, Script {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](2);
 
         /// set product price with additional custom inputs
-        discountsOne[0] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
+        discountsOne[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discountsOne);
 
         /// set product price with different discount for different currency
-        discountsTwo[0] = DiscountParams({nft: sharesSubject, discount: fixedDiscountTwo, minQuantity: minQuantity});
+        discountsTwo[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountTwo,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         currenciesParams[1] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discountsTwo);
 
@@ -151,7 +176,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// set product price for key that is not owned by buyer
-        discounts[0] = DiscountParams({nft: address(1), discount: fixedDiscountOne, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: address(1),
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 
@@ -167,7 +198,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
         /// Buyer owns 1 key, but minQuantity is 2
-        discounts[0] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity + 1});
+        discounts[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity + 1,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 
@@ -194,8 +231,20 @@ contract KeysDiscountTest is DSTestPlus, Script {
         DiscountParams[] memory discounts = new DiscountParams[](2);
 
         /// key 2 has higher discount, but buyer owns only key 1
-        discounts[0] = DiscountParams({nft: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minQuantity});
-        discounts[1] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubjectAlt,
+            discount: fixedDiscountTwo,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
+        discounts[1] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 
@@ -221,7 +270,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testProductPrice__Relative() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = DiscountParams({nft: sharesSubject, discount: percentDiscount, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: percentDiscount,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         /// set product price with percentage discount
@@ -241,7 +296,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testProductPrice__MultipleBoughtQuantity() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = DiscountParams({nft: sharesSubject, discount: percentDiscount, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubject,
+            discount: percentDiscount,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         /// set product price with percentage discount
@@ -264,7 +325,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
     function testSetProductPrice__Edit_Add() public {
         DiscountParams[] memory discounts = new DiscountParams[](1);
 
-        discounts[0] = DiscountParams({nft: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubjectAlt,
+            discount: fixedDiscountTwo,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 
@@ -282,10 +349,21 @@ contract KeysDiscountTest is DSTestPlus, Script {
         discounts = new DiscountParams[](2);
 
         /// edit product price, with more keys and first key has higher discount but buyer owns only the second
-        discounts[0] =
-            DiscountParams({nft: sharesSubjectAlt2, discount: fixedDiscountOne + 10, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubjectAlt2,
+            discount: fixedDiscountOne + 10,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
-        discounts[1] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
+        discounts[1] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 
@@ -305,10 +383,21 @@ contract KeysDiscountTest is DSTestPlus, Script {
         friendTechShares.buyShares{value: 1 ether}(sharesSubjectAlt, 1);
 
         /// edit product price, with more keys and first key has higher discount but buyer owns only the second
-        discounts[0] =
-            DiscountParams({nft: sharesSubjectAlt2, discount: fixedDiscountOne + 10, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubjectAlt2,
+            discount: fixedDiscountOne + 10,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
-        discounts[1] = DiscountParams({nft: sharesSubject, discount: fixedDiscountOne, minQuantity: minQuantity});
+        discounts[1] = DiscountParams({
+            nft: sharesSubject,
+            discount: fixedDiscountOne,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 
@@ -321,7 +410,13 @@ contract KeysDiscountTest is DSTestPlus, Script {
 
         discounts = new DiscountParams[](1);
 
-        discounts[0] = DiscountParams({nft: sharesSubjectAlt, discount: fixedDiscountTwo, minQuantity: minQuantity});
+        discounts[0] = DiscountParams({
+            nft: sharesSubjectAlt,
+            discount: fixedDiscountTwo,
+            minQuantity: minQuantity,
+            nftType: NFTType.ERC721,
+            tokenId: 0
+        });
 
         createDiscount(discounts);
 

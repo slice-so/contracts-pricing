@@ -1,16 +1,24 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {CurrencyParams, DiscountParams, ProductDiscounts, DiscountType, TieredDiscount} from "../TieredDiscount.sol";
+import {
+    CurrencyParams,
+    DiscountParams,
+    ProductDiscounts,
+    DiscountType,
+    TieredDiscount,
+    NFTType
+} from "../TieredDiscount.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 
 /**
- * @title   ERC721Discount - Slice pricing strategy with discounts based on NFT ownership
+ * @title   NFTDiscount - Slice pricing strategy with discounts based on NFT ownership
  * @author  Dom-Mac <@zerohex_eth>
  * @author  jacopo <@jj_ranalli>
  */
 
-contract ERC721Discount is TieredDiscount {
+contract NFTDiscount is TieredDiscount {
     /*//////////////////////////////////////////////////////////////
                               CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
@@ -162,7 +170,11 @@ contract ERC721Discount is TieredDiscount {
 
             // Skip retrieving balance if asset is the same as previous iteration
             if (prevAsset != el.nft) {
-                nftBalance = IERC721(el.nft).balanceOf(buyer);
+                if (el.nftType == NFTType.ERC1155) {
+                    nftBalance = IERC1155(el.nft).balanceOf(buyer, el.tokenId);
+                } else if (el.nftType == NFTType.ERC721) {
+                    nftBalance = IERC721(el.nft).balanceOf(buyer);
+                }
             }
 
             // Check if user has at enough NFT to qualify for the discount

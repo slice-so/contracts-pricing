@@ -6,7 +6,7 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract MockERC721 is ERC721 {
     uint256 public tokenId;
 
-    constructor(string memory name, string memory symbol) ERC721(name, symbol) {}
+    constructor() ERC721("name", "symbol") {}
 
     function mint(address to) external {
         _mint(to, tokenId++);

@@ -5,7 +5,7 @@ import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.s
 import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
 import {CurrencyParams} from "./structs/CurrencyParams.sol";
 import {ProductDiscounts, DiscountType} from "./structs/ProductDiscounts.sol";
-import {DiscountParams} from "./structs/DiscountParams.sol";
+import {DiscountParams, NFTType} from "./structs/DiscountParams.sol";
 
 /**
  * @notice  Slice pricing strategy with discounts based on asset ownership
