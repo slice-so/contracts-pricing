@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 
 import {LinearVRGDAPrices} from "../src/VRGDA/LinearVRGDAPrices.sol";
 import {LogisticVRGDAPrices} from "../src/VRGDA/LogisticVRGDAPrices.sol";
-import {KeysDiscount} from "../src/TieredDiscount/KeysDiscount/KeysDiscount.sol";
+import {NFTDiscount} from "../src/TieredDiscount/NFTDiscount/NFTDiscount.sol";
 
 // import { CREATE3Factory } from "create3-factory/CREATE3Factory.sol";
 
@@ -15,7 +15,7 @@ contract DeployScript is Script {
         returns (
             // LinearVRGDAPrices linear,
             // LogisticVRGDAPrices logistic,
-            KeysDiscount keysDiscount
+            NFTDiscount nftDiscount
         )
     {
         // CREATE3Factory create3Factory = CREATE3Factory(
@@ -57,7 +57,7 @@ contract DeployScript is Script {
 
         // linear = new LinearVRGDAPrices(productsModule);
         // logistic = new LogisticVRGDAPrices(productsModule);
-        keysDiscount = new KeysDiscount(productsModule);
+        nftDiscount = new NFTDiscount(productsModule);
 
         vm.stopBroadcast();
     }
