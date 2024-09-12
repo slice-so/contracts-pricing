@@ -164,15 +164,18 @@ contract NFTDiscount is TieredDiscount {
         DiscountParams memory el;
 
         address prevAsset;
+        uint256 prevTokenId;
         uint256 nftBalance;
         for (uint256 i; i < length;) {
             el = discounts[i];
 
             // Skip retrieving balance if asset is the same as previous iteration
-            if (prevAsset != el.nft) {
-                if (el.nftType == NFTType.ERC1155) {
+            if (el.nftType == NFTType.ERC1155) {
+                if (prevAsset != el.nft || prevTokenId != el.tokenId) {
                     nftBalance = IERC1155(el.nft).balanceOf(buyer, el.tokenId);
-                } else if (el.nftType == NFTType.ERC721) {
+                }
+            } else if (el.nftType == NFTType.ERC721) {
+                if (prevAsset != el.nft) {
                     nftBalance = IERC721(el.nft).balanceOf(buyer);
                 }
             }
@@ -183,6 +186,7 @@ contract NFTDiscount is TieredDiscount {
             }
 
             prevAsset = el.nft;
+            prevTokenId = el.tokenId;
 
             unchecked {
                 ++i;

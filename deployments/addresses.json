@@ -17,7 +17,7 @@
   "base": {
     "LinearVRGDAPrices": "0xc49976EaA3c18f10793dfB268BC376D4a926843b",
     "LogisticVRGDAPrices": "0xd2258C1450A2323f5a94e1f3F51E2c3f7A5162E8",
-    "NFTDiscount": "0xcc612fb8391247AbCCa8a43dc099c82691fC883b",
+    "NFTDiscount": "0xA76d04fcca2c4C81bDa7DE80A59624b1dce2590e",
     "KeysDiscount": "0x48f712623Ce3E46D2868bE34EB5f2F7659A2c151"
   },
   "base-goerli": {
