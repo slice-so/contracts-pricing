@@ -1,6 +1,0 @@
-Add comments to protocol interfaces
-Rework scripts to make sure there is no error of commenting or uncommenting the wrong lines
-Create a repo with library code to provide all needed addresses to anyone adding a strategy
-Readme has dead links
-Improve contributing guidelines on README
-Create a nodejs generator to let the user create a new pricing strategy skeleton easily
