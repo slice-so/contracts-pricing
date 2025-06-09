@@ -10,66 +10,36 @@ permissions:                 # required for the built-in token from 2024-08 onwa
   pull-requests: write       # open/update PRs
 
 jobs:
-  create-or-update-pr:
+  open-pr:
     runs-on: ubuntu-latest
-
+    concurrency:             # never run two of these at once
+      group: pr-slice-internal
+      cancel-in-progress: true
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # gh picks this up automatically
     steps:
-      - name: Checkout slice/internal
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }} # already on slice/internal
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}                # full history, just in case
 
-      - name: Create or update PR to master
-        uses: peter-evans/create-pull-request@v6
-        with:
-          # token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Ensure PR exists
+        run: |
+          set -euo pipefail
 
-          # HEAD (source) and BASE (target) of the PR
-          branch: slice/internal   # head branch (already exists)
-          base:   master           # target branch
+          # Does an open PR from slice/internal -> master already exist?
+          pr_number=$(gh pr list \
+              --head slice/internal \
+              --base master \
+              --state open \
+              --json number \
+              --jq '.[0].number' || true)
 
-          # Cosmetic bits
-          title: "Sync slice/internal → master"
-          body: |
-            This PR was opened automatically after the internal sync job pushed changes.
-
-            Triggering commit: ${{ github.sha }}
-          commit-message: "[bot] chore: sync slice/internal → master"
-
-          # Optional housekeeping — comment these in if you like
-          # draft: true                         # open as draft first
-          # labels: auto-pr, internal-sync      # any default labels to attach
-          
-# name: Subtree sync PR
-
-# on:
-#   push:
-#     branches: [ "slice/internal" ]
-
-# jobs:
-#   open-pr:
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: write
-#       pull-requests: write
-#     steps:
-#       - uses: actions/checkout@v4
-#         with: 
-#           fetch-depth: 0
-#           ref: ${{ github.ref }}
-
-#       - name: Fetch master branch
-#         run: git fetch origin master:refs/remotes/origin/master
-
-#       - name: Create PR to master
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         run: |
-#           gh pr create \
-#             --base master \
-#             --head slice/internal \
-#             --title "Internal Sync" \
-#             --body "This PR was opened automatically after the internal sync job pushed changes." \
-#             --repo ${{ github.repository }} \
-#             --fill \
-#             || echo "PR already exists or no changes to PR"
+          if [[ -z "$pr_number" ]]; then
+            echo "No open PR found – creating one."
+            gh pr create \
+              --head slice/internal \
+              --base master \
+              --title "Sync slice/internal → master" \
+              --body  "Automated PR – triggered by commit $GITHUB_SHA"
+          else
+            echo "PR #$pr_number already exists – nothing to do."
+          fi
