@@ -14,6 +14,8 @@ import {DiscountParams, NFTType} from "./structs/DiscountParams.sol";
  */
 
 abstract contract TieredDiscount is ISliceProductPrice {
+    event ProductPriceSet(uint256 slicerId, uint256 productId, CurrencyParams[] params);
+
     /*//////////////////////////////////////////////////////////////
                                  ERRORS
     //////////////////////////////////////////////////////////////*/
@@ -75,6 +77,7 @@ abstract contract TieredDiscount is ISliceProductPrice {
         onlyProductOwner(slicerId, productId)
     {
         _setProductPrice(slicerId, productId, params);
+        emit ProductPriceSet(slicerId, productId, params);
     }
 
     /**

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.0;
 
 import { wadExp, wadMul, unsafeWadMul, toWadUnsafe } from "../utils/SignedWadMath.sol";
 import { ISliceProductPrice } from "../Slice/interfaces/utils/ISliceProductPrice.sol";

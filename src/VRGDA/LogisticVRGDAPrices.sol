@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.0;
 
 import { wadMul, toWadUnsafe, wadLn, unsafeWadDiv, toDaysWadUnsafe, unsafeDiv, wadExp, unsafeWadMul } from "../utils/SignedWadMath.sol";
 import { IProductsModule } from "../Slice/interfaces/IProductsModule.sol";
@@ -12,6 +12,14 @@ import { VRGDAPrices } from "./VRGDAPrices.sol";
 /// @author jacopo <jacopo@slice.so>
 /// @notice VRGDA with a logistic issuance curve - Price library with different params for each Slice product.
 contract LogisticVRGDAPrices is VRGDAPrices {
+  event ProductPriceSet(
+    uint256 slicerId,
+    uint256 productId,
+    address[] currencies,
+    LogisticVRGDAParams[] logisticParams,
+    int256 priceDecayPercent
+  );
+
   /*//////////////////////////////////////////////////////////////
                                 STORAGE
     //////////////////////////////////////////////////////////////*/
@@ -75,7 +83,9 @@ contract LogisticVRGDAPrices is VRGDAPrices {
       unchecked {
         ++i;
       }
-    }
+    } 
+
+    emit ProductPriceSet(slicerId, productId, currencies, logisticParams, priceDecayPercent);
   }
 
   /*//////////////////////////////////////////////////////////////
