@@ -13,9 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: slice/internal
           base: master
           title: "Sync subtree"
           body:  "This PR was opened automatically after the subtree sync job pushed changes."
