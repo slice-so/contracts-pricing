@@ -15,7 +15,7 @@ jobs:
 
       - uses: peter-evans/create-pull-request@v7
         with:
-          branch: slice/internal
+          branch: origin/slice/internal
           base: master
           title: "Sync subtree"
           body:  "This PR was opened automatically after the subtree sync job pushed changes."
