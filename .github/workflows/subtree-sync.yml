@@ -1,27 +1,75 @@
-name: Subtree sync PR
+name: Internal sync PR
 
 on:
   push:
-    branches: [ "slice/internal" ]
+    branches:
+      - slice/internal        # every push to this branch triggers the job
+
+permissions:                 # required for the built-in token from 2024-08 onwards
+  contents: write            # create/update branches
+  pull-requests: write       # open/update PRs
 
 jobs:
-  open-pr:
+  create-or-update-pr:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Create PR to master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --base master \
-            --head slice/internal \
-            --title "Internal Sync" \
-            --body "This PR was opened automatically after the internal sync job pushed changes." \
-            --repo ${{ github.repository }} \
-            --fill \
-            || echo "PR already exists or no changes to PR"
+    steps:
+      - name: Checkout slice/internal
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }} # already on slice/internal
+
+      - name: Create or update PR to master
+        uses: peter-evans/create-pull-request@v6
+        with:
+          # token: ${{ secrets.GITHUB_TOKEN }}
+
+          # HEAD (source) and BASE (target) of the PR
+          branch: slice/internal   # head branch (already exists)
+          base:   master           # target branch
+
+          # Cosmetic bits
+          title: "Sync slice/internal → master"
+          body: |
+            This PR was opened automatically after the internal sync job pushed changes.
+
+            Triggering commit: ${{ github.sha }}
+          commit-message: "[bot] chore: sync slice/internal → master"
+
+          # Optional housekeeping — comment these in if you like
+          # draft: true                         # open as draft first
+          # labels: auto-pr, internal-sync      # any default labels to attach
+          
+# name: Subtree sync PR
+
+# on:
+#   push:
+#     branches: [ "slice/internal" ]
+
+# jobs:
+#   open-pr:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+#       pull-requests: write
+#     steps:
+#       - uses: actions/checkout@v4
+#         with: 
+#           fetch-depth: 0
+#           ref: ${{ github.ref }}
+
+#       - name: Fetch master branch
+#         run: git fetch origin master:refs/remotes/origin/master
+
+#       - name: Create PR to master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: |
+#           gh pr create \
+#             --base master \
+#             --head slice/internal \
+#             --title "Internal Sync" \
+#             --body "This PR was opened automatically after the internal sync job pushed changes." \
+#             --repo ${{ github.repository }} \
+#             --fill \
+#             || echo "PR already exists or no changes to PR"
