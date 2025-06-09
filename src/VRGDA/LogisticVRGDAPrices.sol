@@ -12,6 +12,14 @@ import { VRGDAPrices } from "./VRGDAPrices.sol";
 /// @author jacopo <jacopo@slice.so>
 /// @notice VRGDA with a logistic issuance curve - Price library with different params for each Slice product.
 contract LogisticVRGDAPrices is VRGDAPrices {
+  event ProductPriceSet(
+    uint256 slicerId,
+    uint256 productId,
+    address[] currencies,
+    LogisticVRGDAParams[] logisticParams,
+    int256 priceDecayPercent
+  );
+
   /*//////////////////////////////////////////////////////////////
                                 STORAGE
     //////////////////////////////////////////////////////////////*/
@@ -75,7 +83,9 @@ contract LogisticVRGDAPrices is VRGDAPrices {
       unchecked {
         ++i;
       }
-    }
+    } 
+
+    emit ProductPriceSet(slicerId, productId, currencies, logisticParams, priceDecayPercent);
   }
 
   /*//////////////////////////////////////////////////////////////
