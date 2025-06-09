@@ -1,7 +1,9 @@
 [profile.default]
 bytecode_hash = "none"
+optimizer = true
 optimizer_runs = 1000000
 no_match_test = "FFI"
+libs = ["dependencies"]
 
 [profile.intense]
 fuzz_runs = 10000
@@ -26,3 +28,9 @@ goerli = { key="${ETHERSCAN_API_KEY_GOERLI}", chain=5, url="https://api-goerli.e
 op = { key="${ETHERSCAN_API_KEY_OPTIMISM}", chain=10 }
 base = { key="${ETHERSCAN_API_KEY_BASE}", chain=8453, url="https://api.basescan.org/api" }
 base-goerli = {key="${ETHERSCAN_API_KEY_BASE_GOERLI}", chain=84531, url="https://api-goerli.basescan.org/api" }
+
+
+[dependencies]
+forge-std = "1.9.7"
+"@openzeppelin-contracts" = "5.3.0"
+"@openzeppelin-contracts-upgradeable" = "5.3.0"

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import {DSTestPlus} from "lib/solmate/src/test/utils/DSTestPlus.sol";
-import {Script} from "lib/forge-std/src/Script.sol";
-import {console2} from "lib/forge-std/src/console2.sol";
+import {Test} from "forge-std/Test.sol";
+import {Script} from "forge-std/Script.sol";
+import {console2} from "forge-std/console2.sol";
 import {MockProductsModule} from "./mocks/MockProductsModule.sol";
 import {
     KeysDiscount,
@@ -13,7 +13,7 @@ import {
     CurrencyParams,
     IFriendTechShares,
     NFTType
-} from "src/TieredDiscount/KeysDiscount/KeysDiscount.sol";
+} from "../src/TieredDiscount/KeysDiscount/KeysDiscount.sol";
 import {MockERC721} from "./mocks/MockERC721.sol";
 
 address constant ETH = address(0);
@@ -26,7 +26,7 @@ uint80 constant fixedDiscountOne = 100;
 uint80 constant fixedDiscountTwo = 200;
 uint80 constant percentDiscount = 1000; // 10%
 
-contract KeysDiscountTest is DSTestPlus, Script {
+contract KeysDiscountTest is Test, Script {
     KeysDiscount keysDiscount;
     MockProductsModule productsModule;
     IFriendTechShares public constant friendTechShares = IFriendTechShares(0xCF205808Ed36593aa40a44F10c7f7C2F67d4A4d4);
@@ -67,7 +67,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
     }
 
@@ -90,7 +90,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -116,7 +116,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -154,7 +154,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
 
         currenciesParams[1] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discountsTwo);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price for ETH
@@ -282,7 +282,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         /// set product price with percentage discount
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -308,7 +308,7 @@ contract KeysDiscountTest is DSTestPlus, Script {
         /// set product price with percentage discount
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         keysDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         // buy multiple products

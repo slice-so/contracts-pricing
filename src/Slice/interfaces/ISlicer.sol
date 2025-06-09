@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.0;
 
-import "@openzeppelin-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import "@openzeppelin-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol";
+import "@openzeppelin/token/ERC1155/IERC1155Receiver.sol";
+import "@openzeppelin/token/ERC721/IERC721Receiver.sol";
 
-interface ISlicer is IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
+interface ISlicer is IERC721Receiver, IERC1155Receiver {
   function release(
     address account,
     address currency,

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { DSTestPlus } from "lib/solmate/src/test/utils/DSTestPlus.sol";
-import { console2 } from "lib/forge-std/src/console2.sol";
+import {Test} from "forge-std/Test.sol";
+import { console2 } from "forge-std/console2.sol";
 
-import { wadLn, toWadUnsafe, toDaysWadUnsafe, fromDaysWadUnsafe } from "src/utils/SignedWadMath.sol";
+import { wadLn, toWadUnsafe, toDaysWadUnsafe, fromDaysWadUnsafe } from "../src/utils/SignedWadMath.sol";
 
 import "./mocks/MockLinearVRGDAPrices.sol";
 import { MockProductsModule } from "./mocks/MockProductsModule.sol";
@@ -20,7 +20,7 @@ uint128 constant min = 1e18;
 int256 constant priceDecayPercent = 0.31e18;
 int256 constant perTimeUnit = 2e18;
 
-contract LinearVRGDATest is DSTestPlus {
+contract LinearVRGDATest is Test {
   MockLinearVRGDAPrices vrgda;
   MockProductsModule productsModule;
 
@@ -35,7 +35,7 @@ contract LinearVRGDATest is DSTestPlus {
     address[] memory erc20Currency = new address[](1);
     erc20Currency[0] = address(20);
 
-    hevm.startPrank(address(0));
+    vm.startPrank(address(0));
     vrgda.setProductPrice(
       slicerId,
       productId,
@@ -50,12 +50,12 @@ contract LinearVRGDATest is DSTestPlus {
       linearParams,
       priceDecayPercent
     );
-    hevm.stopPrank();
+    vm.stopPrank();
   }
 
   function testTargetPrice() public {
     // Warp to the target sale time so that the VRGDA price equals the target price.
-    hevm.warp(
+    vm.warp(
       block.timestamp +
         fromDaysWadUnsafe(vrgda.getTargetSaleTime(1e18, perTimeUnit))
     );
@@ -69,7 +69,7 @@ contract LinearVRGDATest is DSTestPlus {
       perTimeUnit,
       min
     );
-    assertRelApproxEq(cost, uint256(uint128(targetPriceConstant)), 0.00001e18);
+    assertApproxEqAbs(cost, uint256(uint128(targetPriceConstant)), 5e14);
   }
 
   function testPricingBasic() public {
@@ -77,7 +77,7 @@ contract LinearVRGDATest is DSTestPlus {
     uint256 timeDelta = 120 days;
     uint256 numMint = 239;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
     uint256 cost = vrgda.getVRGDAPrice(
@@ -88,7 +88,7 @@ contract LinearVRGDATest is DSTestPlus {
       perTimeUnit,
       min
     );
-    assertRelApproxEq(cost, uint256(uint128(targetPriceConstant)), 0.00001e18);
+    assertApproxEqAbs(cost, uint256(uint128(targetPriceConstant)), 5e14);
   }
 
   function testPricingMin() public {
@@ -96,7 +96,7 @@ contract LinearVRGDATest is DSTestPlus {
     uint256 timeDelta = 120 days;
     uint256 numMint = 216;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
@@ -116,7 +116,7 @@ contract LinearVRGDATest is DSTestPlus {
     uint256 timeDelta = 120 days;
     uint256 numMint = 239;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
@@ -157,7 +157,7 @@ contract LinearVRGDATest is DSTestPlus {
       3
     );
 
-    assertRelApproxEq(
+    assertApproxEqAbs(
       costMultiple,
       uint256(costProduct1 + costProduct2 + costProduct3),
       0.00001e18
@@ -168,7 +168,7 @@ contract LinearVRGDATest is DSTestPlus {
     sold = bound(sold, 0, type(uint128).max);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
-    assertRelApproxEq(
+    assertApproxEqAbs(
       vrgda.getVRGDAPrice(
         targetPriceConstant,
         decayConstant,
@@ -191,7 +191,7 @@ contract LinearVRGDATest is DSTestPlus {
     currencies[0] = address(0);
     currencies[1] = address(20);
 
-    hevm.startPrank(address(0));
+    vm.startPrank(address(0));
     vrgda.setProductPrice(
       slicerId,
       productId_,
@@ -199,12 +199,12 @@ contract LinearVRGDATest is DSTestPlus {
       linearParams,
       priceDecayPercent
     );
-    hevm.stopPrank();
+    vm.stopPrank();
 
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 0.5 days;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     (uint256 ethPrice, uint256 currencyPrice) = vrgda.productPrice(
       slicerId,
@@ -215,7 +215,7 @@ contract LinearVRGDATest is DSTestPlus {
       ""
     );
 
-    assertRelApproxEq(
+    assertApproxEqAbs(
       uint256(uint128(targetPriceConstant)),
       ethPrice,
       0.00001e18
@@ -232,7 +232,7 @@ contract LinearVRGDATest is DSTestPlus {
     );
 
     assertEq(ethPrice2, 0);
-    assertRelApproxEq(
+    assertApproxEqAbs(
       uint256(uint128(targetPriceConstant)),
       currencyPrice2,
       0.00001e18
@@ -245,7 +245,7 @@ contract LinearVRGDATest is DSTestPlus {
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 10 days;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
@@ -268,7 +268,7 @@ contract LinearVRGDATest is DSTestPlus {
       ""
     );
 
-    assertRelApproxEq(cost, ethPrice, 0.00001e18);
+    assertApproxEqAbs(cost, ethPrice, 0.00001e18);
     assertEq(currencyPrice, 0);
   }
 
@@ -278,7 +278,7 @@ contract LinearVRGDATest is DSTestPlus {
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 10 days;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
@@ -301,7 +301,7 @@ contract LinearVRGDATest is DSTestPlus {
       ""
     );
 
-    assertRelApproxEq(cost, currencyPrice, 0.00001e18);
+    assertApproxEqAbs(cost, currencyPrice, 0.00001e18);
     assertEq(ethPrice, 0);
   }
 
@@ -311,7 +311,7 @@ contract LinearVRGDATest is DSTestPlus {
     // Our VRGDA targets this number of mints at given time.
     uint256 timeDelta = 10 days;
 
-    hevm.warp(block.timestamp + timeDelta);
+    vm.warp(block.timestamp + timeDelta);
 
     int256 decayConstant = wadLn(1e18 - priceDecayPercent);
 
@@ -333,6 +333,6 @@ contract LinearVRGDATest is DSTestPlus {
       ""
     );
 
-    assertRelApproxEq(costMultiple, ethPrice, 0.00001e18);
+    assertApproxEqAbs(costMultiple, ethPrice, 5e14);
   }
 }

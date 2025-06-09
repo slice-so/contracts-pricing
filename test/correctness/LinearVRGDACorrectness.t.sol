@@ -1,19 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { DSTestPlus } from "lib/solmate/src/test/utils/DSTestPlus.sol";
+import {Test} from "forge-std/Test.sol";
 
-import { wadLn, toWadUnsafe } from "src/utils/SignedWadMath.sol";
+import { wadLn, toWadUnsafe } from "../../src/utils/SignedWadMath.sol";
 
 import "../mocks/MockLinearVRGDAPrices.sol";
 import { MockProductsModule } from "../mocks/MockProductsModule.sol";
 
-import { console } from "lib/forge-std/src/console.sol";
-import { Vm } from "lib/forge-std/src/Vm.sol";
+import { console } from "forge-std/console.sol";
+import { Vm } from "forge-std/Vm.sol";
 
-contract LinearVRGDACorrectnessTest is DSTestPlus {
-  Vm public constant vm = Vm(address(hevm));
-
+contract LinearVRGDACorrectnessTest is Test {
   // Sample parameters for differential fuzzing campaign.
   uint256 constant maxTimeframe = 356 days * 10;
   uint256 constant maxSellable = 10000;
@@ -37,7 +35,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
     address[] memory ethCurrency = new address[](1);
     ethCurrency[0] = address(0);
 
-    hevm.prank(address(0));
+    vm.prank(address(0));
     vrgda.setProductPrice(
       slicerId,
       productId,
@@ -76,7 +74,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
     console.log("expected price", expectedPrice);
 
     // Check approximate equality.
-    assertRelApproxEq(expectedPrice, actualPrice, 0.00001e18);
+    assertApproxEqAbs(expectedPrice, actualPrice, 0.00001e18);
 
     // Sanity check that prices are greater than zero.
     assertGt(actualPrice, 0);
@@ -116,7 +114,7 @@ contract LinearVRGDACorrectnessTest is DSTestPlus {
 
       if (expectedPrice < 0.0000001e18) return; // For really small prices, we expect divergence, so we skip.
 
-      assertRelApproxEq(expectedPrice, actualPrice, 0.00001e18);
+      assertApproxEqAbs(expectedPrice, actualPrice, 0.00001e18);
     } catch {}
   }
 

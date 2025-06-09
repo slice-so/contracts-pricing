@@ -2,8 +2,8 @@
 pragma solidity ^0.8.19;
 
 import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {Ownable} from "@openzeppelin/access/Ownable.sol";
+import {IERC721} from "@openzeppelin/token/ERC721/IERC721.sol";
 import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
 
 /**
@@ -38,7 +38,7 @@ contract BrightMomentsCafe is ISliceProductPrice, Ownable {
                               CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
-    constructor(address _productsModuleAddress) {
+    constructor(address _productsModuleAddress) Ownable(msg.sender) {
         productsModuleAddress = _productsModuleAddress;
 
         usdcPrices[1] = 5400000;

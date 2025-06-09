@@ -4,3 +4,7 @@ out/
 .env
 
 __pycache__
+
+
+# Soldeer
+/dependencies
