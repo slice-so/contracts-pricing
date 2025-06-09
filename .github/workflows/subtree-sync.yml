@@ -13,9 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: peter-evans/create-pull-request@v7
-        with:
-          branch: origin/slice/internal
-          base: master
-          title: "Sync subtree"
-          body:  "This PR was opened automatically after the subtree sync job pushed changes."
+      - name: Create PR to master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base master \
+            --head slice/internal \
+            --title "Internal Sync" \
+            --body "This PR was opened automatically after the internal sync job pushed changes." \
+            --repo ${{ github.repository }} \
+            --fill \
+            || echo "PR already exists or no changes to PR"
