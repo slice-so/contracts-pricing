@@ -1,0 +1,21 @@
+name: Subtree sync PR
+
+on:
+  push:
+    branches: [ "slice/internal" ]
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: master
+          title: "Sync subtree"
+          body:  "This PR was opened automatically after the subtree sync job pushed changes."
