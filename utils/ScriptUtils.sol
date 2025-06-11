@@ -148,7 +148,7 @@ abstract contract SetUpContractsList is Script {
 
             string[] memory json = new string[](existingContractAddresses.length + 1);
             vm.serializeAddress("0", "address", transaction.contractAddress);
-            vm.serializeString("0", "abi", abiValue);
+            vm.serializeString("0", "abiProductPriceSet", abiValue);
             vm.serializeUint("0", "blockNumber", receipt.blockNumber);
             json[0] = vm.serializeBytes32("0", "transactionHash", transaction.hash);
 
@@ -157,7 +157,7 @@ abstract contract SetUpContractsList is Script {
                 string memory index = vm.toString(i + 1);
 
                 vm.serializeAddress(index, "address", existingContractAddress.contractAddress);
-                vm.serializeString(index, "abi", existingContractAddress.abi);
+                vm.serializeString(index, "abiProductPriceSet", existingContractAddress.abi);
                 vm.serializeUint(index, "blockNumber", existingContractAddress.blockNumber);
                 json[i + 1] = vm.serializeBytes32(index, "transactionHash", existingContractAddress.transactionHash);
             }
@@ -166,7 +166,7 @@ abstract contract SetUpContractsList is Script {
         } else {
             string[] memory json = new string[](1);
             vm.serializeAddress(contractName, "address", transaction.contractAddress);
-            vm.serializeString(contractName, "abi", abiValue);
+            vm.serializeString(contractName, "abiProductPriceSet", abiValue);
             vm.serializeUint(contractName, "blockNumber", receipt.blockNumber);
             json[0] = vm.serializeBytes32(contractName, "transactionHash", transaction.hash);
             addresses = vm.serializeString("addresses", "addresses", json);

@@ -2,7 +2,7 @@
   "NFTDiscount": {
     "addresses": [
       {
-        "abi": {
+        "abiProductPriceSet": {
           "type": "event",
           "name": "ProductPriceSet",
           "inputs": [
