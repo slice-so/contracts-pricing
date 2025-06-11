@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
+import {console} from "forge-std/console.sol";
 import {Script} from "forge-std/Script.sol";
 import {ISliceCore} from "./Slice/interfaces/ISliceCore.sol";
 import {IProductsModule} from "./Slice/interfaces/IProductsModule.sol";
@@ -73,13 +74,23 @@ abstract contract BaseGoerliScript is WithChainIdValidation {
     {}
 }
 
-abstract contract SetUpContracts is Script {
+abstract contract SetUpContractsList is Script {
     struct ContractMap {
         uint256 id;
         string path;
         string name;
     }
 
+    struct ContractDeploymentData {
+        string abi;
+        address contractAddress;
+        uint256 blockNumber;
+        bytes32 transactionHash;
+    }
+
+    string constant ADDRESSES_PATH = "./deployments/addresses.json";
+    string constant LAST_TX_PATH = "./broadcast/Deploy.s.sol/8453/run-latest.json";
+    uint64 public constant CHAIN_ID = 8453;
     string public CONTRACT_PATH;
 
     ContractMap[] public contractNames;
@@ -91,6 +102,79 @@ abstract contract SetUpContracts is Script {
 
     function setUp() public {
         _recordContractsOnPath(CONTRACT_PATH);
+    }
+
+    function writeAddressesJson(string memory contractName) public {
+        string memory existingAddresses = vm.readFile(ADDRESSES_PATH);
+        string memory newAddresses = "addresses";
+
+        Receipt[] memory receipts = _readReceipts(LAST_TX_PATH);
+        Tx1559[] memory transactions = _readTx1559s(LAST_TX_PATH);
+
+        // Find the relevant transaction and receipt
+        Tx1559 memory transaction;
+        Receipt memory receipt;
+        for (uint256 i = 0; i < transactions.length; i++) {
+            if (keccak256(bytes(transactions[i].contractName)) == keccak256(bytes(contractName))) {
+                transaction = transactions[i];
+                receipt = receipts[i];
+                break;
+            }
+        }
+
+        if (transaction.contractAddress == address(0)) {
+            console.log("Transaction not found in broadcast artifacts");
+            return;
+        }
+
+        // TODO: Retrieve abi from contract
+        ContractMap memory contractMap;
+        for (uint256 i = 0; i < contractNames.length; i++) {
+            if (keccak256(bytes(contractNames[i].name)) == keccak256(bytes(contractName))) {
+                contractMap = contractNames[i];
+                break;
+            }
+        }
+        string memory abiPath = string.concat("./out/", contractName, ".sol/ProductPriceSet.json");
+        string memory abiValue = vm.readFile(abiPath);
+
+        string memory key = string.concat(".", contractName, ".addresses");
+        string memory addresses;
+        if (vm.keyExistsJson(existingAddresses, key)) {
+            // Append new data to existingAddresses
+            bytes memory contractAddressesJson = vm.parseJson(existingAddresses, key);
+            ContractDeploymentData[] memory existingContractAddresses =
+                abi.decode(contractAddressesJson, (ContractDeploymentData[]));
+
+            string[] memory json = new string[](existingContractAddresses.length + 1);
+            vm.serializeAddress("0", "address", transaction.contractAddress);
+            vm.serializeString("0", "abi", abiValue);
+            vm.serializeUint("0", "blockNumber", receipt.blockNumber);
+            json[0] = vm.serializeBytes32("0", "transactionHash", transaction.hash);
+
+            for (uint256 i = 0; i < existingContractAddresses.length; i++) {
+                ContractDeploymentData memory existingContractAddress = existingContractAddresses[i];
+                string memory index = vm.toString(i + 1);
+
+                vm.serializeAddress(index, "address", existingContractAddress.contractAddress);
+                vm.serializeString(index, "abi", existingContractAddress.abi);
+                vm.serializeUint(index, "blockNumber", existingContractAddress.blockNumber);
+                json[i + 1] = vm.serializeBytes32(index, "transactionHash", existingContractAddress.transactionHash);
+            }
+
+            addresses = vm.serializeString("addresses", "addresses", json);
+        } else {
+            string[] memory json = new string[](1);
+            vm.serializeAddress(contractName, "address", transaction.contractAddress);
+            vm.serializeString(contractName, "abi", abiValue);
+            vm.serializeUint(contractName, "blockNumber", receipt.blockNumber);
+            json[0] = vm.serializeBytes32(contractName, "transactionHash", transaction.hash);
+            addresses = vm.serializeString("addresses", "addresses", json);
+        }
+        vm.serializeJson(newAddresses, existingAddresses);
+        newAddresses = vm.serializeString(newAddresses, contractName, addresses);
+
+        vm.writeJson(newAddresses, ADDRESSES_PATH);
     }
 
     function _recordContractsOnPath(string memory path) internal {
@@ -194,5 +278,166 @@ abstract contract SetUpContracts is Script {
             }
         }
         return true;
+    }
+
+    function _getFolderName(string memory path) internal view returns (string memory folderName) {
+        bytes memory pathBytes = bytes(path);
+        uint256 lastSlash = 0;
+        uint256 prevSlash = 0;
+        for (uint256 i = 0; i < pathBytes.length; i++) {
+            if (pathBytes[i] == "/") {
+                prevSlash = lastSlash;
+                lastSlash = i;
+            }
+        }
+        // If only one slash, return the first folder after src
+        if (lastSlash == 0) return CONTRACT_PATH;
+        // Find the folder name (between prevSlash and lastSlash)
+        uint256 start = prevSlash == 0 ? 0 : prevSlash + 1;
+        uint256 len = lastSlash - start;
+        if (len == 0) return CONTRACT_PATH;
+        bytes memory folderBytes = new bytes(len);
+        for (uint256 i = 0; i < len; i++) {
+            folderBytes[i] = pathBytes[start + i];
+        }
+        folderName = string(folderBytes);
+    }
+
+    // modified from `vm.readTx1559s` to read directly from broadcast artifact
+    struct RawBroadcastTx1559 {
+        string[] additionalContracts;
+        bytes arguments;
+        address contractAddress;
+        string contractName;
+        string functionSig;
+        bytes32 hash;
+        bool isFixedGasLimit;
+        RawBroadcastTx1559Detail transactionDetail;
+        string transactionType;
+    }
+
+    struct RawBroadcastTx1559Detail {
+        uint256 chainId;
+        address from;
+        uint256 gas;
+        bytes input;
+        uint256 nonce;
+        uint256 value;
+    }
+
+    function _readTx1559s(string memory path) internal view virtual returns (Tx1559[] memory) {
+        string memory deployData = vm.readFile(path);
+        bytes memory parsedDeployData = vm.parseJson(deployData, ".transactions");
+        RawBroadcastTx1559[] memory rawTxs = abi.decode(parsedDeployData, (RawBroadcastTx1559[]));
+        return _rawToConvertedEIPTx1559s(rawTxs);
+    }
+
+    function _rawToConvertedEIPTx1559s(RawBroadcastTx1559[] memory rawTxs)
+        internal
+        pure
+        virtual
+        returns (Tx1559[] memory)
+    {
+        Tx1559[] memory txs = new Tx1559[](rawTxs.length);
+        for (uint256 i; i < rawTxs.length; i++) {
+            txs[i] = _rawToConvertedEIPTx1559(rawTxs[i]);
+        }
+        return txs;
+    }
+
+    function _rawToConvertedEIPTx1559(RawBroadcastTx1559 memory rawTx) internal pure virtual returns (Tx1559 memory) {
+        Tx1559 memory transaction;
+        transaction.contractName = rawTx.contractName;
+        transaction.contractAddress = rawTx.contractAddress;
+        transaction.functionSig = rawTx.functionSig;
+        transaction.hash = rawTx.hash;
+        transaction.txDetail = _rawToConvertedEIP1559Detail(rawTx.transactionDetail);
+        return transaction;
+    }
+
+    function _rawToConvertedEIP1559Detail(RawBroadcastTx1559Detail memory rawDetail)
+        internal
+        pure
+        virtual
+        returns (Tx1559Detail memory)
+    {
+        Tx1559Detail memory txDetail;
+        txDetail.from = rawDetail.from;
+        txDetail.nonce = rawDetail.nonce;
+        txDetail.value = rawDetail.value;
+        txDetail.gas = rawDetail.gas;
+        return txDetail;
+    }
+
+    // modified from `vm.readReceipts` to read directly from broadcast artifact
+    struct RawBroadcastReceipt {
+        bytes32 blockHash;
+        bytes blockNumber;
+        address contractAddress;
+        bytes cumulativeGasUsed;
+        bytes effectiveGasPrice;
+        address from;
+        bytes gasUsed;
+        bytes l1BaseFeeScalar;
+        bytes l1BlobBaseFee;
+        bytes l1BlobBaseFeeScalar;
+        bytes l1Fee;
+        bytes l1GasPrice;
+        bytes l1GasUsed;
+        RawReceiptLog[] logs;
+        bytes logsBloom;
+        bytes status;
+        address to;
+        bytes32 transactionHash;
+        bytes transactionIndex;
+        bytes typeValue;
+    }
+
+    function _readReceipts(string memory path) internal view returns (Receipt[] memory) {
+        string memory receiptData = vm.readFile(path);
+        bytes memory parsedReceiptData = vm.parseJson(receiptData, ".receipts");
+        RawBroadcastReceipt[] memory rawReceipts = abi.decode(parsedReceiptData, (RawBroadcastReceipt[]));
+        return _rawToConvertedReceipts(rawReceipts);
+    }
+
+    function _rawToConvertedReceipts(RawBroadcastReceipt[] memory rawReceipts)
+        internal
+        pure
+        virtual
+        returns (Receipt[] memory)
+    {
+        Receipt[] memory receipts = new Receipt[](rawReceipts.length);
+        for (uint256 i; i < rawReceipts.length; i++) {
+            receipts[i] = _rawToConvertedReceipt(rawReceipts[i]);
+        }
+        return receipts;
+    }
+
+    function _rawToConvertedReceipt(RawBroadcastReceipt memory rawReceipt)
+        internal
+        pure
+        virtual
+        returns (Receipt memory)
+    {
+        Receipt memory receipt;
+        receipt.blockHash = rawReceipt.blockHash;
+        receipt.to = rawReceipt.to;
+        receipt.from = rawReceipt.from;
+        receipt.contractAddress = rawReceipt.contractAddress;
+        receipt.effectiveGasPrice = __bytesToUint(rawReceipt.effectiveGasPrice);
+        receipt.cumulativeGasUsed = __bytesToUint(rawReceipt.cumulativeGasUsed);
+        receipt.gasUsed = __bytesToUint(rawReceipt.gasUsed);
+        receipt.status = __bytesToUint(rawReceipt.status);
+        receipt.transactionIndex = __bytesToUint(rawReceipt.transactionIndex);
+        receipt.blockNumber = __bytesToUint(rawReceipt.blockNumber);
+        receipt.logs = rawToConvertedReceiptLogs(rawReceipt.logs);
+        receipt.logsBloom = rawReceipt.logsBloom;
+        receipt.transactionHash = rawReceipt.transactionHash;
+        return receipt;
+    }
+
+    function __bytesToUint(bytes memory b) private pure returns (uint256) {
+        require(b.length <= 32, "StdCheats _bytesToUint(bytes): Bytes length exceeds 32.");
+        return abi.decode(abi.encodePacked(new bytes(32 - b.length), b), (uint256));
     }
 }

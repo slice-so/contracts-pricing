@@ -1,33 +1,90 @@
 {
-  "goerli-staging": {
-    "LinearVRGDAPrices": "0xb32e0747B02717f13f82DB0f74C7CA453646Aa42",
-    "LogisticVRGDAPrices": "0x70A50E201036147296AE83d1F4E9B785B2a7CCe7",
-    "NFTDiscount": "0x70411D31D73DaC5A4f59A241f703C9b6536FB7B6"
-  },
-  "goerli-testnet": {
-    "LinearVRGDAPrices": "0x3b155175B16AE142023827e03C61EF45f68D01b6",
-    "LogisticVRGDAPrices": "0xf50D1e551806b1A84cF5fd0C47BEF9f878555B82",
-    "NFTDiscount": "0xfa4e199116753d095F9b521E3dC9251F0e00b97c"
-  },
-  "mainnet": {
-    "LinearVRGDAPrices": "0x3b155175B16AE142023827e03C61EF45f68D01b6",
-    "LogisticVRGDAPrices": "0xf50D1e551806b1A84cF5fd0C47BEF9f878555B82",
-    "NFTDiscount": ""
-  },
-  "base": {
-    "LinearVRGDAPrices": "0xc49976EaA3c18f10793dfB268BC376D4a926843b",
-    "LogisticVRGDAPrices": "0xd2258C1450A2323f5a94e1f3F51E2c3f7A5162E8",
-    "NFTDiscount": "0xA76d04fcca2c4C81bDa7DE80A59624b1dce2590e",
-    "KeysDiscount": "0x48f712623Ce3E46D2868bE34EB5f2F7659A2c151"
-  },
-  "base-goerli": {
-    "LinearVRGDAPrices": "0xA42e189a2886Aa6686952b57b01f6b2a741b0C1c",
-    "LogisticVRGDAPrices": "0xE4f7Bc71421f144BdcFCa992cD20C1D4F9FfA18C",
-    "NFTDiscount": "0x3497b05B7466431FfA3DE7bF3cC037c083062f18"
-  },
-  "optimism": {
-    "LinearVRGDAPrices": "0xE4f7Bc71421f144BdcFCa992cD20C1D4F9FfA18C",
-    "LogisticVRGDAPrices": "0x97556Bd01BE12845d9f24d29E81cD2ee22dD4f0e",
-    "NFTDiscount": ""
+  "NFTDiscount": {
+    "addresses": [
+      {
+        "abi": {
+          "type": "event",
+          "name": "ProductPriceSet",
+          "inputs": [
+            {
+              "name": "slicerId",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "productId",
+              "type": "uint256",
+              "indexed": false,
+              "internalType": "uint256"
+            },
+            {
+              "name": "params",
+              "type": "tuple[]",
+              "indexed": false,
+              "internalType": "struct CurrencyParams[]",
+              "components": [
+                {
+                  "name": "currency",
+                  "type": "address",
+                  "internalType": "address"
+                },
+                {
+                  "name": "basePrice",
+                  "type": "uint240",
+                  "internalType": "uint240"
+                },
+                {
+                  "name": "isFree",
+                  "type": "bool",
+                  "internalType": "bool"
+                },
+                {
+                  "name": "discountType",
+                  "type": "uint8",
+                  "internalType": "enum DiscountType"
+                },
+                {
+                  "name": "discounts",
+                  "type": "tuple[]",
+                  "internalType": "struct DiscountParams[]",
+                  "components": [
+                    {
+                      "name": "nft",
+                      "type": "address",
+                      "internalType": "address"
+                    },
+                    {
+                      "name": "discount",
+                      "type": "uint80",
+                      "internalType": "uint80"
+                    },
+                    {
+                      "name": "minQuantity",
+                      "type": "uint8",
+                      "internalType": "uint8"
+                    },
+                    {
+                      "name": "nftType",
+                      "type": "uint8",
+                      "internalType": "enum NFTType"
+                    },
+                    {
+                      "name": "tokenId",
+                      "type": "uint256",
+                      "internalType": "uint256"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "anonymous": false
+        },
+        "address": "0x3bF8F042158CDdb57c2FDf5695DB9924edF65B33",
+        "blockNumber": 31437452,
+        "transactionHash": "0x45a0f87eca9bab42a174a6a32250b2ff515be2400167e1c9b8e9857ec952ef7d"
+      }
+    ]
   }
 }

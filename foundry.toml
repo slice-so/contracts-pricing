@@ -5,7 +5,7 @@ optimizer_runs = 1000000
 no_match_test = "FFI"
 dynamic_test_linking = true
 libs = ["dependencies"]
-fs_permissions = [{ access = "read", path = "./src"}, { access = "write", path = "./deployments"}]
+fs_permissions = [{ access = "read", path = "./src"}, { access= "read", path = "./broadcast/Deploy.s.sol/8453/run-latest.json"}, { access = "read-write", path = "./deployments"}, { access = "read", path = "./out"}]
 
 [profile.intense]
 fuzz_runs = 10000
