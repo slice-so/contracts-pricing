@@ -1,12 +1,12 @@
 .DS_Store
+broadcast/
 cache/
 out/
 .env
+turbo.json
 
 __pycache__
 
 
 # Soldeer
 /dependencies
-
-turbo.json
