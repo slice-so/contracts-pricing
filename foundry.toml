@@ -3,7 +3,9 @@ bytecode_hash = "none"
 optimizer = true
 optimizer_runs = 1000000
 no_match_test = "FFI"
+dynamic_test_linking = true
 libs = ["dependencies"]
+fs_permissions = [{ access = "read", path = "./src"}, { access = "write", path = "./deployments"}]
 
 [profile.intense]
 fuzz_runs = 10000
@@ -17,18 +19,18 @@ fuzz_runs = 1000
 
 [rpc_endpoints]
 mainnet = "${RPC_URL_MAINNET}"
-goerli = "${RPC_URL_GOERLI}"
 op = "${RPC_URL_OPTIMISM}"
 base = "${RPC_URL_BASE}"
 base-goerli = "${RPC_URL_BASE_GOERLI}"
 
 [etherscan]
-mainnet = { key="${ETHERSCAN_API_KEY_MAINNET}", chain=1 }
-goerli = { key="${ETHERSCAN_API_KEY_GOERLI}", chain=5, url="https://api-goerli.etherscan.io/api" }
-op = { key="${ETHERSCAN_API_KEY_OPTIMISM}", chain=10 }
-base = { key="${ETHERSCAN_API_KEY_BASE}", chain=8453, url="https://api.basescan.org/api" }
-base-goerli = {key="${ETHERSCAN_API_KEY_BASE_GOERLI}", chain=84531, url="https://api-goerli.basescan.org/api" }
+mainnet = { key="${ETHERSCAN_KEY}", chain=1 }
+op = { key="${ETHERSCAN_KEY}", chain=10 }
+base = { key="${ETHERSCAN_KEY}", chain=8453, url="https://api.basescan.org/api" }
+base-goerli = {key="${ETHERSCAN_KEY}", chain=84531, url="https://api-goerli.basescan.org/api" }
 
+[soldeer]
+recursive_deps = true
 
 [dependencies]
 forge-std = "1.9.7"

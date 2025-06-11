@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
+import {ISliceProductPrice} from "../../utils/Slice/interfaces/utils/ISliceProductPrice.sol";
 import {Ownable} from "@openzeppelin/access/Ownable.sol";
 import {IERC1155} from "@openzeppelin/token/ERC1155/IERC1155.sol";
 

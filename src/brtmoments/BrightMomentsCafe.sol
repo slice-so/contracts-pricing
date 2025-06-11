@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
+import {ISliceProductPrice} from "../../utils/Slice/interfaces/utils/ISliceProductPrice.sol";
 import {Ownable} from "@openzeppelin/access/Ownable.sol";
 import {IERC721} from "@openzeppelin/token/ERC721/IERC721.sol";
-import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
+import {IProductsModule} from "../../utils/Slice/interfaces/IProductsModule.sol";
 
 /**
  * @notice  Slice pricing strategy for bright moments

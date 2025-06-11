@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
-import {IProductsModule} from "../Slice/interfaces/IProductsModule.sol";
+import {ISliceProductPrice} from "../../utils/Slice/interfaces/utils/ISliceProductPrice.sol";
+import {IProductsModule} from "../../utils/Slice/interfaces/IProductsModule.sol";
 import {CurrencyParams} from "./structs/CurrencyParams.sol";
 import {ProductDiscounts, DiscountType} from "./structs/ProductDiscounts.sol";
 import {DiscountParams, NFTType} from "./structs/DiscountParams.sol";
@@ -12,7 +12,6 @@ import {DiscountParams, NFTType} from "./structs/DiscountParams.sol";
  * @author  Dom-Mac <@zerohex_eth>
  * @author  jacopo <@jj_ranalli>
  */
-
 abstract contract TieredDiscount is ISliceProductPrice {
     event ProductPriceSet(uint256 slicerId, uint256 productId, CurrencyParams[] params);
 
