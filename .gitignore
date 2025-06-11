@@ -3,7 +3,6 @@ broadcast/
 cache/
 out/
 .env
-turbo.json
 
 __pycache__
 
