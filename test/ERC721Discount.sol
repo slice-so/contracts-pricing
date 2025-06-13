@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import {DSTestPlus} from "lib/solmate/src/test/utils/DSTestPlus.sol";
-import {console2} from "lib/forge-std/src/console2.sol";
+import {Test} from "forge-std/Test.sol";
+import {console2} from "forge-std/console2.sol";
 import {MockProductsModule} from "./mocks/MockProductsModule.sol";
 import {
     NFTDiscount,
@@ -11,7 +11,7 @@ import {
     DiscountParams,
     CurrencyParams,
     NFTType
-} from "src/TieredDiscount/NFTDiscount/NFTDiscount.sol";
+} from "../src/TieredDiscount/NFTDiscount/NFTDiscount.sol";
 import {MockERC721} from "./mocks/MockERC721.sol";
 import {MockERC1155} from "./mocks/MockERC1155.sol";
 
@@ -25,7 +25,7 @@ uint80 constant fixedDiscountOne = 100;
 uint80 constant fixedDiscountTwo = 200;
 uint80 constant percentDiscount = 1000; // 10%
 
-contract NFTDiscountTest is DSTestPlus {
+contract NFTDiscountTest is Test {
     NFTDiscount erc721GatedDiscount;
     MockProductsModule productsModule;
     MockERC721 nftOne = new MockERC721();
@@ -54,11 +54,11 @@ contract NFTDiscountTest is DSTestPlus {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
     }
 
-    function testDeploy() public {
+    function testDeploy() public view {
         assertTrue(address(erc721GatedDiscount) != address(0));
     }
 
@@ -77,7 +77,7 @@ contract NFTDiscountTest is DSTestPlus {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -103,7 +103,7 @@ contract NFTDiscountTest is DSTestPlus {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -129,7 +129,7 @@ contract NFTDiscountTest is DSTestPlus {
         CurrencyParams[] memory currenciesParams = new CurrencyParams[](1);
         currenciesParams[0] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -174,7 +174,7 @@ contract NFTDiscountTest is DSTestPlus {
 
         currenciesParams[1] = CurrencyParams(USDC, basePrice, false, DiscountType.Absolute, discountsTwo);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price for ETH
@@ -300,7 +300,7 @@ contract NFTDiscountTest is DSTestPlus {
         /// set product price with percentage discount
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         /// check product price
@@ -326,7 +326,7 @@ contract NFTDiscountTest is DSTestPlus {
         /// set product price with percentage discount
         currenciesParams[0] = CurrencyParams(ETH, basePrice, false, DiscountType.Relative, discounts);
 
-        hevm.prank(owner);
+        vm.prank(owner);
         erc721GatedDiscount.setProductPrice(slicerId, productId, currenciesParams);
 
         // buy multiple products

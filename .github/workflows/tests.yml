@@ -9,9 +9,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Foundry
-        uses: onbjerg/foundry-toolchain@v1
+        uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: nightly
+          version: stable
 
       - name: Install dependencies
         run: forge install
@@ -23,7 +23,7 @@ jobs:
         run: forge snapshot --check
 
       - name: Run tests
-        run: forge test
+        run: forge test -vvv
         env:
           # Only fuzz intensely if we're running this action on a push to main or for a PR going into main:
           FOUNDRY_PROFILE: ${{ (github.ref == 'refs/heads/main' || github.base_ref == 'main') && 'intense' }}

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.19;
 
-import {ISliceProductPrice} from "../Slice/interfaces/utils/ISliceProductPrice.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
+import {ISliceProductPrice} from "../../utils/Slice/interfaces/utils/ISliceProductPrice.sol";
+import {Ownable} from "@openzeppelin/access/Ownable.sol";
+import {IERC1155} from "@openzeppelin/token/ERC1155/IERC1155.sol";
 
 struct Price {
     uint128 basePrice;
@@ -27,7 +27,7 @@ contract NFTDiscountFixed is ISliceProductPrice, Ownable {
                                FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
-    constructor() {
+    constructor() Ownable(msg.sender) {
         nfts.push(NFT(IERC1155(0x8876CD7B283b1EeB998aDfeB55a65C51D6b6f693), 1));
 
         for (uint256 i = 0; i < 46; i++) {

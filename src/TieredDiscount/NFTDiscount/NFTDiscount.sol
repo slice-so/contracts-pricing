@@ -9,15 +9,14 @@ import {
     TieredDiscount,
     NFTType
 } from "../TieredDiscount.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
+import {IERC721} from "@openzeppelin/token/ERC721/IERC721.sol";
+import {IERC1155} from "@openzeppelin/token/ERC1155/IERC1155.sol";
 
 /**
  * @title   NFTDiscount - Slice pricing strategy with discounts based on NFT ownership
  * @author  Dom-Mac <@zerohex_eth>
  * @author  jacopo <@jj_ranalli>
  */
-
 contract NFTDiscount is TieredDiscount {
     /*//////////////////////////////////////////////////////////////
                               CONSTRUCTOR
@@ -71,10 +70,14 @@ contract NFTDiscount is TieredDiscount {
                 if (currDiscountsLength > j) {
                     // Check relative discount doesn't exceed max value of 1e4
                     if (currencyParams.discountType == DiscountType.Relative) {
-                        if (newDiscounts[j].discount > 1e4) revert InvalidRelativeDiscount();
+                        if (newDiscounts[j].discount > 1e4) {
+                            revert InvalidRelativeDiscount();
+                        }
                     }
 
-                    if (newDiscounts[j].minQuantity == 0) revert InvalidMinQuantity();
+                    if (newDiscounts[j].minQuantity == 0) {
+                        revert InvalidMinQuantity();
+                    }
 
                     // Check discounts are sorted in descending order
                     if (j > 0) {
